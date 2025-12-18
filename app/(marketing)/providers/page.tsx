@@ -1,0 +1,336 @@
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+    DollarSign,
+    Calendar,
+    TrendingUp,
+    Shield,
+    Users,
+    Zap,
+    CheckCircle,
+    ArrowRight,
+    Sparkles,
+    ShieldCheck,
+    Clock,
+    Heart,
+    BarChart3,
+    Target,
+    LucideIcon
+} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+
+interface Benefit {
+    icon: LucideIcon;
+    title: string;
+    description: string;
+    gradient: string;
+}
+
+interface Step {
+    number: string;
+    title: string;
+    description: string;
+    icon: LucideIcon;
+    gradient: string;
+}
+
+export default function ProvidersPage() {
+    const benefits: Benefit[] = [
+        {
+            icon: DollarSign,
+            title: "Maximize Earnings",
+            description: "Set your own rates and keep 90% of what you earn. Transparent billing, no hidden fees.",
+            gradient: "from-emerald-500 to-teal-600"
+        },
+        {
+            icon: Calendar,
+            title: "Total Flexibility",
+            description: "You're the boss. Work when you want, where you want. Accept jobs on your schedule.",
+            gradient: "from-blue-500 to-indigo-600"
+        },
+        {
+            icon: Users,
+            title: "Elite Network",
+            description: "Access thousands of high-value customers actively seeking verified professionals.",
+            gradient: "from-purple-500 to-pink-600"
+        },
+        {
+            icon: ShieldCheck,
+            title: "Guaranteed Pay",
+            description: "Never chase an invoice again. Secure, automatic payments for every completed job.",
+            gradient: "from-amber-500 to-orange-600"
+        },
+        {
+            icon: BarChart3,
+            title: "Business Insights",
+            description: "Track your performance, ratings, and growth with our advanced provider dashboard.",
+            gradient: "from-primary to-blue-600"
+        },
+        {
+            icon: Target,
+            title: "Smart Matching",
+            description: "Our algorithm connects you with jobs that perfectly match your skills and location.",
+            gradient: "from-rose-500 to-red-600"
+        }
+    ];
+
+    const steps: Step[] = [
+        {
+            number: "01",
+            title: "Create Profile",
+            description: "Showcase your skills, experience, and portfolio to stand out from the crowd.",
+            icon: Users,
+            gradient: "from-blue-500 to-primary"
+        },
+        {
+            number: "02",
+            title: "Get Verified",
+            description: "Complete our standard background check to earn your 'Verified Pro' badge.",
+            icon: Shield,
+            gradient: "from-primary to-indigo-600"
+        },
+        {
+            number: "03",
+            title: "Start Winning",
+            description: "Receive job requests, submit quotes, and start building your client base.",
+            icon: Zap,
+            gradient: "from-indigo-600 to-purple-600"
+        }
+    ];
+
+    return (
+        <div className="flex flex-col min-h-screen selection:bg-primary/20">
+            {/* Hero Section */}
+            <section className="relative pt-12 md:pt-16 lg:pt-20 pb-20 overflow-hidden">
+                {/* Cinematic Background */}
+                <div className="absolute inset-0 bg-linear-to-br from-background via-primary/5 to-background -z-10" />
+                <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30">
+                    <div className="absolute top-20 left-10 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-pulse" />
+                    <div className="absolute bottom-20 right-10 w-[400px] h-[400px] bg-blue-400/20 rounded-full blur-[100px] animate-pulse delay-1000" />
+                </div>
+
+                <div className="container px-6 md:px-12 lg:px-24 relative z-10">
+                    <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                        <div className="space-y-8">
+                            <div className="inline-flex items-center gap-2.5 rounded-full bg-primary/10 px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-primary border border-primary/20 backdrop-blur-md">
+                                <Sparkles className="h-3.5 w-3.5" />
+                                <span>Platform for Professionals</span>
+                            </div>
+
+                            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl leading-[1.1]">
+                                Empower Your <br />
+                                <span className="bg-linear-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent italic">Expertise.</span>
+                            </h1>
+
+                            <p className="text-xl text-muted-foreground leading-relaxed max-w-xl">
+                                Join the elite network of Somali service providers.
+                                Expand your reach, secure your income, and build a lasting reputation.
+                            </p>
+
+                            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                                <Link href="/register" className="w-full sm:w-auto">
+                                    <Button size="lg" className="h-14 px-10 rounded-xl text-lg font-bold bg-primary shadow-xl hover:scale-105 active:scale-95 transition-all w-full">
+                                        Join as Provider
+                                        <ArrowRight className="ml-2 h-5 w-5" />
+                                    </Button>
+                                </Link>
+                                <Link href="/how-it-works" className="w-full sm:w-auto">
+                                    <Button size="lg" variant="outline" className="h-14 px-10 rounded-xl text-lg font-bold border-2 hover:bg-muted/50 transition-all w-full">
+                                        The Process
+                                    </Button>
+                                </Link>
+                            </div>
+
+                            {/* Trust metrics */}
+                            <div className="pt-6 flex flex-wrap items-center gap-6 border-t border-border/50">
+                                <div>
+                                    <div className="text-2xl font-bold">90%</div>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Earnings Kept</div>
+                                </div>
+                                <div className="w-px h-8 bg-border hidden sm:block" />
+                                <div>
+                                    <div className="text-2xl font-bold">2.5k+</div>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Monthly Jobs</div>
+                                </div>
+                                <div className="w-px h-8 bg-border hidden sm:block" />
+                                <div>
+                                    <div className="text-2xl font-bold">4.9/5</div>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Satisfaction</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative group lg:ml-auto w-full max-w-[500px] mx-auto">
+                            {/* Decorative Frame */}
+                            <div className="absolute -inset-4 rounded-4xl bg-linear-to-br from-primary/20 via-blue-500/10 to-transparent blur-2xl group-hover:opacity-100 transition-opacity opacity-50" />
+
+                            <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-4xl overflow-hidden border-2 border-border shadow-xl">
+                                <Image
+                                    src="/provider-hero.jpg"
+                                    alt="Provider Success"
+                                    fill
+                                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                    priority
+                                />
+                                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
+
+                                {/* Floating Overlay Card */}
+                                <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-background/90 backdrop-blur-xl border border-white/20 shadow-xl">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white">
+                                            <ShieldCheck className="h-6 w-6" />
+                                        </div>
+                                        <div>
+                                            <div className="font-bold text-base">Verified Success</div>
+                                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Trusted Pro</div>
+                                        </div>
+                                    </div>
+                                    <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                                        <div className="h-full w-[95%] bg-emerald-500 rounded-full" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Benefits Grid */}
+            <section className="py-24 relative overflow-hidden bg-muted/30">
+                <div className="container px-6 md:px-12 lg:px-24">
+                    <div className="text-center space-y-4 mb-20">
+                        <h2 className="text-4xl font-black tracking-tighter md:text-5xl lg:text-6xl">
+                            Why the Best Pros <br />
+                            <span className="text-primary italic">Choose Us.</span>
+                        </h2>
+                        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                            We don't just provide jobs; we provide the infrastructure <br className="hidden md:block" />
+                            for your business to thrive in a digital economy.
+                        </p>
+                    </div>
+
+                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                        {benefits.map((benefit, i) => (
+                            <div key={i} className="group relative">
+                                {/* Gradient Border Wrapper */}
+                                <div className="absolute -inset-px rounded-[2.6rem] bg-linear-to-br from-border/50 via-primary/5 to-border/50 group-hover:from-primary/50 group-hover:to-blue-600/50 transition-all duration-500 -z-10" />
+
+                                <div className="h-full flex flex-col p-10 rounded-[2.5rem] bg-background/70 backdrop-blur-2xl transition-all duration-500 group-hover:bg-background/40 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-3">
+                                    {/* Icon Box */}
+                                    <div className="relative mb-10 w-20 h-20">
+                                        <div className={`absolute inset-0 bg-linear-to-br ${benefit.gradient} rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />
+                                        <div className={`relative flex items-center justify-center w-full h-full rounded-3xl bg-linear-to-br ${benefit.gradient} text-white shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+                                            <benefit.icon className="h-10 w-10" />
+                                        </div>
+                                    </div>
+
+                                    <h3 className="text-2xl font-bold tracking-tight mb-4 group-hover:text-primary transition-colors">
+                                        {benefit.title}
+                                    </h3>
+                                    <p className="text-muted-foreground leading-relaxed flex-1">
+                                        {benefit.description}
+                                    </p>
+
+                                    {/* Subtle Indicator */}
+                                    <div className="mt-8 h-1 w-12 rounded-full bg-muted group-hover:bg-primary group-hover:w-20 transition-all duration-500" />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Stepper Section */}
+            <section className="pt-24 pb-12 md:pb-16 relative">
+                {/* Background Decor */}
+                <div className="absolute top-0 right-0 text-[25vw] font-black text-primary/5 select-none -z-10 tracking-tighter uppercase whitespace-nowrap -translate-y-1/2">
+                    Growth
+                </div>
+
+                <div className="container px-6 md:px-12 lg:px-24">
+                    <div className="max-w-4xl mx-auto space-y-24">
+                        <div className="text-center space-y-4">
+                            <h2 className="text-4xl font-black tracking-tighter md:text-5xl">Your Path to Mastery</h2>
+                            <p className="text-xl text-muted-foreground">Three simple steps to unlock your new business potential.</p>
+                        </div>
+
+                        <div className="grid md:grid-cols-3 gap-12 relative">
+                            {/* Connector Line */}
+                            <div className="hidden md:block absolute top-[60px] left-[10%] right-[10%] h-1 bg-muted -z-10 overflow-hidden">
+                                <div className="h-full w-1/2 bg-linear-to-r from-primary to-blue-600 animate-slide-in" />
+                            </div>
+
+                            {steps.map((step, i) => (
+                                <div key={i} className="flex flex-col items-center text-center space-y-6 group">
+                                    <div className="relative w-28 h-28">
+                                        <div className={`absolute inset-0 bg-linear-to-br ${step.gradient} rounded-4xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />
+                                        <div className={`relative flex items-center justify-center w-full h-full rounded-4xl bg-linear-to-br ${step.gradient} text-white shadow-2xl group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 font-black text-3xl`}>
+                                            {step.number}
+                                        </div>
+                                    </div>
+                                    <div className="space-y-3">
+                                        <h3 className="text-2xl font-bold">{step.title}</h3>
+                                        <p className="text-muted-foreground text-sm leading-relaxed">
+                                            {step.description}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Final */}
+            <section className="pt-12 md:pt-16 pb-24 md:pb-32">
+                <div className="container px-6 md:px-12 lg:px-24">
+                    <div className="relative overflow-hidden rounded-[3rem] bg-linear-to-br from-primary via-blue-700 to-indigo-900 text-white p-12 md:p-20 shadow-2xl">
+                        {/* Background Orbs */}
+                        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+
+                        <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center text-center space-y-8">
+                            <h2 className="text-4xl font-black tracking-tighter md:text-5xl lg:text-6xl">
+                                Ready to Get Started?
+                            </h2>
+                            <p className="text-xl text-white/90 leading-relaxed max-w-2xl">
+                                Join thousands of Somali professionals who have grown their business
+                                and simplified their workflow with our trusted platform.
+                            </p>
+
+                            <div className="flex flex-col sm:flex-row justify-center gap-5 pt-4 w-full sm:w-auto">
+                                <Link href="/register" className="w-full sm:w-auto">
+                                    <Button size="lg" className="h-16 px-10 rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl transition-all w-full bg-white text-primary border-0 hover:-translate-y-1 active:scale-95 hover:bg-primary hover:text-white group">
+                                        Get Started Now
+                                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                                    </Button>
+                                </Link>
+                                <Link href="/help" className="w-full sm:w-auto">
+                                    <Button size="lg" className="h-16 px-10 rounded-2xl text-lg font-bold bg-white/20 border-2 border-white/40 backdrop-blur-md hover:bg-white/30 transition-all w-full text-white hover:-translate-y-1 active:scale-95">
+                                        Support Team
+                                    </Button>
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Social Proof */}
+                        <div className="relative z-10 pt-12 flex flex-col items-center gap-6">
+                            <div className="flex -space-x-4">
+                                {[1, 2, 3, 4, 5].map(i => (
+                                    <div key={i} className="w-14 h-14 rounded-full border-4 border-primary bg-white flex items-center justify-center text-xs font-bold text-primary shadow-xl">
+                                        PRO
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="flex items-center gap-2 text-white/80 font-bold uppercase tracking-widest text-xs">
+                                <Heart className="h-4 w-4 text-rose-500 fill-rose-500" />
+                                <span>Trusted by 500+ Local Professionals</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    );
+}

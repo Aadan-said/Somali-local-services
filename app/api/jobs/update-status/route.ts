@@ -32,9 +32,22 @@ export async function POST(req: Request) {
                 providerId: provider.id
             },
             data: { status },
+            include: { user: true }
+        });
+
+        // Notify client about status update
+        await prisma.notification.create({
+            data: {
+                userId: updatedJob.userId,
+                title: "Job Status Updated",
+                message: `Your service request is now ${status.replace("_", " ")}.`,
+                type: "REQUEST_UPDATE",
+                link: `/client/requests`,
+            },
         });
 
         return NextResponse.json(updatedJob);
+
     } catch (error) {
         console.error("Job update error:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

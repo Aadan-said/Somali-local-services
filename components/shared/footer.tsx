@@ -188,7 +188,7 @@ export function Footer() {
                     </div>
 
                     <p className="text-sm text-muted-foreground text-center md:text-left">
-                        © 2025 Somali Local Services. Platform crafted with precision.
+                        © 2025 Somali Local Services. Madal lagu dhisay tayo iyo xirfad.
                     </p>
 
                     <div className="flex items-center gap-6">

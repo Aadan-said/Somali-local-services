@@ -5,7 +5,9 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, ShoppingBag, DollarSign, Settings, User, LogOut, Sparkles, ShieldCheck, ArrowRight } from "lucide-react";
+import { LayoutDashboard, ShoppingBag, DollarSign, Settings, User, LogOut, Sparkles, ShieldCheck, ArrowRight, MessageCircle } from "lucide-react";
+import { NotificationCenter } from "./notification-center";
+
 
 export function DashboardSidebar() {
     const pathname = usePathname();
@@ -112,17 +114,25 @@ export function DashboardSidebar() {
                 })}
             </div>
 
-            {/* Bottom Section */}
+            {/* Bottom Section - Beautified Logout */}
             <div className="p-4 border-t border-gray-50">
-                <Link href="/login" className="block w-full">
-                    <Button
-                        variant="ghost"
-                        className="w-full justify-start rounded-lg text-gray-500 hover:bg-red-50 hover:text-red-500 transition-colors h-11 px-4"
-                    >
-                        <LogOut className="h-4 w-4 mr-3" />
-                        <span className="text-sm font-medium">Log Out</span>
-                    </Button>
-                </Link>
+                <div className="space-y-2">
+                    <NotificationCenter />
+                    <Link href="/login" className="block w-full">
+                        <Button
+                            variant="ghost"
+                            className="w-full justify-between rounded-xl text-gray-600 hover:text-white hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-500 transition-all duration-300 h-12 px-4 group border border-gray-100 hover:border-transparent shadow-sm hover:shadow-lg hover:shadow-red-200"
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="h-8 w-8 rounded-lg bg-gray-50 group-hover:bg-white/20 flex items-center justify-center transition-colors">
+                                    <LogOut className="h-4 w-4" />
+                                </div>
+                                <span className="text-sm font-bold">Log Out</span>
+                            </div>
+                            <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </Button>
+                    </Link>
+                </div>
             </div>
         </div>
     );

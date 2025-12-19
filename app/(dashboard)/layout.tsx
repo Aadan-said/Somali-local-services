@@ -1,7 +1,9 @@
 "use client";
 
 import { DashboardSidebar } from "@/components/shared/dashboard-sidebar";
+import { MobileNav } from "@/components/shared/mobile-nav";
 import { ShieldCheck } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 export default function DashboardLayout({
@@ -10,6 +12,9 @@ export default function DashboardLayout({
     children: React.ReactNode;
 }) {
     const { data: session } = useSession();
+    const pathname = usePathname();
+    const isClient = pathname.includes("/client");
+
     return (
         <div className="grid min-h-screen w-full md:grid-cols-[280px_1fr] relative overflow-hidden bg-white">
             {/* Vibrant White Theme Animated Background */}
@@ -29,8 +34,9 @@ export default function DashboardLayout({
             </div>
 
             <DashboardSidebar />
+            <MobileNav isClient={isClient} />
 
-            <div className="flex flex-col min-h-screen relative z-10">
+            <div className="flex flex-col min-h-screen relative z-10 pt-16 md:pt-0">
                 {/* White Glass Mobile Header */}
                 <header className="flex h-16 items-center gap-4 border-b border-gray-100 bg-white/70 backdrop-blur-2xl px-6 md:hidden sticky top-0 z-50">
                     <div className="p-1.5 bg-linear-to-br from-purple-600 to-blue-600 rounded-lg shadow-lg">

@@ -2,15 +2,20 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingBag, Clock, CheckCircle2, AlertCircle, Phone, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ShoppingBag, Clock, CheckCircle2, AlertCircle, Phone, Mail, MessageCircle, ShieldCheck } from "lucide-react";
 import { JobStatusButton } from "@/components/shared/job-status-button";
+import { ChatDialog } from "@/components/chat/chat-dialog";
+import { ProofUpload } from "@/components/shared/proof-upload";
+import { JobWorkflowPanel } from "@/components/provider/job-workflow-panel";
 
 export default async function ProviderJobsPage() {
     const session = await getServerSession(authOptions);
 
-    if (!session) {
+    if (!session || !session.user) {
         redirect("/login");
     }
 
@@ -32,7 +37,8 @@ export default async function ProviderJobsPage() {
         orderBy: {
             createdAt: "desc",
         },
-    });
+    }) as any[];
+
 
     const getStatusColor = (status: string) => {
         switch (status) {
@@ -54,14 +60,21 @@ export default async function ProviderJobsPage() {
             {jobs.length === 0 ? (
                 <Card className="border-dashed py-12">
                     <CardContent className="flex flex-col items-center justify-center text-center space-y-4">
-                        <div className="p-4 bg-gray-50 rounded-full">
-                            <ShoppingBag className="h-8 w-8 text-gray-400" />
+                        <div className="p-4 bg-linear-to-br from-purple-50 to-blue-50 rounded-full">
+                            <ShoppingBag className="h-8 w-8 text-purple-600" />
                         </div>
-                        <div className="space-y-1">
-                            <p className="text-lg font-bold text-gray-900">No jobs assigned yet</p>
-                            <p className="text-sm text-gray-500 max-w-xs">
-                                When customers request your services, they will appear here.
+                        <div className="space-y-2">
+                            <p className="text-lg font-bold text-gray-900">Weli ma haysatid shaqo</p>
+                            <p className="text-sm text-gray-600 max-w-md">
+                                Soo fiiri <span className="font-bold text-purple-600">Suuqa (Market)</span> si aad u hesho shaqo kugu haboon.
+                                Macaamiishu waxay ku sugayaan adeegyadaada!
                             </p>
+                            <Link href="/browse" className="inline-block mt-4">
+                                <Button className="bg-linear-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+                                    <ShoppingBag className="h-4 w-4 mr-2" />
+                                    Arag Suuqa
+                                </Button>
+                            </Link>
                         </div>
                     </CardContent>
                 </Card>
@@ -87,6 +100,25 @@ export default async function ProviderJobsPage() {
                                     <CardDescription className="text-gray-500 line-clamp-2">
                                         Job ID: {job.id.substring(0, 8)} • Standard Service Request
                                     </CardDescription>
+
+                                    {/* Actions for Provider */}
+                                    <div className="flex gap-2 mt-4 pt-4 border-t border-gray-50">
+                                        <ChatDialog
+                                            requestId={job.id}
+                                            currentUserId={session.user.id}
+                                            recipientName={job.user.name}
+                                            triggerLabel="Chat with Client"
+                                        />
+                                        {(job.status === "IN_PROGRESS" || job.status === "PENDING") && (
+                                            <ProofUpload jobId={job.id} />
+                                        )}
+                                        {job.status === "COMPLETED" && (
+                                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-100 gap-1 h-9 px-3">
+                                                <ShieldCheck className="h-3 w-3" />
+                                                Proof Submitted
+                                            </Badge>
+                                        )}
+                                    </div>
                                 </CardHeader>
 
                                 <div className="md:w-72 p-6 bg-gray-50/50 flex flex-col justify-between gap-4">
@@ -118,6 +150,17 @@ export default async function ProviderJobsPage() {
                                     </div>
                                 </div>
                             </div>
+
+                            {/* Job Workflow Panel - Show for IN_PROGRESS or ACCEPTED jobs */}
+                            {(job.status === "IN_PROGRESS" || job.status === "ACCEPTED") && (
+                                <div className="p-6 pt-0">
+                                    <JobWorkflowPanel
+                                        jobId={job.id}
+                                        timeStarted={job.timeStarted}
+                                        totalHours={job.totalHours}
+                                    />
+                                </div>
+                            )}
                         </Card>
                     ))}
                 </div>
@@ -125,3 +168,4 @@ export default async function ProviderJobsPage() {
         </div>
     );
 }
+

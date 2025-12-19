@@ -6,6 +6,7 @@ import { z } from "zod";
 
 const reviewSchema = z.object({
     providerId: z.string(),
+    requestId: z.string(),
     rating: z.number().min(1).max(5),
     comment: z.string().optional(),
 });
@@ -18,13 +19,25 @@ export async function POST(req: Request) {
         }
 
         const body = await req.json();
-        const { providerId, rating, comment } = reviewSchema.parse(body);
+        const { providerId, requestId, rating, comment } = reviewSchema.parse(body);
 
         const review = await prisma.review.create({
             data: {
                 providerId,
+                userId: session.user.id,
+                requestId,
                 rating,
                 comment,
+            },
+        });
+
+        // Notify provider about new review
+        await prisma.notification.create({
+            data: {
+                userId: (await prisma.provider.findUnique({ where: { id: providerId } }))?.userId || "",
+                title: "New Review Received",
+                message: `You received a ${rating}-star review for a job.`,
+                type: "INFO",
             },
         });
 
@@ -39,3 +52,4 @@ export async function POST(req: Request) {
         );
     }
 }
+

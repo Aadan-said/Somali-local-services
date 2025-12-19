@@ -4,12 +4,15 @@ import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingBag, Clock, CheckCircle2, AlertCircle } from "lucide-react";
+import { ShoppingBag, Clock, CheckCircle2, AlertCircle, MessageCircle, Star, ShieldCheck } from "lucide-react";
+import { ChatDialog } from "@/components/chat/chat-dialog";
+import { ReviewModal } from "@/components/reviews/review-modal";
+import { ClientProgressView } from "@/components/client/client-progress-view";
 
 export default async function MyRequestsPage() {
     const session = await getServerSession(authOptions);
 
-    if (!session) {
+    if (!session || !session.user) {
         redirect("/login");
     }
 
@@ -23,11 +26,13 @@ export default async function MyRequestsPage() {
                     user: true,
                 },
             },
+            review: true,
         },
         orderBy: {
             createdAt: "desc",
         },
-    });
+    }) as any[];
+
 
     const getStatusColor = (status: string) => {
         switch (status) {
@@ -98,6 +103,48 @@ export default async function MyRequestsPage() {
                                     <CardDescription className="text-gray-500">
                                         Request ID: {request.id.substring(0, 8)}
                                     </CardDescription>
+
+                                    {request.proofOfWork && (
+                                        <div className="mt-4 p-4 bg-green-50 rounded-2xl border border-green-100 space-y-2">
+                                            <div className="flex items-center gap-2 text-green-700 font-bold text-xs uppercase tracking-widest">
+                                                <ShieldCheck className="h-4 w-4" />
+                                                Proof of Work
+                                            </div>
+                                            {request.proofOfWorkNote && (
+                                                <p className="text-sm text-gray-700">{request.proofOfWorkNote}</p>
+                                            )}
+                                            {request.proofOfWork.startsWith('http') && (
+                                                <a href={request.proofOfWork} target="_blank" rel="noopener noreferrer" className="inline-block">
+                                                    <img src={request.proofOfWork} alt="Proof" className="h-20 w-32 object-cover rounded-lg border border-green-200" />
+                                                </a>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {/* Actions for Client */}
+                                    <div className="flex gap-2 mt-4 pt-4 border-t border-gray-50">
+                                        {request.provider && (
+                                            <ChatDialog
+                                                requestId={request.id}
+                                                currentUserId={session.user.id}
+                                                recipientName={request.provider.user.name}
+                                                triggerLabel="Chat with Provider"
+                                            />
+                                        )}
+                                        {request.status === "COMPLETED" && !request.review && (
+                                            <ReviewModal
+                                                requestId={request.id}
+                                                providerId={request.providerId!}
+                                                providerName={request.provider?.user.name || "Provider"}
+                                            />
+                                        )}
+                                        {request.review && (
+                                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-100 gap-1 h-9 px-3">
+                                                <Star className="h-3 w-3 fill-green-700" />
+                                                Already Reviewed
+                                            </Badge>
+                                        )}
+                                    </div>
                                 </CardHeader>
 
                                 <div className="md:w-64 p-6 bg-gray-50/50 flex flex-col justify-center">
@@ -117,6 +164,19 @@ export default async function MyRequestsPage() {
                                     )}
                                 </div>
                             </div>
+
+                            {/* Client Progress View - Show workflow status */}
+                            {(request.status === "IN_PROGRESS" || request.status === "COMPLETED") && (
+                                <div className="p-6 pt-0">
+                                    <ClientProgressView
+                                        tasks={request.tasks}
+                                        progressPercentage={request.progressPercentage}
+                                        totalHours={request.totalHours}
+                                        notes={request.notes}
+                                        timeStarted={request.timeStarted}
+                                    />
+                                </div>
+                            )}
                         </Card>
                     ))}
                 </div>

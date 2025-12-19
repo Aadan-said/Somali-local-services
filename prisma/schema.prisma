@@ -17,8 +17,11 @@ model User {
   image     String?
   createdAt DateTime @default(now())
 
-  provider  Provider?
-  requests  ServiceRequest[]
+  provider      Provider?
+  requests      ServiceRequest[]
+  notifications Notification[]
+  messages      Message[]
+  reviews       Review[]
 }
 
 model Provider {
@@ -29,32 +32,88 @@ model Provider {
   bio        String?
   verified   Boolean @default(false)
 
-  user       User @relation(fields: [userId], references: [id])
-  requests   ServiceRequest[]
-  reviews    Review[]
+  user          User @relation(fields: [userId], references: [id])
+  requests      ServiceRequest[]
+  reviews       Review[]
+  conversations Conversation[]
 }
 
 model ServiceRequest {
-  id          String   @id @default(uuid())
-  userId      String
-  providerId  String?
-  category    String?
-  location    String?
-  serviceDate String?
-  description String
-  price       Float?
-  status      String   @default("PENDING") // PENDING, ACCEPTED, IN_PROGRESS, COMPLETED, CANCELLED
-  createdAt   DateTime @default(now())
+  id              String   @id @default(uuid())
+  userId          String
+  providerId      String?
+  category        String?
+  location        String?
+  serviceDate     String?
+  description     String
+  price           Float?
+  status          String   @default("PENDING") // PENDING, ACCEPTED, IN_PROGRESS, COMPLETED, CANCELLED
+  proofOfWork     String?
+  proofOfWorkNote String?
+  
+  // Job Workflow Fields
+  tasks              String?   // JSON array of tasks
+  progressPercentage Int       @default(0)
+  notes              String?   // Provider notes
+  timeStarted        DateTime?
+  timeCompleted      DateTime?
+  totalHours         Float     @default(0)
+  
+  createdAt       DateTime @default(now())
 
-  user        User     @relation(fields: [userId], references: [id])
-  provider    Provider? @relation(fields: [providerId], references: [id])
+  user         User          @relation(fields: [userId], references: [id])
+  provider     Provider?     @relation(fields: [providerId], references: [id])
+  review       Review?
+  conversation Conversation?
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  type      String   @default("INFO") // INFO, REQUEST_UPDATE, MESSAGE
+  read      Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Conversation {
+  id               String   @id @default(uuid())
+  requestId        String   @unique
+  providerId       String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  request  ServiceRequest @relation(fields: [requestId], references: [id])
+  provider Provider       @relation(fields: [providerId], references: [id])
+  messages Message[]
+}
+
+model Message {
+  id             String   @id @default(uuid())
+  conversationId String
+  senderId       String
+  content        String
+  createdAt      DateTime @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+  sender       User         @relation(fields: [senderId], references: [id])
 }
 
 model Review {
   id         String   @id @default(uuid())
   providerId String
+  userId     String
+  requestId  String   @unique
   rating     Int
   comment    String?
+  createdAt  DateTime @default(now())
 
-  provider   Provider @relation(fields: [providerId], references: [id])
+  provider Provider       @relation(fields: [providerId], references: [id])
+  user     User           @relation(fields: [userId], references: [id])
+  request  ServiceRequest @relation(fields: [requestId], references: [id])
 }
+

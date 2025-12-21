@@ -65,7 +65,7 @@ export function JobStatusButton({ jobId, initialStatus }: JobStatusButtonProps) 
             </button>
             {error && (
                 <div className="flex items-center gap-1 text-[10px] text-red-600 bg-red-50 px-2 py-1.5 rounded border border-red-100">
-                    <AlertCircle className="h-3 w-3 flex-shrink-0" />
+                    <AlertCircle className="h-3 w-3 shrink-0" />
                     <span>{error}</span>
                 </div>
             )}

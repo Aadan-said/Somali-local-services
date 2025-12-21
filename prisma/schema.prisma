@@ -16,6 +16,15 @@ model User {
   role      String   @default("USER")
   image     String?
   createdAt DateTime @default(now())
+  
+  // Settings & Preferences
+  theme              String  @default("system") // light, dark, system
+  language           String  @default("so") // so (Somali), en (English)
+  emailNotifications Boolean @default(true)
+  smsNotifications   Boolean @default(true)
+  requestUpdates     Boolean @default(true)
+  marketingEmails    Boolean @default(false)
+  accountStatus      String  @default("ACTIVE") // ACTIVE, DEACTIVATED, DELETED
 
   provider      Provider?
   requests      ServiceRequest[]

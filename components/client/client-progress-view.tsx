@@ -27,7 +27,7 @@ export function ClientProgressView({
     }
 
     return (
-        <Card className="p-6 bg-gradient-to-br from-blue-50/50 to-purple-50/50 border-blue-100">
+        <Card className="p-6 bg-linear-to-br from-blue-50/50 to-purple-50/50 border-blue-100">
             <div className="flex items-center gap-2 mb-4">
                 <TrendingUp className="h-5 w-5 text-blue-600" />
                 <h3 className="font-bold text-gray-900">Work Progress</h3>

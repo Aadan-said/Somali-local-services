@@ -15,10 +15,10 @@ interface JobWorkflowPanelProps {
 
 export function JobWorkflowPanel({ jobId, timeStarted, totalHours, onSuccess }: JobWorkflowPanelProps) {
     return (
-        <div className="bg-gradient-to-br from-purple-50/50 to-blue-50/50 rounded-2xl p-6 border border-purple-100/50 space-y-6">
+        <div className="bg-linear-to-br from-purple-50/50 to-blue-50/50 rounded-2xl p-6 border border-purple-100/50 space-y-6">
             {/* Header */}
             <div className="flex items-center gap-3 pb-4 border-b border-purple-100">
-                <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
+                <div className="h-10 w-10 rounded-lg bg-linear-to-br from-purple-600 to-blue-600 flex items-center justify-center">
                     <Briefcase className="h-5 w-5 text-white" />
                 </div>
                 <div>

@@ -63,7 +63,7 @@ export default function RegisterPage() {
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 mb-3 ring-4 ring-primary/5">
                     <UserPlus className="h-7 w-7 text-primary" />
                 </div>
-                <h1 className="text-2xl font-black tracking-tight text-gray-900">Nagu soo Biir SomaliServices</h1>
+                <h1 className="text-2xl font-black tracking-tight text-gray-900">Nagu soo Biir Somali Services</h1>
                 <p className="text-sm text-gray-400 font-medium tracking-tight">Sameyso akoon cusub si aad u bilowdo</p>
             </div>
 
@@ -71,7 +71,7 @@ export default function RegisterPage() {
                 <div className="h-1.5 bg-linear-to-r from-primary to-blue-600" />
 
                 <CardHeader className="pt-6 px-6">
-                    <CardTitle className="text-lg font-bold text-gray-900">Is-diiwaangeli</CardTitle>
+                    <CardTitle className="text-lg font-bold text-gray-900">Is-diiwaangelin</CardTitle>
                     <CardDescription className="text-xs text-gray-400">Fadlan buuxi xogtaada hoos ku qoran</CardDescription>
                 </CardHeader>
 
@@ -144,7 +144,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="space-y-1.5">
-                            <Label htmlFor="password" className="text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-0.5">Ereyga sirta ah</Label>
+                            <Label htmlFor="password" className="text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-0.5">Password sirta ah</Label>
                             <div className="relative group">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <Lock className="h-4 w-4 text-gray-300 group-focus-within:text-primary transition-colors" />

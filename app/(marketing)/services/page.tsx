@@ -78,7 +78,8 @@ export default function ServicesPage() {
     return (
         <div className="flex flex-col min-h-screen">
             {/* Hero Section */}
-            <section className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
+            {/* Hero Section */}
+            <section className="relative pt-12 pb-12 md:pt-20 md:pb-24 lg:pt-24 lg:pb-28 overflow-hidden">
                 {/* Background Decoration */}
                 <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-blue-50/30 to-background -z-10" />
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30">
@@ -106,7 +107,8 @@ export default function ServicesPage() {
             </section>
 
             {/* Services Grid */}
-            <section className="pt-24 md:pt-32 pb-12 md:pb-16 relative overflow-hidden">
+            {/* Services Grid */}
+            <section className="pt-8 md:pt-16 pb-12 md:pb-16 relative overflow-hidden">
                 {/* Background Text Decor */}
                 <div className="absolute top-0 left-0 text-[20vw] font-black text-primary/5 select-none -z-10 tracking-tighter uppercase whitespace-nowrap translate-y-1/4">
                     Expertise
@@ -176,7 +178,8 @@ export default function ServicesPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="pt-12 md:pt-16 pb-24 md:pb-32">
+            {/* CTA Section */}
+            <section className="pt-8 md:pt-12 pb-24 md:pb-32">
                 <div className="container px-4 md:px-6">
                     <div className="relative overflow-hidden rounded-[4rem] border border-primary/20 bg-linear-to-br from-background via-muted/50 to-primary/5 p-12 md:p-20">
                         {/* Background Patterns */}

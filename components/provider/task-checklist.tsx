@@ -89,7 +89,7 @@ export function TaskChecklist({ jobId }: TaskChecklistProps) {
             {/* Progress Bar */}
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                 <div
-                    className="h-full bg-gradient-to-r from-purple-600 to-blue-600 transition-all duration-500"
+                    className="h-full bg-linear-to-r from-purple-600 to-blue-600 transition-all duration-500"
                     style={{ width: `${progress}%` }}
                 />
             </div>

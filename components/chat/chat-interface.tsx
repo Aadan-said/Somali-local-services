@@ -92,7 +92,7 @@ export function ChatInterface({ conversationId, currentUserId, recipientName }: 
         <div className="flex flex-col h-full bg-[#efeae2]">
             {/* Header */}
             <div className="flex items-center gap-3 p-4 bg-[#f0f2f5] border-b border-gray-200">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-sm">
+                <div className="h-10 w-10 rounded-full bg-linear-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-sm">
                     {recipientName.charAt(0)}
                 </div>
                 <div className="flex-1">
@@ -151,7 +151,7 @@ export function ChatInterface({ conversationId, currentUserId, recipientName }: 
                                                         msgIndex === group.length - 1 && msgIndex > 0 && !isMe && "rounded-tr-lg rounded-br-lg rounded-bl-sm"
                                                     )}
                                                 >
-                                                    <p className="text-[14px] leading-[1.4] break-words">{message.content}</p>
+                                                    <p className="text-[14px] leading-[1.4] wrap-break-word">{message.content}</p>
                                                     {msgIndex === group.length - 1 && (
                                                         <p className={cn("text-[11px] mt-1 text-right", isMe ? "text-gray-600" : "text-gray-500")}>
                                                             {new Date(message.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

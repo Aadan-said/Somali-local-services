@@ -18,7 +18,7 @@ export default function HowItWorksPage() {
     return (
         <div className="flex flex-col min-h-screen">
             {/* Hero Section */}
-            <section className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
+            <section className="relative pt-12 pb-12 md:pt-20 md:pb-24 lg:pt-24 lg:pb-28 overflow-hidden">
                 {/* Background Decoration */}
                 <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-blue-50/50 to-background -z-10" />
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10 animate-pulse" />
@@ -43,7 +43,7 @@ export default function HowItWorksPage() {
             </section>
 
             {/* Steps Section */}
-            <section className="pt-24 pb-12 md:pb-16 relative overflow-hidden">
+            <section className="pt-8 pb-12 md:pb-16 relative overflow-hidden">
                 {/* Background Text Decor */}
                 <div className="absolute top-0 right-0 text-[15vw] font-black text-primary/5 select-none -z-10 tracking-tighter uppercase whitespace-nowrap -rotate-6 translate-y-1/4">
                     The Steps
@@ -196,7 +196,7 @@ export default function HowItWorksPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="pt-12 md:pt-16 pb-24 md:pb-32">
+            <section className="pt-8 md:pt-12 pb-24 md:pb-32">
                 <div className="container px-4 md:px-6">
                     <div className="relative overflow-hidden rounded-[3rem] bg-linear-to-br from-primary via-blue-700 to-indigo-900 text-white p-12 md:p-20 shadow-2xl">
                         {/* Background Orbs */}

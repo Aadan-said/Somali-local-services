@@ -81,7 +81,7 @@ export function TimeTracker({ jobId, initialTimeStarted, initialTotalHours = 0 }
             </div>
 
             {/* Timer Display */}
-            <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 text-center border border-purple-100">
+            <div className="bg-linear-to-br from-purple-50 to-blue-50 rounded-xl p-6 text-center border border-purple-100">
                 <div className="text-4xl font-bold text-gray-900 font-mono tracking-wider">
                     {isRunning ? formatTime(elapsedSeconds) : "00:00:00"}
                 </div>

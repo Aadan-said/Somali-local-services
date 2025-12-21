@@ -27,16 +27,16 @@ export default function LandingPage() {
 
                         {/* Main Heading */}
                         <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
-                            <span className="block mb-1">Professional Services</span>
+                            <span className="block mb-1">Adeegyo xirfadaysan oo</span>
                             <span className="bg-linear-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                                Delivered to Your Door
+                                laguugu keenayo albaabkaaga
                             </span>
                         </h1>
 
                         {/* Description */}
                         <p className="mx-auto max-w-[700px] text-base md:text-lg text-muted-foreground leading-relaxed">
-                            Find trusted electricians, plumbers, and technicians in your area.
-                            Book instantly and pay securely with verified professionals.
+                            Hel korontayste , tuubayste iyo farsamayaqaanno lagu kalsoon yahay. <br></br>
+                            Dalbo isla markiiba, kuna bixi si ammaan ah adigoo la macaamilaya xirfadlayaal la xaqiijiyay.
                         </p>
 
                         {/* CTA Buttons */}
@@ -71,7 +71,7 @@ export default function LandingPage() {
                                         <Users className="h-7 w-7" />
                                     </div>
                                     <div className="text-3xl font-bold bg-linear-to-r from-primary to-blue-600 bg-clip-text text-transparent">500+</div>
-                                    <div className="text-sm font-medium text-muted-foreground">Verified Pros</div>
+                                    <div className="text-sm font-medium text-muted-foreground">Xirfadlayaal La Hubiyay</div>
                                 </div>
                             </div>
 
@@ -114,14 +114,13 @@ export default function LandingPage() {
                     <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
                         <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary border border-primary/20 backdrop-blur-sm">
                             <Zap className="h-3.5 w-3.5" />
-                            <span>Available Now</span>
+                            <span>Hadda La Heli Karo</span>
                         </div>
                         <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl">
-                            Popular <span className="text-primary italic">Services</span>
+                            Adeegyada <span className="text-primary italic">Ugu Caansan</span>
                         </h2>
                         <p className="max-w-[700px] text-muted-foreground text-lg md:text-xl leading-relaxed">
-                            Everything you need for your home and office maintenance,
-                            delivered by certified professionals.
+                            Wax kasta oo aad u baahan tahay si gurigaaga ama xafiiskaaga loo dayactiro, waxaa kuu qabanaya xirfadlayaal la hubiyay oo khibrad leh.
                         </p>
                     </div>
 
@@ -129,32 +128,32 @@ export default function LandingPage() {
                         {[
                             {
                                 icon: Zap,
-                                label: "Electrician",
-                                description: "Expert wiring, repairs and installations.",
+                                label: "Korantayste",
+                                description: "Khabiir ku ah fiilooyinka, dayactirka iyo rakibidaba.",
                                 gradient: "from-amber-400 to-orange-500",
                                 shadowColor: "shadow-orange-500/20",
                                 bgLight: "bg-amber-500/5"
                             },
                             {
                                 icon: CheckCircle,
-                                label: "Plumber",
-                                description: "Fix leaks, pipes and bathroom fittings.",
+                                label: "Tuubayste",
+                                description: "Hagaajin dillaacyada, tuubooyinka iyo qalabka musqulaha.",
                                 gradient: "from-blue-400 to-indigo-600",
                                 shadowColor: "shadow-blue-500/20",
                                 bgLight: "bg-blue-500/5"
                             },
                             {
                                 icon: Star,
-                                label: "Cleaning",
-                                description: "Deep cleaning for homes and offices.",
+                                label: "Nadiifiye",
+                                description: "Nadaafad dhamaystiran oo loogu talagalay guryaha iyo xafiisyada.",
                                 gradient: "from-emerald-400 to-teal-600",
                                 shadowColor: "shadow-emerald-500/20",
                                 bgLight: "bg-emerald-500/5"
                             },
                             {
                                 icon: Shield,
-                                label: "AC Repair",
-                                description: "Maintenance & service for all AC units.",
+                                label: "Dayactirka Qaboojiyaha (AC)",
+                                description: "Dayactir iyo adeeg dhammaan noocyada qaboojiyaasha.",
                                 gradient: "from-rose-400 to-pink-600",
                                 shadowColor: "shadow-rose-500/20",
                                 bgLight: "bg-rose-500/5"
@@ -204,7 +203,7 @@ export default function LandingPage() {
                     <div className="mt-12 flex justify-center">
                         <Link href="/services">
                             <Button variant="outline" size="lg" className="h-14 px-10 rounded-full border-2 hover:bg-primary hover:text-white hover:border-primary transition-all duration-500 group">
-                                <span className="mr-2 font-semibold">Explore All Services</span>
+                                <span className="mr-2 font-semibold">Fiiri Dhamaan Adeegayada</span>
                                 <TrendingUp className="h-4 w-4 group-hover:translate-y-[-2px] group-hover:translate-x-[2px] transition-transform" />
                             </Button>
                         </Link>
@@ -223,14 +222,14 @@ export default function LandingPage() {
                     <div className="flex flex-col items-center text-center mb-20 space-y-4">
                         <div className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-600 border border-blue-500/20 backdrop-blur-sm">
                             <ArrowRight className="h-3.5 w-3.5" />
-                            <span>Simple & Fast</span>
+                            <span>Fudud oo Degdeg ah</span>
                         </div>
                         <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
-                            How It <span className="text-blue-600 italic">Works</span>
+                            Sidee ayaan <span className="text-blue-600 italic">Ushaqaynaa</span>
                         </h2>
                         <p className="text-muted-foreground text-lg md:text-xl max-w-2xl leading-relaxed">
-                            Getting things done has never been easier. Three simple steps
-                            from posting a request to a completed job.
+                            Markii hore ma fududayn inay is helaan macmiil iyo xirafadlihii ku habonaa inuu shaqadaas qabto ,
+                            Barnaamij kaan wuxuu kuu sahalaya adigoo raacaya qorshaha aan aan u dajinay inaad heshid xirfadle kugu haboon ama macmiil.
                         </p>
                     </div>
 
@@ -241,16 +240,16 @@ export default function LandingPage() {
                         {[
                             {
                                 number: "01",
-                                title: "Post a Request",
-                                description: "Describe what you need done, upload photos, and set your location. It takes less than 2 minutes.",
+                                title: "Soo dir codsi shaqo ",
+                                description: "Sharax waxa aad rabto in laguu qabto, sawirro ku dar, goobata aad ku noo shahay. Waxay qaadaneysaa wax ka yar 2 daqiiqo.",
                                 icon: Search,
                                 gradient: "from-blue-500 to-indigo-600",
                                 shadow: "shadow-blue-500/20"
                             },
                             {
                                 number: "02",
-                                title: "Get Matched",
-                                description: "Verified providers in your area will view your request. You'll get notified as soon as someone accepts.",
+                                title: "Hell xirfadle kugu haboon",
+                                description: "Adeeg-bixiyeyaasha deegaankaaga ayaa arki doona codsigaaga. Waxaa lagu ogeysiinayaa marka uu mid aqbalo.",
                                 icon: Users,
                                 gradient: "from-purple-500 to-pink-600",
                                 shadow: "shadow-purple-500/20"
@@ -258,7 +257,7 @@ export default function LandingPage() {
                             {
                                 number: "03",
                                 title: "Job Done",
-                                description: "The provider arrives, completes the work, and you pay securely through the platform. Success!",
+                                description: "Adeeg-bixiyuhu wuu kuu imaan doonaa ,shqadana kuu qabanyaa , and you pay securely through the platform. Success!",
                                 icon: Sparkles,
                                 gradient: "from-emerald-400 to-teal-600",
                                 shadow: "shadow-emerald-500/20"
@@ -308,16 +307,16 @@ export default function LandingPage() {
                                     <Shield className="h-10 w-10" />
                                 </div>
                                 <div className="space-y-2">
-                                    <h4 className="text-2xl font-bold tracking-tight">Safety First, Always.</h4>
+                                    <h4 className="text-2xl font-bold tracking-tight">Amnigaagu waa mudnaan tayada 1 aad.</h4>
                                     <p className="text-muted-foreground max-w-md">
-                                        Every provider on our platform undergoes a rigorous background check and verification process.
+                                        Adeeg-bixiye kasta oo ku jira mada sheena wuxuu maraa baaritaan iyo hubin dhammeystiran.
                                     </p>
                                 </div>
                             </div>
                             <div className="flex flex-wrap justify-center gap-4">
                                 <div className="px-6 py-3 rounded-2xl bg-primary/5 border border-primary/10 flex items-center gap-3">
                                     <CheckCircle className="h-5 w-5 text-primary" />
-                                    <span className="font-semibold text-sm">Verified IDs</span>
+                                    <span className="font-semibold text-sm">Aqoonsiyo La Hubiyay</span>
                                 </div>
                                 <div className="px-6 py-3 rounded-2xl bg-blue-500/5 border border-blue-500/10 flex items-center gap-3">
                                     <Star className="h-5 w-5 text-blue-500" />

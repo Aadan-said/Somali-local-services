@@ -121,7 +121,7 @@ export function DashboardSidebar() {
                     <Link href="/login" className="block w-full">
                         <Button
                             variant="ghost"
-                            className="w-full justify-between rounded-xl text-gray-600 hover:text-white hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-500 transition-all duration-300 h-12 px-4 group border border-gray-100 hover:border-transparent shadow-sm hover:shadow-lg hover:shadow-red-200"
+                            className="w-full justify-between rounded-xl text-gray-600 hover:text-white hover:bg-linear-to-r hover:from-red-500 hover:to-pink-500 transition-all duration-300 h-12 px-4 group border border-gray-100 hover:border-transparent shadow-sm hover:shadow-lg hover:shadow-red-200"
                         >
                             <div className="flex items-center gap-3">
                                 <div className="h-8 w-8 rounded-lg bg-gray-50 group-hover:bg-white/20 flex items-center justify-center transition-colors">

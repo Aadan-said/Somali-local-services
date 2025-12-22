@@ -19,25 +19,25 @@ export default async function ProviderJobsPage() {
         redirect("/login");
     }
 
+    let jobs: any[] = [];
+
     const provider = await prisma.provider.findUnique({
         where: { userId: session.user.id },
     });
 
-    if (!provider) {
-        redirect("/onboarding");
+    if (provider) {
+        jobs = await prisma.serviceRequest.findMany({
+            where: {
+                providerId: provider.id,
+            },
+            include: {
+                user: true,
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+        });
     }
-
-    const jobs = await prisma.serviceRequest.findMany({
-        where: {
-            providerId: provider.id,
-        },
-        include: {
-            user: true,
-        },
-        orderBy: {
-            createdAt: "desc",
-        },
-    }) as any[];
 
 
     const getStatusColor = (status: string) => {

@@ -17,16 +17,16 @@ export default async function ProviderEarningsPage() {
         where: { userId: session.user.id },
     });
 
-    if (!provider) {
-        redirect("/onboarding");
-    }
+    let completedJobs = 0;
 
-    const completedJobs = await prisma.serviceRequest.count({
-        where: {
-            providerId: provider.id,
-            status: "COMPLETED",
-        },
-    });
+    if (provider) {
+        completedJobs = await prisma.serviceRequest.count({
+            where: {
+                providerId: provider.id,
+                status: "COMPLETED",
+            },
+        });
+    }
 
     // Mocking earnings for now since price isn't in the schema yet
     const estimatedPerJob = 50;

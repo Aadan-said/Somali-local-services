@@ -125,7 +125,7 @@ export function ProofUpload({ jobId, onSuccess }: ProofUploadProps) {
                             ) : (
                                 <label className="flex flex-col items-center justify-center w-full h-56 border-2 border-dashed border-gray-200 hover:border-green-500 bg-white hover:bg-green-50/30 rounded-2xl cursor-pointer transition-all group relative overflow-hidden">
                                     {/* Animated background effect */}
-                                    <div className="absolute inset-0 bg-linear-to-tr from-transparent via-green-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-full group-hover:translate-y-[-100%] duration-1000" />
+                                    <div className="absolute inset-0 bg-linear-to-tr from-transparent via-green-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-full group-hover:-translate-y-full duration-1000" />
 
                                     <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center space-y-3 relative z-10 transition-transform group-hover:scale-105 duration-300">
                                         <div className="w-12 h-12 rounded-full bg-gray-50 group-hover:bg-green-100 flex items-center justify-center transition-colors">

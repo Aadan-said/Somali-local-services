@@ -76,87 +76,100 @@ export function TaskChecklist({ jobId }: TaskChecklistProps) {
     const progress = tasks.length > 0 ? (completedCount / tasks.length) * 100 : 0;
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-5">
             {/* Header with Progress */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h3 className="font-bold text-gray-900">Task Checklist</h3>
-                    <p className="text-xs text-gray-500">{completedCount} of {tasks.length} completed</p>
+                    <h3 className="font-bold text-gray-900 text-sm">Task Checklist</h3>
+                    <p className="text-[10px] text-gray-400 font-medium tracking-wide uppercase">{completedCount} of {tasks.length} completed</p>
                 </div>
-                {saving && <Loader2 className="h-4 w-4 animate-spin text-purple-600" />}
+                <div className="bg-gray-50 px-2 py-1 rounded-lg border border-gray-100">
+                    <span className="text-xs font-black text-gray-700">{Math.round(progress)}%</span>
+                </div>
             </div>
 
             {/* Progress Bar */}
-            <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden shadow-inner">
                 <div
-                    className="h-full bg-linear-to-r from-purple-600 to-blue-600 transition-all duration-500"
+                    className={cn(
+                        "h-full transition-all duration-700 ease-out shadow-sm",
+                        progress === 100 ? "bg-green-500" : "bg-linear-to-r from-purple-500 to-blue-500"
+                    )}
                     style={{ width: `${progress}%` }}
                 />
             </div>
 
+            {/* Add Task Input */}
+            <div className="flex gap-2">
+                <div className="relative flex-1 group">
+                    <Input
+                        placeholder="Add a new task..."
+                        value={newTask}
+                        onChange={(e) => setNewTask(e.target.value)}
+                        onKeyPress={(e) => e.key === "Enter" && addTask()}
+                        className="h-10 text-sm bg-gray-50 border-gray-100 focus:bg-white focus:border-purple-200 transition-colors pl-3 rounded-xl"
+                    />
+                </div>
+                <Button
+                    onClick={addTask}
+                    size="sm"
+                    className="h-10 w-10 p-0 rounded-xl bg-gray-900 hover:bg-black text-white shadow-md active:scale-95 transition-all"
+                >
+                    <Plus className="h-5 w-5" />
+                </Button>
+            </div>
+
             {/* Task List */}
-            <div className="space-y-2 max-h-64 overflow-y-auto">
+            <div className="space-y-2.5 max-h-64 overflow-y-auto pr-1 custom-scrollbar">
                 {loading ? (
                     <div className="flex items-center justify-center py-8">
-                        <Loader2 className="h-5 w-5 animate-spin text-gray-400" />
+                        <Loader2 className="h-5 w-5 animate-spin text-purple-400" />
                     </div>
                 ) : tasks.length === 0 ? (
-                    <p className="text-sm text-gray-400 text-center py-8">No tasks yet. Add one below!</p>
+                    <div className="text-center py-8 border-2 border-dashed border-gray-100 rounded-2xl bg-gray-50/30">
+                        <p className="text-sm font-bold text-gray-400">No tasks yet</p>
+                        <p className="text-xs text-gray-400">Add tasks to track your progress</p>
+                    </div>
                 ) : (
                     tasks.map((task) => (
                         <div
                             key={task.id}
                             className={cn(
-                                "flex items-center gap-2 p-2 rounded-lg border transition-all group",
+                                "flex items-center gap-3 p-3 rounded-xl border transition-all duration-300 group hover:shadow-sm",
                                 task.completed
-                                    ? "bg-green-50 border-green-200"
-                                    : "bg-white border-gray-200 hover:border-purple-200"
+                                    ? "bg-green-50/50 border-green-100/50"
+                                    : "bg-white border-gray-100 hover:border-purple-100"
                             )}
                         >
                             <button
                                 onClick={() => toggleTask(task.id)}
                                 className={cn(
-                                    "h-5 w-5 rounded border-2 flex items-center justify-center transition-all shrink-0",
+                                    "h-5 w-5 rounded-md border-2 flex items-center justify-center transition-all shrink-0 duration-300",
                                     task.completed
-                                        ? "bg-green-500 border-green-500"
-                                        : "border-gray-300 hover:border-purple-500"
+                                        ? "bg-green-500 border-green-500 rotate-0"
+                                        : "border-gray-200 hover:border-purple-400 bg-white rotate-0"
                                 )}
                             >
-                                {task.completed && <Check className="h-3 w-3 text-white" />}
+                                <Check className={cn(
+                                    "h-3.5 w-3.5 text-white transition-all duration-300",
+                                    task.completed ? "scale-100 opacity-100" : "scale-50 opacity-0"
+                                )} />
                             </button>
                             <span className={cn(
-                                "flex-1 text-sm",
-                                task.completed ? "line-through text-gray-500" : "text-gray-900"
+                                "flex-1 text-sm font-medium transition-colors duration-300",
+                                task.completed ? "line-through text-gray-400" : "text-gray-700 group-hover:text-gray-900"
                             )}>
                                 {task.text}
                             </span>
                             <button
                                 onClick={() => deleteTask(task.id)}
-                                className="opacity-0 group-hover:opacity-100 transition-opacity"
+                                className="opacity-0 group-hover:opacity-100 transition-all p-1.5 hover:bg-red-50 rounded-lg"
                             >
-                                <X className="h-4 w-4 text-red-500 hover:text-red-700" />
+                                <X className="h-3.5 w-3.5 text-red-400 hover:text-red-600" />
                             </button>
                         </div>
                     ))
                 )}
-            </div>
-
-            {/* Add Task Input */}
-            <div className="flex gap-2">
-                <Input
-                    placeholder="Add a new task..."
-                    value={newTask}
-                    onChange={(e) => setNewTask(e.target.value)}
-                    onKeyPress={(e) => e.key === "Enter" && addTask()}
-                    className="flex-1 text-sm"
-                />
-                <Button
-                    onClick={addTask}
-                    size="sm"
-                    className="bg-purple-600 hover:bg-purple-700"
-                >
-                    <Plus className="h-4 w-4" />
-                </Button>
             </div>
         </div>
     );

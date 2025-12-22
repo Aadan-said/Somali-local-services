@@ -74,93 +74,113 @@ export function ProofUpload({ jobId, onSuccess }: ProofUploadProps) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-2 font-bold hover:bg-green-50 hover:text-green-700 hover:border-green-200 transition-all border-gray-100 shadow-sm">
-                    <ShieldCheck className="h-4 w-4" />
-                    Submit Proof
+                <Button
+                    className="w-full h-12 rounded-xl bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold shadow-lg shadow-green-200 transition-all hover:scale-[1.02] border border-green-400/20"
+                >
+                    <ShieldCheck className="h-5 w-5 mr-2" />
+                    Submit Proof of Work
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px] rounded-3xl p-6">
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-green-400 to-emerald-600" />
-                <DialogHeader className="pt-4 text-center">
-                    <div className="mx-auto w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mb-4">
-                        <ShieldCheck className="h-6 w-6 text-green-600" />
-                    </div>
-                    <DialogTitle className="text-2xl font-black text-gray-900">Proof of Work</DialogTitle>
-                    <DialogDescription className="text-gray-500">
-                        Upload evidence of the completed service to verify with the client.
-                    </DialogDescription>
-                </DialogHeader>
+            <DialogContent className="sm:max-w-[500px] overflow-hidden rounded-3xl border-0 p-0 shadow-2xl">
+                {/* Decorative Background */}
+                <div className="absolute inset-0 z-0 bg-gray-50/50" />
+                <div className="absolute top-0 left-0 w-full h-32 bg-linear-to-b from-green-500/10 to-transparent z-0" />
 
-                <div className="space-y-6 py-6">
-                    {/* Image Upload */}
-                    <div className="space-y-2">
-                        <label className="text-xs font-black uppercase tracking-widest text-gray-400 px-1">
-                            Upload Image
-                        </label>
+                <div className="relative z-10 p-6 space-y-6">
+                    <DialogHeader className="text-center space-y-3 pt-4">
+                        <div className="mx-auto w-16 h-16 rounded-2xl bg-linear-to-br from-green-100 to-emerald-50 flex items-center justify-center ring-8 ring-white shadow-xl">
+                            <ShieldCheck className="h-8 w-8 text-green-600" />
+                        </div>
+                        <div className="space-y-1">
+                            <DialogTitle className="text-2xl font-black text-gray-900 tracking-tight">Submit Evidence</DialogTitle>
+                            <DialogDescription className="text-gray-500 font-medium">
+                                Show your client that the job is done perfectly.
+                            </DialogDescription>
+                        </div>
+                    </DialogHeader>
 
-                        {imagePreview ? (
-                            <div className="relative group">
-                                <img
-                                    src={imagePreview}
-                                    alt="Proof preview"
-                                    className="w-full h-48 object-cover rounded-2xl border-2 border-gray-200"
-                                />
-                                <button
-                                    onClick={removeImage}
-                                    className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                                >
-                                    <X className="h-4 w-4" />
-                                </button>
+                    <div className="space-y-5">
+                        {/* Image Upload Area */}
+                        <div className="space-y-2">
+                            <div className="flex items-center justify-between px-1">
+                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Proof Image</label>
+                                {imagePreview && (
+                                    <button onClick={removeImage} className="text-[10px] font-bold text-red-500 hover:underline">Remove</button>
+                                )}
                             </div>
-                        ) : (
-                            <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-300 rounded-2xl cursor-pointer hover:border-green-500 hover:bg-green-50/50 transition-all group">
-                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <ImageIcon className="h-10 w-10 text-gray-400 group-hover:text-green-500 mb-3" />
-                                    <p className="text-sm font-bold text-gray-600 group-hover:text-green-600">
-                                        Click to upload image
-                                    </p>
-                                    <p className="text-xs text-gray-400 mt-1">PNG, JPG up to 10MB</p>
+
+                            {imagePreview ? (
+                                <div className="relative group rounded-2xl overflow-hidden shadow-lg ring-1 ring-gray-200 bg-white">
+                                    <img
+                                        src={imagePreview}
+                                        alt="Proof preview"
+                                        className="w-full h-56 object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                        <Button variant="secondary" size="sm" onClick={removeImage} className="font-bold">
+                                            Change Image
+                                        </Button>
+                                    </div>
                                 </div>
-                                <input
-                                    type="file"
-                                    className="hidden"
-                                    accept="image/*"
-                                    onChange={handleImageSelect}
-                                />
+                            ) : (
+                                <label className="flex flex-col items-center justify-center w-full h-56 border-2 border-dashed border-gray-200 hover:border-green-500 bg-white hover:bg-green-50/30 rounded-2xl cursor-pointer transition-all group relative overflow-hidden">
+                                    {/* Animated background effect */}
+                                    <div className="absolute inset-0 bg-linear-to-tr from-transparent via-green-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-full group-hover:translate-y-[-100%] duration-1000" />
+
+                                    <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center space-y-3 relative z-10 transition-transform group-hover:scale-105 duration-300">
+                                        <div className="w-12 h-12 rounded-full bg-gray-50 group-hover:bg-green-100 flex items-center justify-center transition-colors">
+                                            <Upload className="h-6 w-6 text-gray-400 group-hover:text-green-600" />
+                                        </div>
+                                        <div className="space-y-1">
+                                            <p className="text-sm font-bold text-gray-700 group-hover:text-green-700">
+                                                Click to upload confirmation
+                                            </p>
+                                            <p className="text-xs text-gray-400 group-hover:text-green-600/70">
+                                                Supports JPG, PNG (Max 10MB)
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="file"
+                                        className="hidden"
+                                        accept="image/*"
+                                        onChange={handleImageSelect}
+                                    />
+                                </label>
+                            )}
+                        </div>
+
+                        {/* Notes Input */}
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 px-1">
+                                Outcome Note
                             </label>
-                        )}
+                            <Textarea
+                                placeholder="Write a short summary of the completed work..."
+                                value={note}
+                                onChange={(e) => setNote(e.target.value)}
+                                className="min-h-[100px] rounded-xl border-gray-200 bg-white focus:ring-green-500/20 focus:border-green-500 transition-all resize-none shadow-sm text-sm"
+                            />
+                        </div>
                     </div>
 
-                    {/* Notes */}
-                    <div className="space-y-2">
-                        <label className="text-xs font-black uppercase tracking-widest text-gray-400 px-1">
-                            Additional Notes
-                        </label>
-                        <Textarea
-                            placeholder="Describe what was done or provide instructions for the client..."
-                            value={note}
-                            onChange={(e) => setNote(e.target.value)}
-                            className="min-h-[100px] rounded-2xl border-gray-100 bg-gray-50/50 focus:bg-white transition-all resize-none text-sm"
-                        />
-                    </div>
+                    <DialogFooter className="pt-2">
+                        <Button
+                            onClick={handleUpload}
+                            disabled={loading || (!note && !imagePreview)}
+                            className="w-full rounded-xl h-12 text-sm font-bold bg-gray-900 hover:bg-gray-800 text-white shadow-xl shadow-gray-200 hover:shadow-gray-300 transition-all active:scale-[0.98]"
+                        >
+                            {loading ? (
+                                <Loader2 className="h-5 w-5 animate-spin" />
+                            ) : (
+                                <>
+                                    Complete Job & Send
+                                    <ShieldCheck className="h-4 w-4 ml-2 text-green-400" />
+                                </>
+                            )}
+                        </Button>
+                    </DialogFooter>
                 </div>
-
-                <DialogFooter>
-                    <Button
-                        onClick={handleUpload}
-                        disabled={loading || (!note && !imagePreview)}
-                        className="w-full rounded-full h-12 text-md font-bold bg-linear-to-br from-green-500 to-emerald-600 hover:scale-[1.02] transition-transform shadow-lg shadow-green-100"
-                    >
-                        {loading ? (
-                            <Loader2 className="h-5 w-5 animate-spin" />
-                        ) : (
-                            <>
-                                <ShieldCheck className="h-5 w-5 mr-2" />
-                                Complete & Submit Proof
-                            </>
-                        )}
-                    </Button>
-                </DialogFooter>
             </DialogContent>
         </Dialog>
     );

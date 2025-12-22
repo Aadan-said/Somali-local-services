@@ -44,11 +44,11 @@ export async function POST(
             return NextResponse.json({ error: "Request is no longer pending" }, { status: 400 });
         }
 
-        // Update the request: set status to ACCEPTED and assign providerId
+        // Update the request: set status to WAITING_APPROVAL and assign providerId
         const updatedRequest = await prisma.serviceRequest.update({
             where: { id: requestId },
             data: {
-                status: "ACCEPTED",
+                status: "WAITING_APPROVAL",
                 providerId: provider.id
             }
         });

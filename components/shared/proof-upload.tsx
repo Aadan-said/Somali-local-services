@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ShieldCheck, Upload, Loader2, X, Image as ImageIcon } from "lucide-react";
 import {
     Dialog,
@@ -10,21 +11,26 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
+    DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 interface ProofUploadProps {
     jobId: string;
     onSuccess?: () => void;
+    disabled?: boolean;
 }
 
-export function ProofUpload({ jobId, onSuccess }: ProofUploadProps) {
+export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadProps) {
     const [note, setNote] = useState("");
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [imageFile, setImageFile] = useState<File | null>(null);
+    const router = useRouter();
 
     const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -57,31 +63,43 @@ export function ProofUpload({ jobId, onSuccess }: ProofUploadProps) {
                 }),
             });
 
+            const data = await res.json();
+
             if (res.ok) {
                 setOpen(false);
                 setNote("");
                 setImagePreview(null);
                 setImageFile(null);
+                router.refresh();
                 if (onSuccess) onSuccess();
+            } else {
+                toast.error(data.error || "Failed to upload proof");
             }
         } catch (error) {
             console.error("Error uploading proof:", error);
+            toast.error("An unexpected error occurred.");
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={(val) => !disabled && setOpen(val)}>
             <DialogTrigger asChild>
                 <Button
-                    className="w-full h-12 rounded-xl bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold shadow-lg shadow-green-200 transition-all hover:scale-[1.02] border border-green-400/20"
+                    disabled={disabled}
+                    className={cn(
+                        "w-full h-12 rounded-xl text-white font-bold transition-all border",
+                        disabled
+                            ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed opacity-70"
+                            : "bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-lg shadow-green-200 hover:scale-[1.02] border-green-400/20"
+                    )}
                 >
-                    <ShieldCheck className="h-5 w-5 mr-2" />
-                    Submit Proof of Work
+                    <ShieldCheck className={cn("h-5 w-5 mr-2", disabled ? "text-gray-300" : "text-white")} />
+                    {disabled ? "Tasks Pending..." : "Submit Proof of Work"}
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px] overflow-hidden rounded-3xl border-0 p-0 shadow-2xl">
+            <DialogContent className="sm:max-w-[500px] max-h-[95vh] overflow-y-auto rounded-3xl border-0 p-0 shadow-2xl">
                 {/* Decorative Background */}
                 <div className="absolute inset-0 z-0 bg-gray-50/50" />
                 <div className="absolute top-0 left-0 w-full h-32 bg-linear-to-b from-green-500/10 to-transparent z-0" />
@@ -114,7 +132,7 @@ export function ProofUpload({ jobId, onSuccess }: ProofUploadProps) {
                                     <img
                                         src={imagePreview}
                                         alt="Proof preview"
-                                        className="w-full h-56 object-cover"
+                                        className="w-full h-40 object-cover"
                                     />
                                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                         <Button variant="secondary" size="sm" onClick={removeImage} className="font-bold">
@@ -123,7 +141,7 @@ export function ProofUpload({ jobId, onSuccess }: ProofUploadProps) {
                                     </div>
                                 </div>
                             ) : (
-                                <label className="flex flex-col items-center justify-center w-full h-56 border-2 border-dashed border-gray-200 hover:border-green-500 bg-white hover:bg-green-50/30 rounded-2xl cursor-pointer transition-all group relative overflow-hidden">
+                                <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-200 hover:border-green-500 bg-white hover:bg-green-50/30 rounded-2xl cursor-pointer transition-all group relative overflow-hidden">
                                     {/* Animated background effect */}
                                     <div className="absolute inset-0 bg-linear-to-tr from-transparent via-green-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-full group-hover:-translate-y-full duration-1000" />
 
@@ -164,11 +182,16 @@ export function ProofUpload({ jobId, onSuccess }: ProofUploadProps) {
                         </div>
                     </div>
 
-                    <DialogFooter className="pt-2">
+                    <DialogFooter className="flex flex-col sm:flex-row gap-3 pt-2">
+                        <DialogClose asChild>
+                            <Button variant="outline" className="flex-1 rounded-xl h-12 text-sm font-bold border-gray-200 hover:bg-gray-50">
+                                Cancel
+                            </Button>
+                        </DialogClose>
                         <Button
                             onClick={handleUpload}
                             disabled={loading || (!note && !imagePreview)}
-                            className="w-full rounded-xl h-12 text-sm font-bold bg-gray-900 hover:bg-gray-800 text-white shadow-xl shadow-gray-200 hover:shadow-gray-300 transition-all active:scale-[0.98]"
+                            className="flex-2 rounded-xl h-12 text-sm font-bold bg-gray-900 hover:bg-gray-800 text-white shadow-xl shadow-gray-200 hover:shadow-gray-300 transition-all active:scale-[0.98]"
                         >
                             {loading ? (
                                 <Loader2 className="h-5 w-5 animate-spin" />

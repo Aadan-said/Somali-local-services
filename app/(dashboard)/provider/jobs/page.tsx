@@ -11,6 +11,7 @@ import { JobStatusButton } from "@/components/shared/job-status-button";
 import { ChatDialog } from "@/components/chat/chat-dialog";
 import { ProofUpload } from "@/components/shared/proof-upload";
 import { JobWorkflowPanel } from "@/components/provider/job-workflow-panel";
+import { cn } from "@/lib/utils";
 
 export default async function ProviderJobsPage() {
     const session = await getServerSession(authOptions);
@@ -43,6 +44,8 @@ export default async function ProviderJobsPage() {
     const getStatusColor = (status: string) => {
         switch (status) {
             case "PENDING": return "bg-yellow-100 text-yellow-700 border-yellow-200";
+            case "WAITING_APPROVAL": return "bg-purple-100 text-purple-700 border-purple-200";
+            case "ACCEPTED": return "bg-emerald-100 text-emerald-700 border-emerald-200";
             case "IN_PROGRESS": return "bg-blue-100 text-blue-700 border-blue-200";
             case "COMPLETED": return "bg-green-100 text-green-700 border-green-200";
             case "CANCELLED": return "bg-red-100 text-red-700 border-red-200";
@@ -110,7 +113,10 @@ export default async function ProviderJobsPage() {
                                             triggerLabel="Chat with Client"
                                         />
                                         {(job.status === "IN_PROGRESS" || job.status === "PENDING") && (
-                                            <ProofUpload jobId={job.id} />
+                                            <ProofUpload
+                                                jobId={job.id}
+                                                disabled={job.progressPercentage < 100}
+                                            />
                                         )}
                                         {job.status === "COMPLETED" && (
                                             <Badge variant="outline" className="bg-green-50 text-green-700 border-green-100 gap-1 h-9 px-3">
@@ -146,7 +152,36 @@ export default async function ProviderJobsPage() {
                                     </div>
 
                                     <div className="pt-4 mt-auto">
-                                        <JobStatusButton jobId={job.id} initialStatus={job.status} />
+                                        {job.status === "WAITING_APPROVAL" ? (
+                                            <div className="bg-purple-50 text-purple-600 text-[10px] font-bold py-3 px-4 rounded-lg border border-purple-100 text-center">
+                                                Waiting for Client Approval
+                                            </div>
+                                        ) : job.status === "IN_PROGRESS" ? (
+                                            <div className="space-y-3">
+                                                {job.progressPercentage < 100 && (
+                                                    <div className="flex items-center gap-1.5 p-2 bg-purple-50 border border-purple-100 rounded-lg text-[9px] font-black text-purple-700 uppercase tracking-widest leading-tight">
+                                                        <Clock className="h-3 w-3 shrink-0" />
+                                                        Finish all tasks (100%) to submit
+                                                    </div>
+                                                )}
+                                                <div className={cn(job.progressPercentage < 100 && "opacity-50 pointer-events-none")}>
+                                                    <ProofUpload
+                                                        jobId={job.id}
+                                                        disabled={job.progressPercentage < 100}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ) : job.status === "ACCEPTED" ? (
+                                            <JobStatusButton
+                                                jobId={job.id}
+                                                initialStatus={job.status}
+                                            />
+                                        ) : (
+                                            <div className="flex items-center justify-center gap-2 text-green-600 font-bold text-xs bg-green-50 py-3 rounded-lg border border-green-100 w-full">
+                                                <CheckCircle2 className="h-4 w-4" />
+                                                Job Completed
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -158,6 +193,7 @@ export default async function ProviderJobsPage() {
                                         jobId={job.id}
                                         timeStarted={job.timeStarted}
                                         totalHours={job.totalHours}
+                                        progressPercentage={job.progressPercentage}
                                     />
                                 </div>
                             )}

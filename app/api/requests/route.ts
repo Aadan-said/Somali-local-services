@@ -68,7 +68,18 @@ export async function GET(req: Request) {
             where,
             include: {
                 user: { select: { name: true, email: true } },
-                provider: { include: { user: { select: { name: true } } } }
+                provider: {
+                    include: {
+                        user: { select: { name: true, image: true, createdAt: true, phone: true } },
+                        _count: {
+                            select: {
+                                requests: {
+                                    where: { status: "COMPLETED" }
+                                }
+                            }
+                        }
+                    }
+                }
             },
             orderBy: { createdAt: 'desc' }
         });

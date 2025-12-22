@@ -10,10 +10,11 @@ interface JobWorkflowPanelProps {
     jobId: string;
     timeStarted?: string | null;
     totalHours?: number;
+    progressPercentage?: number;
     onSuccess?: () => void;
 }
 
-export function JobWorkflowPanel({ jobId, timeStarted, totalHours, onSuccess }: JobWorkflowPanelProps) {
+export function JobWorkflowPanel({ jobId, timeStarted, totalHours, progressPercentage = 0, onSuccess }: JobWorkflowPanelProps) {
     return (
         <div className="bg-linear-to-br from-purple-50/50 to-blue-50/50 rounded-2xl p-6 border border-purple-100/50 space-y-6">
             {/* Header */}
@@ -51,7 +52,11 @@ export function JobWorkflowPanel({ jobId, timeStarted, totalHours, onSuccess }: 
                     <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
                         <div className="space-y-3">
                             <h3 className="font-bold text-gray-900">Proof of Work</h3>
-                            <ProofUpload jobId={jobId} onSuccess={onSuccess} />
+                            <ProofUpload
+                                jobId={jobId}
+                                onSuccess={onSuccess}
+                                disabled={progressPercentage < 100}
+                            />
                         </div>
                     </div>
                 </div>

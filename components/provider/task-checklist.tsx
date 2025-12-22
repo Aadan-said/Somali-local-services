@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Plus, Check, X, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +22,7 @@ export function TaskChecklist({ jobId }: TaskChecklistProps) {
     const [newTask, setNewTask] = useState("");
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         fetchTasks();
@@ -49,6 +51,7 @@ export function TaskChecklist({ jobId }: TaskChecklistProps) {
             console.error("Error saving tasks:", error);
         } finally {
             setSaving(false);
+            router.refresh();
         }
     };
 

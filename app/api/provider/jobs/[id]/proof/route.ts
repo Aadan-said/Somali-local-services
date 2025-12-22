@@ -22,6 +22,18 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
         const { proofOfWork, proofOfWorkNote } = await req.json();
 
+        // Check if all tasks are completed before marking as COMPLETED
+        const jobCheck = await prisma.serviceRequest.findUnique({
+            where: { id: jobId, providerId: provider.id },
+            select: { progressPercentage: true }
+        });
+
+        if (!jobCheck || jobCheck.progressPercentage < 100) {
+            return NextResponse.json({
+                error: "Fadlan marka hore dhamaystir dhammaan checklist-ka (100%) ka hor inta aadan sawirka cadeynta ah soo dirin."
+            }, { status: 400 });
+        }
+
         const updatedJob = await prisma.serviceRequest.update({
             where: {
                 id: jobId,

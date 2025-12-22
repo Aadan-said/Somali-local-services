@@ -83,13 +83,13 @@ export default function ProviderDashboard() {
             });
 
             if (res.ok) {
-                toast.success("Waa la aqbalay codsigaaga Shaqada!");
+                toast.success("Codsigaaga waa la diray! Sug inta macmiilku ka aqbalayo.");
                 // Update local state
                 const acceptedLead = leads.find(l => l.id === requestId);
                 if (acceptedLead) {
                     setLeads(leads.filter(l => l.id !== requestId));
                     // Add to jobs with updated status
-                    setMyJobs([{ ...acceptedLead, status: "ACCEPTED", user: { ...acceptedLead.user, email: "" } } as ProviderJob, ...myJobs]);
+                    setMyJobs([{ ...acceptedLead, status: "WAITING_APPROVAL", user: { ...acceptedLead.user, email: "" } } as ProviderJob, ...myJobs]);
                 }
                 // Refetch stats
                 const statsRes = await fetch("/api/provider/stats");
@@ -302,7 +302,7 @@ export default function ProviderDashboard() {
                                                     {isAccepting === req.id ? (
                                                         <Loader2 className="h-4 w-4 animate-spin" />
                                                     ) : (
-                                                        "Accept Duty"
+                                                        "Request Job"
                                                     )}
                                                 </Button>
                                             </TableCell>
@@ -345,13 +345,19 @@ export default function ProviderDashboard() {
                                                     "inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[9px] font-bold uppercase tracking-wider border",
                                                     job.status === "COMPLETED" ? "bg-emerald-50 text-emerald-600 border-emerald-100" :
                                                         job.status === "IN_PROGRESS" ? "bg-blue-50 text-blue-600 border-blue-100" :
-                                                            "bg-amber-50 text-amber-600 border-amber-100"
+                                                            job.status === "WAITING_APPROVAL" ? "bg-purple-50 text-purple-600 border-purple-100" :
+                                                                "bg-amber-50 text-amber-600 border-amber-100"
                                                 )}>
                                                     {job.status.replace("_", " ")}
                                                 </div>
                                             </TableCell>
                                             <TableCell className="px-6 py-4 text-right">
                                                 <div className="flex items-center justify-end gap-2">
+                                                    {job.status === "WAITING_APPROVAL" && (
+                                                        <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-1 rounded border border-purple-100">
+                                                            Waiting for Client
+                                                        </span>
+                                                    )}
                                                     {job.status === "ACCEPTED" && (
                                                         <Button
                                                             onClick={() => handleUpdateStatus(job.id, "IN_PROGRESS")}

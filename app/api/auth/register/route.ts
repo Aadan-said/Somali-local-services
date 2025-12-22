@@ -49,15 +49,6 @@ export async function POST(req: Request) {
         return NextResponse.json(user);
     } catch (error) {
         console.error("REGISTER_ERROR:", error);
-        try {
-            const fs = require('fs');
-            // Write to desktop or project root to be sure we can find it
-            const path = require('path');
-            const logPath = path.join(process.cwd(), 'error_debug.txt');
-            fs.writeFileSync(logPath, String(error) + '\n' + (error instanceof Error ? error.stack : ''));
-        } catch (e) {
-            console.error("Failed to write log", e);
-        }
 
         if (error instanceof z.ZodError) {
             return NextResponse.json({ error: (error as any).errors }, { status: 400 });

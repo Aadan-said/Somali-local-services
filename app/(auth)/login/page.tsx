@@ -7,15 +7,26 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { LogIn, Mail, Lock, AlertCircle, User as UserIcon, Briefcase } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useEffect } from "react";
 
 export default function LoginPage() {
+    const searchParams = useSearchParams();
+    const urlError = searchParams.get("error");
     const [role, setRole] = useState<"client" | "provider">("client");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
+
+    useEffect(() => {
+        if (urlError === "Configuration") {
+            setError("Nidaamka login-ka (NextAuth) ayaan sifiican u habaysnayn. Fadlan hubi NEXTAUTH_SECRET.");
+        } else if (urlError) {
+            setError("Khalad ayaa ka dhacay dhinaca server-ka.");
+        }
+    }, [urlError]);
 
     async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();

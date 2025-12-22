@@ -1,43 +1,94 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+"use client";
+
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingBag, Clock, CheckCircle2, AlertCircle, MessageCircle, Star, ShieldCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ShoppingBag, Clock, CheckCircle2, AlertCircle, MessageCircle, Star, ShieldCheck, Loader2, Check, X, Users } from "lucide-react";
 import { ChatDialog } from "@/components/chat/chat-dialog";
 import { ReviewModal } from "@/components/reviews/review-modal";
 import { ClientProgressView } from "@/components/client/client-progress-view";
+import { ProviderProfileDialog } from "@/components/client/provider-profile-dialog";
+import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
-export default async function MyRequestsPage() {
-    const session = await getServerSession(authOptions);
+export default function MyRequestsPage() {
+    const { data: session, status } = useSession();
+    const [requests, setRequests] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isActioning, setIsActioning] = useState<string | null>(null);
 
-    if (!session || !session.user) {
-        redirect("/login");
-    }
+    const fetchRequests = async () => {
+        try {
+            const res = await fetch("/api/requests");
+            if (res.ok) {
+                const data = await res.json();
+                setRequests(data);
+            }
+        } catch (error) {
+            console.error("Failed to fetch requests:", error);
+            toast.error("Wuu dhib ku yimid soo qabashada codsiyada");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-    const requests = await prisma.serviceRequest.findMany({
-        where: {
-            userId: session.user.id,
-        },
-        include: {
-            provider: {
-                include: {
-                    user: true,
-                },
-            },
-            review: true,
-        },
-        orderBy: {
-            createdAt: "desc",
-        },
-    }) as any[];
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            redirect("/login");
+        }
+        if (status === "authenticated") {
+            fetchRequests();
+        }
+    }, [status]);
 
+    const handleApprove = async (requestId: string) => {
+        setIsActioning(requestId + "-approve");
+        try {
+            const res = await fetch(`/api/requests/${requestId}/approve`, {
+                method: "POST",
+            });
+
+            if (res.ok) {
+                toast.success("Waad aqbashay adeeg bixiyahan!");
+                fetchRequests();
+            } else {
+                toast.error("Wuu dhib ku yimid aqbalida adeeg bixiyaha");
+            }
+        } catch (error) {
+            toast.error("Cilad ayaa dhacday");
+        } finally {
+            setIsActioning(null);
+        }
+    };
+
+    const handleDecline = async (requestId: string) => {
+        setIsActioning(requestId + "-decline");
+        try {
+            const res = await fetch(`/api/requests/${requestId}/decline`, {
+                method: "POST",
+            });
+
+            if (res.ok) {
+                toast.success("Waad diiday adeeg bixiyahan. Codsigaaga suuqa ayuu dib ugu laabtay.");
+                fetchRequests();
+            } else {
+                toast.error("Wuu dhib ku yimid diidmada adeeg bixiyaha");
+            }
+        } catch (error) {
+            toast.error("Cilad ayaa dhacday");
+        } finally {
+            setIsActioning(null);
+        }
+    };
 
     const getStatusColor = (status: string) => {
         switch (status) {
             case "PENDING": return "bg-yellow-100 text-yellow-700 border-yellow-200";
-            case "ACCEPTED": return "bg-purple-100 text-purple-700 border-purple-200";
+            case "WAITING_APPROVAL": return "bg-purple-100 text-purple-700 border-purple-200";
+            case "ACCEPTED": return "bg-emerald-100 text-emerald-700 border-emerald-200";
             case "IN_PROGRESS": return "bg-blue-100 text-blue-700 border-blue-200";
             case "COMPLETED": return "bg-green-100 text-green-700 border-green-200";
             case "CANCELLED": return "bg-red-100 text-red-700 border-red-200";
@@ -48,12 +99,21 @@ export default async function MyRequestsPage() {
     const getStatusIcon = (status: string) => {
         switch (status) {
             case "PENDING": return <Clock className="h-4 w-4" />;
+            case "WAITING_APPROVAL": return <Clock className="h-4 w-4" />;
             case "ACCEPTED": return <CheckCircle2 className="h-4 w-4" />;
             case "IN_PROGRESS": return <AlertCircle className="h-4 w-4" />;
             case "COMPLETED": return <CheckCircle2 className="h-4 w-4" />;
             default: return <Clock className="h-4 w-4" />;
         }
     };
+
+    if (isLoading) {
+        return (
+            <div className="flex h-[60vh] items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-8">
@@ -83,7 +143,7 @@ export default async function MyRequestsPage() {
                             <div className="flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-gray-100">
                                 <CardHeader className="flex-1 p-6">
                                     <div className="flex items-start justify-between mb-2">
-                                        <Badge variant="outline" className={`flex items-center gap-1 font-bold ${getStatusColor(request.status)}`}>
+                                        <Badge variant="outline" className={cn("flex items-center gap-1 font-bold", getStatusColor(request.status))}>
                                             {getStatusIcon(request.status)}
                                             {request.status.replace("_", " ")}
                                         </Badge>
@@ -122,11 +182,42 @@ export default async function MyRequestsPage() {
                                     )}
 
                                     {/* Actions for Client */}
-                                    <div className="flex gap-2 mt-4 pt-4 border-t border-gray-50">
+                                    <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-50">
+                                        {request.status === "WAITING_APPROVAL" && (
+                                            <>
+                                                <Button
+                                                    onClick={() => handleApprove(request.id)}
+                                                    disabled={isActioning === request.id + "-approve"}
+                                                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
+                                                    size="sm"
+                                                >
+                                                    {isActioning === request.id + "-approve" ? (
+                                                        <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                                                    ) : (
+                                                        <Check className="h-4 w-4 mr-2" />
+                                                    )}
+                                                    Approve Provider
+                                                </Button>
+                                                <Button
+                                                    onClick={() => handleDecline(request.id)}
+                                                    disabled={isActioning === request.id + "-decline"}
+                                                    variant="outline"
+                                                    className="border-red-200 text-red-600 hover:bg-red-50 font-bold"
+                                                    size="sm"
+                                                >
+                                                    {isActioning === request.id + "-decline" ? (
+                                                        <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                                                    ) : (
+                                                        <X className="h-4 w-4 mr-2" />
+                                                    )}
+                                                    Decline
+                                                </Button>
+                                            </>
+                                        )}
                                         {request.provider && (
                                             <ChatDialog
                                                 requestId={request.id}
-                                                currentUserId={session.user.id}
+                                                currentUserId={session?.user.id!}
                                                 recipientName={request.provider.user.name}
                                                 triggerLabel="Chat with Provider"
                                             />
@@ -147,26 +238,37 @@ export default async function MyRequestsPage() {
                                     </div>
                                 </CardHeader>
 
-                                <div className="md:w-64 p-6 bg-gray-50/50 flex flex-col justify-center">
-                                    <p className="text-xs font-black uppercase tracking-widest text-gray-400 mb-3">Provider</p>
+                                <div className="md:w-64 p-6 bg-gray-50/50 flex flex-col justify-center border-l border-gray-100">
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-4">Provider Info</p>
                                     {request.provider ? (
-                                        <div className="flex items-center gap-3">
-                                            <div className="h-10 w-10 rounded-full bg-linear-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">
-                                                {request.provider.user.name.charAt(0)}
-                                            </div>
-                                            <div>
-                                                <p className="text-sm font-bold text-gray-900">{request.provider.user.name}</p>
-                                                <p className="text-xs text-gray-500">{request.provider.category}</p>
-                                            </div>
-                                        </div>
+                                        <ProviderProfileDialog
+                                            provider={request.provider}
+                                            trigger={
+                                                <div className="flex items-center gap-3 cursor-pointer group">
+                                                    <div className="h-10 w-10 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-black shadow-lg shadow-blue-100 group-hover:scale-110 transition-transform">
+                                                        {request.provider.user.name.charAt(0)}
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-sm font-black text-gray-900 group-hover:text-blue-600 transition-colors uppercase tracking-tight">{request.provider.user.name}</p>
+                                                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{request.provider.category}</p>
+                                                        <div className="flex items-center gap-1 mt-0.5 text-[9px] font-black text-blue-600 bg-blue-50 w-fit px-1.5 py-0.5 rounded uppercase tracking-tighter">
+                                                            View Profile
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        />
                                     ) : (
-                                        <p className="text-sm text-gray-400 italic">Waiting for assignment...</p>
+                                        <div className="flex flex-col items-center justify-center py-4 bg-white/50 rounded-2xl border border-dashed border-gray-200">
+                                            <Users className="h-5 w-5 text-gray-300 mb-2" />
+                                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest text-center">Finding <br />Provider...</p>
+                                        </div>
                                     )}
                                 </div>
                             </div>
 
                             {/* Client Progress View - Show workflow status */}
-                            {(request.status === "IN_PROGRESS" || request.status === "COMPLETED") && (
+                            {(request.status === "IN_PROGRESS" || request.status === "COMPLETED" || request.status === "ACCEPTED") && (
                                 <div className="p-6 pt-0">
                                     <ClientProgressView
                                         tasks={request.tasks}

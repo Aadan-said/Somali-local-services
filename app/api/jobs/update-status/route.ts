@@ -26,6 +26,19 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Provider profile not found" }, { status: 404 });
         }
 
+        if (status === "COMPLETED") {
+            const job = await prisma.serviceRequest.findUnique({
+                where: { id: jobId },
+                select: { proofOfWork: true, progressPercentage: true }
+            });
+
+            if (!job?.proofOfWork || job.progressPercentage < 100) {
+                return NextResponse.json({
+                    error: "Shaqadan lama dhamaystiri karo ilaa aad workflow-ga dhamaysid oo aad sawirka cadaynta ah (Proof) soo dirtid."
+                }, { status: 400 });
+            }
+        }
+
         const updatedJob = await prisma.serviceRequest.update({
             where: {
                 id: jobId,

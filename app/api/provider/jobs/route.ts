@@ -22,7 +22,7 @@ export async function GET(req: Request) {
         const requests = await prisma.serviceRequest.findMany({
             where: {
                 providerId: provider.id,
-                status: { in: ["ACCEPTED", "IN_PROGRESS", "COMPLETED"] }
+                status: { in: ["WAITING_APPROVAL", "ACCEPTED", "IN_PROGRESS", "COMPLETED"] }
             },
             include: {
                 user: {

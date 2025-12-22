@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
@@ -57,7 +58,7 @@ model ServiceRequest {
   serviceDate     String?
   description     String
   price           Float?
-  status          String   @default("PENDING") // PENDING, ACCEPTED, IN_PROGRESS, COMPLETED, CANCELLED
+  status          String   @default("PENDING") // PENDING, WAITING_APPROVAL, ACCEPTED, IN_PROGRESS, COMPLETED, CANCELLED
   proofOfWork     String?
   proofOfWorkNote String?
   

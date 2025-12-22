@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Clock, ShieldCheck } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface JobStatusButtonProps {
     jobId: string;
@@ -15,20 +16,20 @@ export function JobStatusButton({ jobId, initialStatus }: JobStatusButtonProps) 
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
-    const handleUpdate = async () => {
+    const handleUpdate = async (nextStatus: string) => {
         setLoading(true);
         setError(null);
         try {
             const response = await fetch("/api/jobs/update-status", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ jobId, status: "COMPLETED" }),
+                body: JSON.stringify({ jobId, status: nextStatus }),
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                setStatus("COMPLETED");
+                setStatus(nextStatus);
                 router.refresh();
             } else {
                 setError(data.error || "Failed to update job status");
@@ -41,26 +42,22 @@ export function JobStatusButton({ jobId, initialStatus }: JobStatusButtonProps) 
         }
     };
 
-    if (status === "COMPLETED") {
-        return (
-            <div className="flex items-center justify-center gap-2 text-green-600 font-bold text-xs bg-green-50 py-2 rounded-lg border border-green-100 w-full animate-in fade-in zoom-in-95 duration-300">
-                <CheckCircle2 className="h-4 w-4" />
-                Job Completed
-            </div>
-        );
-    }
+    if (status !== "ACCEPTED") return null;
 
     return (
         <div className="space-y-2">
             <button
-                onClick={handleUpdate}
+                onClick={() => handleUpdate("IN_PROGRESS")}
                 disabled={loading}
-                className="w-full h-10 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-900 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all active:scale-95 shadow-sm flex items-center justify-center disabled:opacity-50"
+                className="w-full h-12 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl text-sm font-black shadow-xl shadow-blue-200 transition-all active:scale-[0.98] flex items-center justify-center gap-2 group"
             >
                 {loading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 className="h-5 w-5 animate-spin" />
                 ) : (
-                    "Mark as Completed"
+                    <>
+                        <ShieldCheck className="h-5 w-5 group-hover:rotate-12 transition-transform" />
+                        Start Job Now
+                    </>
                 )}
             </button>
             {error && (

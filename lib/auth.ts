@@ -72,4 +72,16 @@ export const authOptions: NextAuthOptions = {
             return token;
         },
     },
+    debug: process.env.NODE_ENV === "development",
+    logger: {
+        error(code, metadata) {
+            console.error("NextAuth Error:", code, metadata);
+        },
+        warn(code) {
+            console.warn("NextAuth Warn:", code);
+        },
+        debug(code, metadata) {
+            console.debug("NextAuth Debug:", code, metadata);
+        },
+    },
 };

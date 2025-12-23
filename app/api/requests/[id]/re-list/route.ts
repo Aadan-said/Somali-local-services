@@ -41,13 +41,26 @@ export async function POST(
 
         // Delete any existing conversation and review associated with this request
         // This ensures a clean slate for the new provider
+        // Delete any existing conversation and review associated with this request
+        // This ensures a clean slate for the new provider
         await prisma.$transaction([
+            // 1. Delete messages first (to avoid FK constraint)
+            prisma.message.deleteMany({
+                where: {
+                    conversation: {
+                        requestId: requestId
+                    }
+                }
+            }),
+            // 2. Delete conversation
             prisma.conversation.deleteMany({
                 where: { requestId }
             }),
+            // 3. Delete review
             prisma.review.deleteMany({
                 where: { requestId }
             }),
+            // 4. Reset request
             prisma.serviceRequest.update({
                 where: { id: requestId },
                 data: {

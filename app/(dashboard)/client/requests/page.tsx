@@ -285,14 +285,15 @@ export default function MyRequestsPage() {
                                                     <Button
                                                         onClick={() => handleReList(request.id)}
                                                         disabled={isActioning === request.id + "-relist"}
-                                                        className="h-11 px-6 bg-red-50 hover:bg-red-100 text-red-600 border-0 font-black rounded-xl shadow-none hover:shadow-sm text-[10px] uppercase tracking-widest transition-all active:scale-95"
+                                                        variant="ghost"
+                                                        className="h-11 px-6 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white font-bold rounded-xl border border-red-100 transition-all active:scale-95 flex items-center gap-2 group"
                                                     >
                                                         {isActioning === request.id + "-relist" ? (
-                                                            <Loader2 className="h-3.5 w-3.5 animate-spin mr-2" />
+                                                            <Loader2 className="h-4 w-4 animate-spin" />
                                                         ) : (
-                                                            <RefreshCcw className="h-3.5 w-3.5 mr-2" />
+                                                            <RefreshCcw className="h-4 w-4 group-hover:rotate-180 transition-transform duration-500" />
                                                         )}
-                                                        Dib u sooceli & Tirtir
+                                                        <span className="text-xs uppercase tracking-widest">Dib u soo Celi</span>
                                                     </Button>
                                                 </div>
                                             )}

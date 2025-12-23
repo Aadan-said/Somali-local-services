@@ -80,66 +80,66 @@ export default function ProviderProfilePage() {
     if (!session) return null;
 
     return (
-        <div className="max-w-3xl mx-auto space-y-8">
-            <div className="flex flex-col gap-2">
-                <h1 className="text-3xl font-black tracking-tight text-gray-900">Provider Profile</h1>
-                <p className="text-gray-500">How clients see you and your business in Somalia.</p>
+        <div className="max-w-3xl mx-auto space-y-6">
+            <div className="flex flex-col gap-1.5 text-center md:text-left">
+                <h1 className="text-xl font-black tracking-tight text-gray-900 uppercase">Profile-ka Xirfadlaha</h1>
+                <p className="text-xs text-gray-500">Sida macaamiishu kuu arkaan markay adeeg raadinayaan.</p>
             </div>
 
-            <Card className="border-gray-100 shadow-sm overflow-hidden">
-                <div className="h-32 bg-linear-to-r from-blue-600 to-purple-600" />
-                <div className="px-8 -mt-12 pb-8">
+            <Card className="border-0 bg-white/60 backdrop-blur-xl shadow-2xl shadow-indigo-500/5 ring-1 ring-gray-100/50 rounded-2xl overflow-hidden">
+                <div className="h-28 bg-linear-to-r from-primary via-indigo-600 to-blue-600" />
+                <div className="px-6 -mt-10 pb-6">
                     <div className="relative inline-block">
                         <ImageUpload
                             currentImage={formData.image}
                             onUploadSuccess={(url) => setFormData({ ...formData, image: url })}
-                            className="ring-4 ring-white shadow-xl rounded-2xl"
+                            className="ring-4 ring-white shadow-xl rounded-xl"
                         />
                     </div>
 
-                    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-                        <div className="grid gap-6 md:grid-cols-2">
-                            <div className="space-y-2 col-span-2">
-                                <Label htmlFor="name" className="text-sm font-bold text-gray-700">Display Name</Label>
+                    <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+                        <div className="grid gap-5 md:grid-cols-2">
+                            <div className="space-y-1.5 col-span-2">
+                                <Label htmlFor="name" className="text-[11px] font-black uppercase tracking-widest text-gray-500">Magaca Ganacsiga (ama kanaga)</Label>
                                 <Input
                                     id="name"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="h-12 border-gray-100 bg-gray-50/50"
+                                    className="h-11 border-gray-100 bg-white/50 focus:bg-white transition-all rounded-xl text-sm font-bold"
                                     placeholder="Enter your name or business name"
                                     required
                                 />
                             </div>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="category" className="text-sm font-bold text-gray-700">Service Category</Label>
+                            <div className="space-y-1.5">
+                                <Label htmlFor="category" className="text-[11px] font-black uppercase tracking-widest text-gray-500">Nooca Adeegga</Label>
                                 <Select
                                     value={formData.category}
                                     onValueChange={(val: any) => setFormData({ ...formData, category: val })}
                                 >
-                                    <SelectTrigger className="h-12 border-gray-100 bg-gray-50/50">
-                                        <SelectValue placeholder="Select Category" />
+                                    <SelectTrigger className="h-11 border-gray-100 bg-white/50 rounded-xl text-sm font-bold">
+                                        <SelectValue placeholder="Dooro Nooca" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="Electrician">Electrician</SelectItem>
-                                        <SelectItem value="Plumber">Plumber</SelectItem>
-                                        <SelectItem value="Home Cleaning">Home Cleaning</SelectItem>
-                                        <SelectItem value="AC Repair">AC Repair</SelectItem>
+                                        <SelectItem value="Electrician">Korantayste</SelectItem>
+                                        <SelectItem value="Plumber">Tuubayste</SelectItem>
+                                        <SelectItem value="Home Cleaning">Nadaafad</SelectItem>
+                                        <SelectItem value="AC Repair">Habaynta Qaboojiyasha</SelectItem>
                                         <SelectItem value="Mechanic">Mechanic</SelectItem>
-                                        <SelectItem value="Tutoring">Tutoring</SelectItem>
-                                        <SelectItem value="Other">Other</SelectItem>
+                                        <SelectItem value="Tutoring">Bare</SelectItem>
+                                        <SelectItem value="Other">Shaqa bixiye guud</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="city" className="text-sm font-bold text-gray-700">Service City</Label>
+                            <div className="space-y-1.5">
+                                <Label htmlFor="city" className="text-[11px] font-black uppercase tracking-widest text-gray-500">Magaalada Adeegga</Label>
                                 <Select
                                     value={formData.city}
                                     onValueChange={(val: any) => setFormData({ ...formData, city: val })}
                                 >
-                                    <SelectTrigger className="h-12 border-gray-100 bg-gray-50/50">
-                                        <SelectValue placeholder="Select City" />
+                                    <SelectTrigger className="h-11 border-gray-100 bg-white/50 rounded-xl text-sm font-bold">
+                                        <SelectValue placeholder="Dooro Magaalada" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="Mogadishu">Mogadishu</SelectItem>
@@ -147,45 +147,53 @@ export default function ProviderProfilePage() {
                                         <SelectItem value="Garowe">Garowe</SelectItem>
                                         <SelectItem value="Kismayo">Kismayo</SelectItem>
                                         <SelectItem value="Baidoa">Baidoa</SelectItem>
+                                        <SelectItem value="Cerigaabo">Cerigaabo</SelectItem>
+                                        <SelectItem value="Bosaaso">Bosaaso</SelectItem>
+                                        <SelectItem value="Laascanood">Laascanood</SelectItem>
+                                        <SelectItem value="Burtinle">Burtinle</SelectItem>
+                                        <SelectItem value="Dhusamareeb">Dhusamareeb</SelectItem>
+                                        <SelectItem value="Cadaado">Cadaado</SelectItem>
+                                        <SelectItem value="Beledweyne">Beledweyne</SelectItem>
+                                        <SelectItem value="Jawhar">Jawhar</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
 
-                            <div className="space-y-2 col-span-2">
-                                <Label htmlFor="bio" className="text-sm font-bold text-gray-700">About (Bio)</Label>
+                            <div className="space-y-1.5 col-span-2">
+                                <Label htmlFor="bio" className="text-[11px] font-black uppercase tracking-widest text-gray-500">Faahfaahin (Bio)</Label>
                                 <Textarea
                                     id="bio"
                                     value={formData.bio}
                                     onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                                    className="min-h-[120px] border-gray-100 bg-gray-50/50"
-                                    placeholder="Tell potential clients about your experience and services..."
+                                    className="min-h-[100px] border-gray-100 bg-white/50 focus:bg-white transition-all rounded-xl text-sm font-medium"
+                                    placeholder="U sheeg macaamiisha khibradaada iyo adeegyada aad bixiso..."
                                 />
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-4 pt-4 border-t border-gray-50">
+                        <div className="flex items-center gap-4 pt-2">
                             <Button
                                 type="submit"
                                 disabled={loading}
-                                className="h-12 px-8 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg shadow-blue-200"
+                                className="h-11 px-8 bg-linear-to-r from-primary to-blue-600 hover:from-indigo-600 hover:to-primary text-white font-black rounded-xl shadow-lg shadow-primary/20 transition-all text-xs uppercase tracking-widest"
                             >
                                 {loading ? (
                                     <>
-                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                        Saving...
+                                        <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
+                                        Cusboonaysiin...
                                     </>
                                 ) : (
                                     <>
-                                        <Save className="mr-2 h-4 w-4" />
-                                        Update Profile
+                                        <Save className="mr-2 h-3.5 w-3.5" />
+                                        Cusboonaysii Profile-ka
                                     </>
                                 )}
                             </Button>
 
                             {success && (
-                                <div className="flex items-center gap-2 text-green-600 animate-in fade-in slide-in-from-left-4">
-                                    <CheckCircle2 className="h-5 w-5" />
-                                    <span className="text-sm font-bold">Profile updated successfully!</span>
+                                <div className="flex items-center gap-2 text-emerald-600 animate-in fade-in slide-in-from-left-4">
+                                    <CheckCircle2 className="h-4 w-4" />
+                                    <span className="text-xs font-black uppercase tracking-widest">Si guul leh baa loo cusboonaysiiyay!</span>
                                 </div>
                             )}
                         </div>

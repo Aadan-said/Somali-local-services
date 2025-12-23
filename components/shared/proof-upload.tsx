@@ -96,7 +96,7 @@ export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadP
                     )}
                 >
                     <ShieldCheck className={cn("h-5 w-5 mr-2", disabled ? "text-gray-300" : "text-white")} />
-                    {disabled ? "Tasks Pending..." : "Submit Proof of Work"}
+                    {disabled ? "Shaqooyin qabyo ah..." : "Gali cadaynta shaqada"}
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px] max-h-[95vh] overflow-y-auto rounded-3xl border-0 p-0 shadow-2xl">
@@ -110,9 +110,9 @@ export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadP
                             <ShieldCheck className="h-8 w-8 text-green-600" />
                         </div>
                         <div className="space-y-1">
-                            <DialogTitle className="text-2xl font-black text-gray-900 tracking-tight">Submit Evidence</DialogTitle>
+                            <DialogTitle className="text-2xl font-black text-gray-900 tracking-tight">Gali Cadaynta Shaqada</DialogTitle>
                             <DialogDescription className="text-gray-500 font-medium">
-                                Show your client that the job is done perfectly.
+                                Tus macmiilkaaga in shaqada si hufan loo qabtay.
                             </DialogDescription>
                         </div>
                     </DialogHeader>
@@ -121,9 +121,9 @@ export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadP
                         {/* Image Upload Area */}
                         <div className="space-y-2">
                             <div className="flex items-center justify-between px-1">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Proof Image</label>
+                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Sawirka Cadaynta</label>
                                 {imagePreview && (
-                                    <button onClick={removeImage} className="text-[10px] font-bold text-red-500 hover:underline">Remove</button>
+                                    <button onClick={removeImage} className="text-[10px] font-bold text-red-500 hover:underline">Ka saar</button>
                                 )}
                             </div>
 
@@ -136,7 +136,7 @@ export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadP
                                     />
                                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                         <Button variant="secondary" size="sm" onClick={removeImage} className="font-bold">
-                                            Change Image
+                                            Bedel Sawirka
                                         </Button>
                                     </div>
                                 </div>
@@ -151,10 +151,10 @@ export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadP
                                         </div>
                                         <div className="space-y-1">
                                             <p className="text-sm font-bold text-gray-700 group-hover:text-green-700">
-                                                Click to upload confirmation
+                                                Riix si aad sawirka u soo geliso
                                             </p>
                                             <p className="text-xs text-gray-400 group-hover:text-green-600/70">
-                                                Supports JPG, PNG (Max 10MB)
+                                                Waxaad isticmaali kartaa JPG, PNG (Max 10MB)
                                             </p>
                                         </div>
                                     </div>
@@ -171,10 +171,10 @@ export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadP
                         {/* Notes Input */}
                         <div className="space-y-2">
                             <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 px-1">
-                                Outcome Note
+                                Sharaxaadda Shaqada
                             </label>
                             <Textarea
-                                placeholder="Write a short summary of the completed work..."
+                                placeholder="Qor sharaxaad kooban oo ku saabsan shaqada aad dhammaystirtay..."
                                 value={note}
                                 onChange={(e) => setNote(e.target.value)}
                                 className="min-h-[100px] rounded-xl border-gray-200 bg-white focus:ring-green-500/20 focus:border-green-500 transition-all resize-none shadow-sm text-sm"
@@ -185,7 +185,7 @@ export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadP
                     <DialogFooter className="flex flex-col sm:flex-row gap-3 pt-2">
                         <DialogClose asChild>
                             <Button variant="outline" className="flex-1 rounded-xl h-12 text-sm font-bold border-gray-200 hover:bg-gray-50">
-                                Cancel
+                                Iska daa
                             </Button>
                         </DialogClose>
                         <Button
@@ -197,7 +197,7 @@ export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadP
                                 <Loader2 className="h-5 w-5 animate-spin" />
                             ) : (
                                 <>
-                                    Complete Job & Send
+                                    Dhammaystir oo Dir
                                     <ShieldCheck className="h-4 w-4 ml-2 text-green-400" />
                                 </>
                             )}

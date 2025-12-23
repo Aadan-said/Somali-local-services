@@ -62,15 +62,15 @@ export default function ClientProfilePage() {
     if (!session) return null;
 
     return (
-        <div className="max-w-2xl mx-auto space-y-8">
-            <div className="flex flex-col gap-2">
-                <h1 className="text-3xl font-black tracking-tight text-gray-900 text-center md:text-left">Your Profile</h1>
-                <p className="text-gray-500 text-center md:text-left">Manage your account information and how others see you.</p>
+        <div className="max-w-2xl mx-auto space-y-6">
+            <div className="flex flex-col gap-1.5">
+                <h1 className="text-2xl font-black tracking-tight text-gray-900 text-center md:text-left">Profile-kaaga</h1>
+                <p className="text-sm text-gray-500 text-center md:text-left">Maamul xogtaada gaarka ah iyo sida dadka kale kuu arkaan.</p>
             </div>
 
-            <Card className="border-gray-100 shadow-sm overflow-hidden">
-                <div className="h-32 bg-linear-to-r from-purple-600 to-blue-600" />
-                <div className="px-8 -mt-12 pb-8">
+            <Card className="border-0 bg-white/60 backdrop-blur-xl shadow-2xl shadow-indigo-500/5 ring-1 ring-gray-100/50 rounded-2xl overflow-hidden">
+                <div className="h-28 bg-linear-to-r from-primary via-indigo-600 to-blue-600" />
+                <div className="px-6 -mt-10 pb-6">
                     <div className="relative inline-block">
                         <ImageUpload
                             currentImage={formData.image}
@@ -85,61 +85,61 @@ export default function ClientProfilePage() {
                                     },
                                 });
                             }}
-                            className="ring-4 ring-white shadow-xl rounded-2xl"
+                            className="ring-4 ring-white shadow-xl rounded-xl"
                         />
                     </div>
 
-                    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                    <form onSubmit={handleSubmit} className="mt-6 space-y-5">
                         <div className="grid gap-4">
-                            <div className="space-y-2">
-                                <Label htmlFor="name" className="text-sm font-bold text-gray-700">Full Name</Label>
+                            <div className="space-y-1.5">
+                                <Label htmlFor="name" className="text-[11px] font-black uppercase tracking-widest text-gray-500">Magacaaga oo buuxa</Label>
                                 <Input
                                     id="name"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="h-12 border-gray-100 bg-gray-50/50 focus:bg-white transition-all"
-                                    placeholder="Enter your full name"
+                                    className="h-11 border-gray-100 bg-white/50 focus:bg-white transition-all rounded-xl text-sm font-bold"
+                                    placeholder="Gali magacaaga oo buuxa"
                                     required
                                 />
                             </div>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="email" className="text-sm font-bold text-gray-700">Email Address</Label>
+                            <div className="space-y-1.5">
+                                <Label htmlFor="email" className="text-[11px] font-black uppercase tracking-widest text-gray-500">Iimaylkaaga (Email)</Label>
                                 <Input
                                     id="email"
                                     type="email"
                                     value={formData.email}
                                     disabled
-                                    className="h-12 border-gray-100 bg-gray-100 cursor-not-allowed opacity-60"
-                                    placeholder="Your email address"
+                                    className="h-11 border-gray-100 bg-gray-50/30 cursor-not-allowed opacity-60 rounded-xl text-sm font-medium"
+                                    placeholder="Email-kaaga"
                                 />
-                                <p className="text-[10px] text-gray-400 font-medium italic">Email cannot be changed directly for security reasons.</p>
+                                <p className="text-[9px] text-gray-400 font-bold italic uppercase tracking-tighter">Email-ka lama bedeli karo sababo ammaan awgood.</p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-4 pt-4">
+                        <div className="flex items-center gap-4 pt-2">
                             <Button
                                 type="submit"
                                 disabled={loading}
-                                className="h-12 px-8 bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-purple-200 active:scale-95"
+                                className="h-11 px-8 bg-linear-to-r from-primary to-blue-600 hover:from-indigo-600 hover:to-primary text-white font-black rounded-xl transition-all shadow-lg shadow-primary/20 active:scale-95 text-xs uppercase tracking-widest"
                             >
                                 {loading ? (
                                     <>
-                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                        Saving...
+                                        <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
+                                        Waa la keydinayaa...
                                     </>
                                 ) : (
                                     <>
-                                        <Save className="mr-2 h-4 w-4" />
-                                        Save Changes
+                                        <Save className="mr-2 h-3.5 w-3.5" />
+                                        Keydi Isbedelka
                                     </>
                                 )}
                             </Button>
 
                             {success && (
-                                <div className="flex items-center gap-2 text-green-600 animate-in fade-in slide-in-from-left-4">
-                                    <CheckCircle2 className="h-5 w-5" />
-                                    <span className="text-sm font-bold">Profile updated!</span>
+                                <div className="flex items-center gap-2 text-emerald-600 animate-in fade-in slide-in-from-left-4">
+                                    <CheckCircle2 className="h-4 w-4" />
+                                    <span className="text-xs font-black uppercase tracking-widest">Si guul leh baa loo keydiyay!</span>
                                 </div>
                             )}
                         </div>

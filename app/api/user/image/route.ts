@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         });
 
         return NextResponse.json({
-            message: "Muuqaalkaagii si guul leh ayaa loo cusubaysiiyay!",
+            message: "Muuqaalkagii (profile) waa lacusboonaysiiyay!",
             image: updatedUser.image
         });
     } catch (error) {

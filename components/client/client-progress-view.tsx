@@ -30,7 +30,7 @@ export function ClientProgressView({
         <Card className="p-6 bg-linear-to-br from-blue-50/50 to-purple-50/50 border-blue-100">
             <div className="flex items-center gap-2 mb-4">
                 <TrendingUp className="h-5 w-5 text-blue-600" />
-                <h3 className="font-bold text-gray-900">Work Progress</h3>
+                <h3 className="font-bold text-gray-900">Horumarka Shaqada</h3>
             </div>
 
             <div className="space-y-4">
@@ -38,7 +38,7 @@ export function ClientProgressView({
                 {parsedTasks.length > 0 && (
                     <div className="space-y-2">
                         <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600">Overall Progress</span>
+                            <span className="text-gray-600">Heerka Gebogebada</span>
                             <span className="font-bold text-blue-600">{progressPercentage}%</span>
                         </div>
                         <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -48,7 +48,7 @@ export function ClientProgressView({
                             />
                         </div>
                         <p className="text-xs text-gray-500">
-                            {completedTasks} of {parsedTasks.length} tasks completed
+                            {completedTasks} ka mid ah {parsedTasks.length} shaqo ayaa dhammaatay
                         </p>
                     </div>
                 )}
@@ -60,7 +60,7 @@ export function ClientProgressView({
                         <div className="bg-white rounded-lg p-3 border border-gray-100">
                             <div className="flex items-center gap-2 mb-1">
                                 <CheckCircle2 className="h-4 w-4 text-green-600" />
-                                <span className="text-xs font-bold text-gray-500">Tasks</span>
+                                <span className="text-xs font-bold text-gray-500">Shaqooyinka</span>
                             </div>
                             <p className="text-lg font-bold text-gray-900">
                                 {completedTasks}/{parsedTasks.length}
@@ -73,10 +73,10 @@ export function ClientProgressView({
                         <div className="bg-white rounded-lg p-3 border border-gray-100">
                             <div className="flex items-center gap-2 mb-1">
                                 <Clock className="h-4 w-4 text-blue-600" />
-                                <span className="text-xs font-bold text-gray-500">Time Spent</span>
+                                <span className="text-xs font-bold text-gray-500">Waqtiga la adeegsaday</span>
                             </div>
                             <p className="text-lg font-bold text-gray-900">
-                                {totalHours.toFixed(1)} hrs
+                                {totalHours.toFixed(1)} saac
                             </p>
                         </div>
                     )}
@@ -87,7 +87,7 @@ export function ClientProgressView({
                     <div className="bg-white rounded-lg p-3 border border-gray-100">
                         <div className="flex items-center gap-2 mb-2">
                             <FileText className="h-4 w-4 text-purple-600" />
-                            <span className="text-xs font-bold text-gray-500">Provider Notes</span>
+                            <span className="text-xs font-bold text-gray-500">Faallooyinka Adeeg-bixiyaha</span>
                         </div>
                         <p className="text-sm text-gray-700 leading-relaxed">
                             {notes}
@@ -99,7 +99,7 @@ export function ClientProgressView({
                 {isActive && (
                     <div className="flex items-center justify-center gap-2 py-2 px-3 bg-green-50 rounded-lg border border-green-200">
                         <div className="h-2 w-2 bg-green-500 rounded-full animate-pulse" />
-                        <span className="text-xs font-bold text-green-700">Work in Progress</span>
+                        <span className="text-xs font-bold text-green-700">Shaqadu way socotaa</span>
                     </div>
                 )}
             </div>

@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Sparkles, Send, MapPin, Calendar, Loader2, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Sparkles, Send, MapPin, Calendar, Loader2, CheckCircle2, ChevronDown, Layers } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -35,7 +35,7 @@ export default function CreateRequestPage() {
             if (res.ok) {
                 setIsSuccess(true);
                 setTimeout(() => {
-                    router.push("/client");
+                    router.push("/client/requests");
                 }, 2000);
             } else {
                 alert("Failed to create request. Please try again.");
@@ -50,141 +50,174 @@ export default function CreateRequestPage() {
 
     if (isSuccess) {
         return (
-            <div className="max-w-xl mx-auto py-20 text-center space-y-6">
-                <div className="flex justify-center">
-                    <div className="h-20 w-20 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 animate-bounce">
-                        <CheckCircle2 className="h-10 w-10" />
+            <div className="max-w-xl mx-auto py-24 text-center space-y-8 relative">
+                {/* Decorative background glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] -z-10 animate-pulse" />
+
+                <div className="flex justify-center relative">
+                    <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
+                    <div className="relative h-28 w-28 rounded-4xl bg-linear-to-br from-white to-primary/5 flex items-center justify-center text-primary shadow-2xl shadow-primary/20 border border-white/50 animate-in zoom-in duration-700">
+                        <CheckCircle2 className="h-14 w-14" />
                     </div>
                 </div>
-                <h1 className="text-3xl font-black text-gray-900">Request Dispatched!</h1>
-                <p className="text-gray-500 font-medium max-w-sm mx-auto">
-                    Your request has been successfully saved and broadcasted to our provider network in Somalia.
-                </p>
-                <div className="pt-4 flex items-center justify-center gap-2 text-sm text-purple-600 font-bold">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Redirecting to your dashboard...
+                <div className="space-y-4 relative z-10">
+                    <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">Codsigaaga waa la diray!</h1>
+                    <p className="text-slate-600 font-medium text-lg max-w-sm mx-auto leading-relaxed">
+                        Codsigaaga si guul leh ayaa loo keydiyay, waxaana loo bandhigay dhammaan xirfadlayaasha ku sugan Soomaaliya.
+                    </p>
+                </div>
+                <div className="pt-6 flex flex-col items-center gap-3">
+                    <div className="inline-flex items-center gap-2 text-sm text-primary font-bold bg-white/80 backdrop-blur-md px-6 py-3 rounded-full shadow-lg border border-white/50">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Dib ugu laabo dashboard-ka...
+                    </div>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="max-w-2xl mx-auto space-y-8">
+        <div className="max-w-3xl mx-auto space-y-10 pb-24 relative">
+            {/* Ambient Background */}
+            <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+                <div className="absolute top-0 right-[-10%] w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[120px]" />
+                <div className="absolute bottom-0 left-[-10%] w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]" />
+            </div>
+
+            {/* Header Navigation */}
             <div className="flex items-center justify-between">
                 <Link
                     href="/client"
-                    className="group flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-500 hover:text-purple-600 transition-colors"
+                    className="group flex items-center gap-3"
                 >
-                    <div className="p-2 rounded-md bg-white border border-gray-200 group-hover:bg-purple-600 group-hover:text-white transition-all">
+                    <div className="h-10 w-10 rounded-xl bg-white shadow-sm border border-slate-200 flex items-center justify-center text-slate-400 group-hover:bg-primary group-hover:text-white group-hover:border-primary group-hover:scale-110 transition-all duration-300">
                         <ArrowLeft className="h-4 w-4" />
                     </div>
-                    Dashboard
+                    <span className="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-primary transition-colors">Dashboard</span>
                 </Link>
-                <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-600">
-                    <Sparkles className="h-3.5 w-3.5" />
-                    <span className="text-[10px] font-bold uppercase tracking-wider">Priority Request</span>
+                <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/50 backdrop-blur-sm border border-white/60 text-primary shadow-sm">
+                    <Sparkles className="h-4 w-4 animate-pulse" />
+                    <span className="text-[10px] font-black uppercase tracking-widest">Codsi Cusub</span>
                 </div>
             </div>
 
-            <Card className="border border-gray-100 bg-white shadow-lg rounded-lg overflow-hidden">
-                <CardHeader className="px-10 pt-10 pb-6 text-center border-b border-gray-50 bg-gray-50/30">
-                    <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">
-                        What <span className="text-purple-600">help</span> do you need?
-                    </CardTitle>
-                    <CardDescription className="text-sm text-gray-500 font-medium">
-                        Fill out the details below to dispatch your request.
-                    </CardDescription>
-                </CardHeader>
+            {/* Main Title Area */}
+            <div className="space-y-4 text-center py-4">
+                <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter leading-[1.1]">
+                    Maxaad maanta u <br />
+                    <span className="bg-linear-to-r from-primary via-purple-600 to-blue-600 bg-clip-text text-transparent">baahantahay?</span>
+                </h1>
+                <p className="text-slate-500 font-medium text-lg max-w-lg mx-auto">
+                    Buuxi foomka hoose si aan kuugu helno xirfadle ku habboon baahidaada.
+                </p>
+            </div>
 
-                <form onSubmit={handleSubmit}>
-                    <CardContent className="px-10 py-8 space-y-6">
+            {/* Premium Form Card */}
+            <Card className="border-0 bg-white/60 backdrop-blur-2xl shadow-2xl shadow-slate-200/50 rounded-[2.5rem] overflow-visible ring-1 ring-white/60 relative">
+                {/* Decorative gradients on card */}
+                <div className="absolute -top-px left-10 right-10 h-px bg-linear-to-r from-transparent via-primary/30 to-transparent" />
+
+                <form onSubmit={handleSubmit} className="relative z-10">
+                    <CardContent className="p-8 md:p-12 space-y-10">
+
                         {/* Service Selection */}
-                        <div className="space-y-2">
-                            <Label htmlFor="category" className="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">Service Category</Label>
-                            <select
-                                id="category"
-                                required
-                                value={formData.category}
-                                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                                className="w-full h-11 bg-white border border-gray-200 rounded-md px-4 focus:outline-none focus:ring-2 focus:ring-purple-600/10 focus:border-purple-600 transition-all text-sm font-medium"
-                            >
-                                <option value="">Select a service...</option>
-                                <option value="Electrician">Electrician</option>
-                                <option value="Plumber">Plumber</option>
-                                <option value="Home Cleaning">Home Cleaning</option>
-                                <option value="AC Repair">AC Repair</option>
-                                <option value="Mechanic">Mechanic</option>
-                                <option value="Tutoring">Tutoring</option>
-                                <option value="Other">Other</option>
-                            </select>
+                        <div className="space-y-4">
+                            <Label htmlFor="category" className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1 flex items-center gap-2">
+                                <Layers className="h-3 w-3" /> Nooca Adeegga
+                            </Label>
+                            <div className="relative group">
+                                <select
+                                    id="category"
+                                    required
+                                    value={formData.category}
+                                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                    className="w-full h-16 bg-white border-0 ring-1 ring-slate-200 rounded-2xl px-6 pr-12 text-base font-bold text-slate-900 appearance-none focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all cursor-pointer hover:bg-slate-50"
+                                >
+                                    <option value="" className="text-slate-400">Dooro adeegga aad u baahantahay...</option>
+                                    <option value="Electrician">Korontayste (Electrician)</option>
+                                    <option value="Plumber">Tuubayste (Plumber)</option>
+                                    <option value="Home Cleaning">Nadiifinta Guryaha (Cleaning)</option>
+                                    <option value="AC Repair">Farsamada AC-ga (AC Repair)</option>
+                                    <option value="Mechanic">Mikaanig (Mechanic)</option>
+                                    <option value="Tutoring">Macallin/Cashirro (Tutoring)</option>
+                                    <option value="Other">Adeeg kale (Other)</option>
+                                </select>
+                                <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 group-hover:text-primary transition-colors">
+                                    <ChevronDown className="h-5 w-5" />
+                                </div>
+                            </div>
                         </div>
 
                         {/* Description */}
-                        <div className="space-y-2">
-                            <Label htmlFor="description" className="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">Description</Label>
+                        <div className="space-y-4">
+                            <Label htmlFor="description" className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Sharaxaad kooban</Label>
                             <Textarea
                                 id="description"
                                 value={formData.description}
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                placeholder="Describe the task..."
-                                className="min-h-[120px] bg-white border border-gray-200 rounded-md px-4 py-3 focus:ring-2 focus:ring-purple-600/10 focus:border-purple-600 transition-all text-sm resize-none"
+                                placeholder="Si faahfaahsan noogu sheeg waxaad u baahantahay..."
+                                className="min-h-[160px] bg-white border-0 ring-1 ring-slate-200 rounded-2xl p-6 text-base font-medium resize-none placeholder:text-slate-300 focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-slate-50"
                                 required
                             />
                         </div>
 
                         {/* Location & Date */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <Label htmlFor="location" className="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">Location</Label>
-                                <div className="relative">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-4">
+                                <Label htmlFor="location" className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Goobta</Label>
+                                <div className="relative group">
                                     <Input
                                         id="location"
                                         value={formData.location}
                                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                                        placeholder="Town, Neighborhood"
+                                        placeholder="Tusaale: Galkio"
                                         required
-                                        className="h-11 bg-white border border-gray-200 rounded-md pl-10 text-sm focus:ring-2 focus:ring-purple-600/10 focus:border-purple-600"
+                                        className="h-16 bg-white border-0 ring-1 ring-slate-200 rounded-2xl pl-14 text-base font-bold text-slate-900 focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-slate-50"
                                     />
-                                    <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-purple-600" />
+                                    <div className="absolute left-5 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-focus-within:bg-primary group-focus-within:text-white transition-colors">
+                                        <MapPin className="h-4 w-4" />
+                                    </div>
                                 </div>
                             </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="serviceDate" className="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">Date</Label>
-                                <div className="relative">
+                            <div className="space-y-4">
+                                <Label htmlFor="serviceDate" className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Taariikhda</Label>
+                                <div className="relative group">
                                     <Input
                                         id="serviceDate"
                                         type="date"
                                         value={formData.serviceDate}
                                         onChange={(e) => setFormData({ ...formData, serviceDate: e.target.value })}
                                         required
-                                        className="h-11 bg-white border border-gray-200 rounded-md pl-10 text-sm focus:ring-2 focus:ring-purple-600/10 focus:border-purple-600"
+                                        className="h-16 bg-white border-0 ring-1 ring-slate-200 rounded-2xl pl-14 text-base font-bold text-slate-900 focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-slate-50"
                                     />
-                                    <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-purple-600" />
+                                    <div className="absolute left-5 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-focus-within:bg-primary group-focus-within:text-white transition-colors">
+                                        <Calendar className="h-4 w-4" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </CardContent>
 
-                    <CardFooter className="px-10 pb-10 flex gap-4">
+                    <CardFooter className="p-8 md:p-12 pt-0 flex flex-col md:flex-row gap-5">
                         <Button
-                            variant="outline"
+                            variant="ghost"
                             type="button"
                             onClick={() => router.back()}
-                            className="w-1/3 h-11 rounded-md font-bold text-xs uppercase"
+                            className="w-full md:w-auto h-16 px-8 rounded-2xl font-bold text-slate-400 hover:text-slate-600 hover:bg-slate-50 text-xs uppercase tracking-widest"
                         >
-                            Cancel
+                            Iska daa
                         </Button>
                         <Button
                             type="submit"
                             disabled={isLoading}
-                            className="flex-1 h-11 bg-purple-600 hover:bg-purple-700 text-white rounded-md font-bold text-xs uppercase shadow-md shadow-purple-500/20 disabled:opacity-50"
+                            className="w-full md:flex-1 h-16 bg-primary hover:bg-primary/90 text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 active:scale-[0.98] transition-all disabled:opacity-50 hover:-translate-y-1"
                         >
                             {isLoading ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
+                                <Loader2 className="h-5 w-5 animate-spin" />
                             ) : (
                                 <>
-                                    <Send className="mr-2 h-4 w-4" />
-                                    Submit Request
+                                    <Send className="mr-2 h-5 w-5" />
+                                    Dir Codsiga
                                 </>
                             )}
                         </Button>

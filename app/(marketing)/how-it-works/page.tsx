@@ -28,15 +28,15 @@ export default function HowItWorksPage() {
                     <div className="flex flex-col items-center text-center space-y-6 max-w-4xl mx-auto">
                         <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary border border-primary/20 backdrop-blur-sm transition-all hover:bg-primary/15 cursor-default">
                             <Sparkles className="h-4 w-4" />
-                            <span>Transparent & Reliable Process</span>
+                            <span>Hab Cad oo Lagu Kalsoon Yahay</span>
                         </div>
-                        <h1 className="text-4xl font-black tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-                            Experience Seamless <br />
-                            <span className="bg-linear-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent">Service Delivery</span>
+                        <h1 className="text-3xl font-black tracking-tighter sm:text-4xl md:text-5xl lg:text-5xl">
+                            Adeeg Fudud oo <br />
+                            <span className="bg-linear-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent">Degdeg ah</span>
                         </h1>
-                        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-                            We've simplified the way you find and book professionals.
-                            From emergency repairs to scheduled maintenance, we've got you covered.
+                        <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
+                            Waxaan fududeynay sida aad u hesho oo aad ugu dalbanayso xirfadlayaal.
+                            Dayactir degdeg ah iyo hawlo qorshaysan, dhammaantood waan ku qabanaynaa.
                         </p>
                     </div>
                 </div>
@@ -46,7 +46,7 @@ export default function HowItWorksPage() {
             <section className="pt-8 pb-12 md:pb-16 relative overflow-hidden">
                 {/* Background Text Decor */}
                 <div className="absolute top-0 right-0 text-[15vw] font-black text-primary/5 select-none -z-10 tracking-tighter uppercase whitespace-nowrap -rotate-6 translate-y-1/4">
-                    The Steps
+                    Tillaabooyinka
                 </div>
 
                 <div className="container px-4 md:px-6">
@@ -61,19 +61,19 @@ export default function HowItWorksPage() {
                                             01
                                         </div>
                                     </div>
-                                    <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Post Your Request</h2>
+                                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Soo Dir Codsigaaga</h2>
                                 </div>
                                 <div className="space-y-4">
                                     <p className="text-xl text-muted-foreground leading-relaxed">
-                                        Simply describe what you need. Whether it's a leaky faucet or a complete house wiring,
-                                        include as many details as possible for better service matching.
+                                        Si fudud u sharax waxa aad u baahan tahay. Hadday tahay cilad walba oo kuhaysta,
+                                        ku dar faahfaahin badan si aad u hesho adeeg ku habboon.
                                     </p>
                                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
                                         {[
-                                            { icon: CheckCircle, text: "Attach photos" },
-                                            { icon: CheckCircle, text: "Set your location" },
-                                            { icon: CheckCircle, text: "Define your budget" },
-                                            { icon: CheckCircle, text: "Pick your timeline" }
+                                            { icon: CheckCircle, text: "Ku dar sawirro" },
+                                            { icon: CheckCircle, text: "Sheeg goobta" },
+                                            { icon: CheckCircle, text: "Qeexso miisaaniyaddaada" },
+                                            { icon: CheckCircle, text: "Dooro waqtiga ku haboon" }
                                         ].map((item, i) => (
                                             <li key={i} className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 border border-border/50 hover:border-primary/20 hover:bg-background transition-all group/li">
                                                 <item.icon className="h-5 w-5 text-primary group-hover/li:scale-110 transition-transform" />
@@ -120,19 +120,19 @@ export default function HowItWorksPage() {
                                             02
                                         </div>
                                     </div>
-                                    <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Get Matched</h2>
+                                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight">La Xiriir Xirfadle</h2>
                                 </div>
                                 <div className="space-y-4">
                                     <p className="text-xl text-muted-foreground leading-relaxed">
-                                        Our platform connects you with the best-rated professionals in your immediate area.
-                                        They'll review your request and accept it based on their expertise and availability.
+                                        Madalsheenu waxay kugu xiraysaa xirfadlayaasha ugu fiican ee deegaankaaga.
+                                        Waxay dib loo eegi doonaan codsigaaga oo ay aqbali doonaan hadday khibradoodu iyo waqtigoodu aad u ogolaatid.
                                     </p>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         {[
-                                            { icon: ShieldCheck, title: "Verified Pros", desc: "Background checked" },
-                                            { icon: Star, title: "Top Rated", desc: "Highest quality" },
-                                            { icon: Clock, title: "Fast Matches", desc: "Under 5 mins" },
-                                            { icon: Zap, title: "Instant Booking", desc: "One-click hire" }
+                                            { icon: ShieldCheck, title: "Xirfadlayaal La Hubiyay", desc: "Baaritaan dhabta ah" },
+                                            { icon: Star, title: "Qiimaha Ugu Sarreeya", desc: "Tayada ugu fiican" },
+                                            { icon: Clock, title: "Isku-xir Degdeg ah", desc: "Wax ka yar 5 daqiiqo" },
+                                            { icon: Zap, title: "Dalbasho Degdeg ah", desc: "Hal guji oo shaqayso" }
                                         ].map((item, i) => (
                                             <div key={i} className="flex gap-4 p-4 rounded-2xl bg-muted/30 border border-border/50 hover:bg-background transition-colors group/item">
                                                 <div className="flex-none flex items-center justify-center w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 group-hover/item:scale-110 transition-transform">
@@ -159,22 +159,22 @@ export default function HowItWorksPage() {
                                             03
                                         </div>
                                     </div>
-                                    <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Job Done & Pay</h2>
+                                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Shaqo Dhammaystiran & Bixi</h2>
                                 </div>
                                 <div className="space-y-6">
                                     <p className="text-xl text-muted-foreground leading-relaxed">
-                                        Once the work is completed to your satisfaction, simply release the payment.
-                                        Don't forget to rate your experience to help others!
+                                        Markii shaqada la dhammeeyo oo aad ku qanacdo, si fudud u sii daa lacagta.
+                                        Ha iloobin inaad qiimayso khibradaada si aad u caawiso dadka kale!
                                     </p>
                                     <div className="p-6 rounded-3xl bg-linear-to-br from-emerald-500/5 to-teal-500/5 border-2 border-emerald-500/10 space-y-4">
                                         <div className="flex items-center gap-4">
                                             <div className="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center text-white">
                                                 <CheckCircle className="h-6 w-6" />
                                             </div>
-                                            <div className="font-bold">100% Satisfaction Guarantee</div>
+                                            <div className="font-bold">100% Dammaanad Qanacsanaanta</div>
                                         </div>
                                         <p className="text-sm text-muted-foreground">
-                                            If you're not happy with the service, our support team is available 24/7 to help resolve any issues.
+                                            Haddii aadan ku qanacsanayn adeegga, kooxdeena taageerada ayaa diyaar ah 24/7 si ay kaaga caawiyaan xalinta dhibaatooyinka.
                                         </p>
                                     </div>
                                 </div>
@@ -196,34 +196,60 @@ export default function HowItWorksPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="pt-8 md:pt-12 pb-24 md:pb-32">
+            <section className="pt-8 pb-12 md:pb-20">
                 <div className="container px-4 md:px-6">
-                    <div className="relative overflow-hidden rounded-[3rem] bg-linear-to-br from-primary via-blue-700 to-indigo-900 text-white p-12 md:p-20 shadow-2xl">
-                        {/* Background Orbs */}
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                    <div className="relative overflow-hidden rounded-[2rem] bg-primary px-6 py-12 md:px-12 md:py-16 shadow-2xl">
+                        {/* Abstract Shapes */}
+                        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
+                        <div className="absolute top-0 left-0 -ml-20 -mt-20 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
+                        <div className="absolute bottom-0 left-20 -mb-20 w-80 h-80 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
 
-                        <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center text-center space-y-8">
-                            <h2 className="text-4xl font-black tracking-tighter md:text-5xl lg:text-6xl">
-                                Ready to Get Started?
-                            </h2>
-                            <p className="text-xl text-white/90 leading-relaxed max-w-2xl">
-                                Join thousands of Somali families who have simplified their home maintenance
-                                with our trusted professionals.
-                            </p>
+                        <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
+                            <div className="space-y-6 text-left">
+                                <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                                    Diyaar Ma u Tahay <br />
+                                    <span className="text-blue-200">Inaad Bilowdo?</span>
+                                </h2>
+                                <p className="text-lg text-white/90 max-w-xl">
+                                    Ku biir kumanaan qoys oo Soomaaliyeed oo si fudud ku helay dayactirka guryahooda
+                                    iyagoo ay u shaqeeyeen xirfadlayaal lagu kalsoon yahay.
+                                </p>
+                                <div className="flex flex-wrap gap-4 pt-2">
+                                    <Link href="/register">
+                                        <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-bold px-8 h-12 rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-black/20">
+                                            Samee Akoon
+                                            <ArrowRight className="ml-2 h-4 w-4" />
+                                        </Button>
+                                    </Link>
+                                    <Link href="/services">
+                                        <Button variant="outline" size="lg" className="border-white/30 bg-white/10 backdrop-blur-md text-white font-semibold px-8 h-12 rounded-xl hover:bg-white hover:text-primary hover:border-white transition-all">
+                                            Fiiri Adeegyada
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </div>
 
-                            <div className="flex flex-col sm:flex-row justify-center gap-5 pt-4 w-full sm:w-auto">
-                                <Link href="/register" className="w-full sm:w-auto">
-                                    <Button size="lg" className="h-16 px-10 rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl transition-all w-full bg-white text-primary border-0 hover:-translate-y-1 active:scale-95 hover:bg-primary hover:text-white group">
-                                        Create Account
-                                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                                    </Button>
-                                </Link>
-                                <Link href="/services" className="w-full sm:w-auto">
-                                    <Button size="lg" className="h-16 px-10 rounded-2xl text-lg font-bold bg-white/20 border-2 border-white/40 backdrop-blur-md hover:bg-white/30 transition-all w-full text-white hover:-translate-y-1 active:scale-95">
-                                        Browse Services
-                                    </Button>
-                                </Link>
+                            {/* Trust Stats - Compact Design */}
+                            <div className="lg:pl-10">
+                                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-xl grid grid-cols-2 gap-6 relative overflow-hidden">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50" />
+                                    <div>
+                                        <div className="text-3xl font-black text-white mb-1">5,000+</div>
+                                        <div className="text-sm font-medium text-blue-200">Qoys oo ku qanacsan</div>
+                                    </div>
+                                    <div>
+                                        <div className="text-3xl font-black text-white mb-1">4.9/5</div>
+                                        <div className="text-sm font-medium text-blue-200">Qiimaynta Macaamiisha</div>
+                                    </div>
+                                    <div className="col-span-2 pt-4 border-t border-white/10 flex items-center gap-2 text-sm text-blue-200">
+                                        <div className="flex -space-x-2">
+                                            {[1, 2, 3].map(i => (
+                                                <div key={i} className="w-8 h-8 rounded-full bg-blue-600 border-2 border-primary flex items-center justify-center text-[10px] text-white font-bold">✓</div>
+                                            ))}
+                                        </div>
+                                        <span className="ml-2">Xirfadlayaal la xaqiijiyay</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

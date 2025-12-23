@@ -22,7 +22,7 @@ export function ImageUpload({ currentImage, onUploadSuccess, className }: ImageU
 
         // Basic validation
         if (!file.type.startsWith("image/")) {
-            toast.error("Fadlan soo gali sawir sax ah.");
+            toast.error("Fadlan soo gali sawir kaaga .");
             return;
         }
 
@@ -53,7 +53,7 @@ export function ImageUpload({ currentImage, onUploadSuccess, className }: ImageU
                 toast.success(data.message);
                 if (onUploadSuccess) onUploadSuccess(data.image);
             } else {
-                toast.error("Wuu dhib ku yimid soo galinta sawirka.");
+                toast.error("Waan ka xunnahay, sorry muuqaalkagii (profile) laguma uusan cusubaysiinin");
             }
         } catch (error) {
             toast.error("Cillad farsamo ayaa dhacday.");
@@ -77,11 +77,13 @@ export function ImageUpload({ currentImage, onUploadSuccess, className }: ImageU
 
     return (
         <div className={cn("relative group cursor-pointer", className)} onClick={triggerFileInput}>
-            <div className="relative h-24 w-24 md:h-32 md:w-32 rounded-2xl overflow-hidden bg-gray-100 border-2 border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center justify-center shadow-inner">
+            <div className="relative aspect-square h-24 w-24 md:h-32 md:w-32 rounded-full overflow-hidden bg-gray-50 border-4 border-white shadow-xl ring-1 ring-gray-100 group-hover:ring-blue-400 group-hover:scale-[1.02] transition-all flex items-center justify-center">
                 {preview ? (
                     <img src={preview} alt="Profile" className="h-full w-full object-cover" />
                 ) : (
-                    <User className="h-10 w-10 text-gray-300" />
+                    <div className="h-full w-full flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100">
+                        <User className="h-10 w-10 text-gray-300" />
+                    </div>
                 )}
 
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

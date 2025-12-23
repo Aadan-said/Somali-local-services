@@ -18,32 +18,32 @@ export function MobileNav({ isClient }: MobileNavProps) {
 
     const links = isClient
         ? [
-            { href: "/client", label: "Overview", icon: LayoutDashboard },
-            { href: "/client/requests", label: "My Requests", icon: ShoppingBag },
-            { href: "/client/profile", label: "Profile", icon: User },
-            { href: "/client/settings", label: "Settings", icon: Settings },
+            { href: "/client", label: "Aragtida Guud", icon: LayoutDashboard },
+            { href: "/client/requests", label: "Codsiyadaada", icon: ShoppingBag },
+            { href: "/client/profile", label: "Profile-ka", icon: User },
+            { href: "/client/settings", label: "Habaynta", icon: Settings },
         ]
         : [
-            { href: "/provider", label: "Dashboard", icon: LayoutDashboard },
-            { href: "/provider/jobs", label: "My Jobs", icon: ShoppingBag },
-            { href: "/provider/earnings", label: "Earnings", icon: DollarSign },
-            { href: "/provider/profile", label: "Profile", icon: User },
+            { href: "/provider", label: "Dashboard-ka", icon: LayoutDashboard },
+            { href: "/provider/jobs", label: "Shaqooyinkaaga", icon: ShoppingBag },
+            { href: "/provider/earnings", label: "Dakhliga", icon: DollarSign },
+            { href: "/provider/profile", label: "Profile-ka", icon: User },
         ];
 
     return (
         <div className="md:hidden">
             {/* Mobile Header */}
-            <div className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4 z-50">
-                <Link href="/" className="font-bold text-lg bg-linear-to-r from-primary to-blue-600 bg-clip-text text-transparent">
-                    Somali Services
+            <div className="fixed top-0 left-0 right-0 h-16 bg-white/80 backdrop-blur-xl border-b border-gray-100/50 flex items-center justify-between px-4 z-50">
+                <Link href="/" className="font-black text-xl bg-linear-to-r from-primary via-blue-600 to-primary bg-clip-text text-transparent tracking-tight">
+                    Somali<span className="text-gray-900">Services</span>
                 </Link>
                 <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setOpen(!open)}
-                    className="relative"
+                    className="relative rounded-xl hover:bg-primary/5 transition-colors"
                 >
-                    {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                    {open ? <X className="h-6 w-6 text-primary" /> : <Menu className="h-6 w-6 text-gray-600" />}
                 </Button>
             </div>
 
@@ -54,13 +54,14 @@ export function MobileNav({ isClient }: MobileNavProps) {
                         className="fixed inset-0 bg-black/50 z-40 md:hidden"
                         onClick={() => setOpen(false)}
                     />
-                    <div className="fixed top-16 left-0 right-0 bottom-0 bg-white z-40 overflow-y-auto md:hidden">
-                        <div className="p-4 space-y-2">
+                    <div className="fixed top-16 left-0 right-0 bottom-0 bg-white/95 backdrop-blur-2xl z-40 overflow-y-auto md:hidden animate-in fade-in slide-in-from-top-4 duration-300">
+                        <div className="p-4 space-y-3">
                             {/* Role Badge */}
-                            <div className="p-4 bg-linear-to-br from-purple-50 to-blue-50 rounded-xl mb-4 border border-purple-100">
-                                <p className="text-xs font-bold text-purple-600 uppercase tracking-wider mb-1">Portal</p>
-                                <p className="text-lg font-bold text-gray-900">
-                                    {isClient ? "Client" : "Provider"} <span className="text-gray-400 font-medium">Space</span>
+                            <div className="p-5 bg-linear-to-br from-primary/5 via-white to-blue-50/50 rounded-2xl mb-4 border border-primary/10 shadow-xl shadow-primary/5 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full blur-2xl -mr-8 -mt-8" />
+                                <p className="text-[10px] font-black text-primary/60 uppercase tracking-widest mb-1 relative z-10">System Portal</p>
+                                <p className="text-xl font-black text-gray-900 tracking-tight relative z-10">
+                                    {isClient ? "Macmiil" : "Xirfadle"} <span className="text-primary font-medium opacity-60">HQ</span>
                                 </p>
                             </div>
 
@@ -74,14 +75,14 @@ export function MobileNav({ isClient }: MobileNavProps) {
                                         href={link.href}
                                         onClick={() => setOpen(false)}
                                         className={cn(
-                                            "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all",
+                                            "flex items-center gap-4 rounded-2xl px-5 py-4 text-base font-black transition-all duration-300",
                                             isActive
-                                                ? "bg-primary text-white shadow-sm"
-                                                : "text-gray-600 hover:bg-purple-50 hover:text-primary"
+                                                ? "bg-linear-to-r from-primary to-blue-600 text-white shadow-lg shadow-primary/20 scale-[1.02]"
+                                                : "text-gray-600 hover:bg-primary/5 hover:text-primary active:scale-98"
                                         )}
                                     >
-                                        <Icon className="h-5 w-5" />
-                                        <span>{link.label}</span>
+                                        <Icon className={cn("h-5 w-5", isActive ? "animate-pulse" : "")} />
+                                        <span className="tracking-tight">{link.label}</span>
                                     </Link>
                                 );
                             })}
@@ -90,10 +91,12 @@ export function MobileNav({ isClient }: MobileNavProps) {
                             <Link
                                 href="/login"
                                 onClick={() => setOpen(false)}
-                                className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition-all mt-4"
+                                className="flex items-center gap-4 rounded-2xl px-5 py-4 text-base font-black text-red-600 bg-red-50/50 border border-red-100/50 transition-all mt-6 active:scale-95 shadow-sm"
                             >
-                                <LogOut className="h-5 w-5" />
-                                <span>Log Out</span>
+                                <div className="h-10 w-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
+                                    <LogOut className="h-5 w-5" />
+                                </div>
+                                <span className="uppercase tracking-widest text-xs">Ka Bax</span>
                             </Link>
                         </div>
                     </div>

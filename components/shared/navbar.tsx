@@ -12,9 +12,9 @@ export function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const navLinks = [
-        { href: "/services", label: "Services" },
-        { href: "/how-it-works", label: "How it Works" },
-        { href: "/providers", label: "For Providers" },
+        { href: "/services", label: "Adeegyada" },
+        { href: "/how-it-works", label: "Sidee U shaqaynaa" },
+        { href: "/providers", label: "Xirfadlayaasha" },
     ];
 
     return (
@@ -55,7 +55,7 @@ export function Navbar() {
                 <div className="hidden md:flex items-center space-x-3">
                     <Link href="/login">
                         <Button variant="ghost" size="sm" className="font-medium">
-                            Log in
+                            Geli Akoon hore
                         </Button>
                     </Link>
                     <Link href="/register">
@@ -63,7 +63,7 @@ export function Navbar() {
                             size="sm"
                             className="bg-linear-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 font-medium shadow-md hover:shadow-lg transition-all group"
                         >
-                            Get Started
+                            Abuur Akoon cusub
                             <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
                         </Button>
                     </Link>
@@ -112,12 +112,12 @@ export function Navbar() {
                         <div className="pt-4 space-y-2 border-t border-border/40">
                             <Link href="/login" className="block" onClick={() => setMobileMenuOpen(false)}>
                                 <Button variant="outline" className="w-full justify-center">
-                                    Log in
+                                    Geli Akoon hore
                                 </Button>
                             </Link>
                             <Link href="/register" className="block" onClick={() => setMobileMenuOpen(false)}>
                                 <Button className="w-full justify-center bg-linear-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-md group">
-                                    Get Started
+                                    Abuur Akoon cusub
                                     <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
                                 </Button>
                             </Link>

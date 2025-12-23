@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +11,11 @@ import { ShieldCheck, User as UserIcon, Briefcase, Sparkles, Phone, Mail, Lock, 
 import { cn } from "@/lib/utils";
 
 export default function RegisterPage() {
-    const [role, setRole] = useState<"client" | "provider">("client");
+    const searchParams = useSearchParams();
+    const roleParam = searchParams.get("role");
+    const [role, setRole] = useState<"client" | "provider">(
+        roleParam === "provider" ? "provider" : "client"
+    );
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 

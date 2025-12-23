@@ -6,112 +6,117 @@ export default function LandingPage() {
     return (
         <div className="flex flex-col min-h-screen">
             {/* Hero Section */}
-            <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
+            <section className="relative py-12 md:py-20 lg:py-24 overflow-hidden">
                 {/* Animated Gradient Background */}
-                <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-blue-50 to-background -z-10" />
+                <div className="absolute inset-0 bg-linear-to-br from-blue-50/50 via-white to-blue-50/30 -z-10" />
 
-                {/* Floating Orbs */}
-                <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-                    <div className="absolute top-20 right-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-                    <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse delay-700" />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-400/10 rounded-full blur-3xl" />
-                </div>
+                {/* Refined Floating Element - Right Side */}
+                <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl opacity-60" />
+                <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[600px] h-[600px] bg-blue-400/5 rounded-full blur-3xl opacity-60" />
 
                 <div className="container px-4 md:px-6 relative z-10">
-                    <div className="flex flex-col items-center space-y-6 text-center max-w-5xl mx-auto">
-                        {/* Badge */}
-                        <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary border border-primary/20 backdrop-blur-sm">
-                            <Sparkles className="h-4 w-4" />
-                            <span>Trusted by 5,000+ Somali families</span>
+                    <div className="flex flex-col items-center space-y-8 text-center max-w-4xl mx-auto">
+                        {/* Premium Badge */}
+                        <div className="animate-fade-in-up">
+                            <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1 text-xs font-bold text-primary shadow-lg shadow-primary/5 border border-primary/10 transition-transform hover:scale-105">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                                </span>
+                                <span>Waxaa Na'aaminay In kabadan 5,000+ Qoysas Somaliyeed</span>
+                            </div>
                         </div>
 
-                        {/* Main Heading */}
-                        <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
-                            <span className="block mb-1">Adeegyo xirfadaysan oo</span>
-                            <span className="bg-linear-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        {/* Main Heading - Reduced Size & Refined */}
+                        <h1 className="text-3xl font-black tracking-tight sm:text-3xl md:text-5xl text-slate-900 leading-[1.15]">
+                            <span className="block mb-2 text-slate-800">Adeegyo xirfadaysan oo</span>
+                            <span className="bg-linear-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent pb-2">
                                 laguugu keenayo albaabkaaga
                             </span>
                         </h1>
 
                         {/* Description */}
-                        <p className="mx-auto max-w-[700px] text-base md:text-lg text-muted-foreground leading-relaxed">
-                            Hel korontayste , tuubayste iyo farsamayaqaanno lagu kalsoon yahay. <br></br>
-                            Dalbo isla markiiba, kuna bixi si ammaan ah adigoo la macaamilaya xirfadlayaal la xaqiijiyay.
+                        <p className="mx-auto max-w-2xl text-lg text-slate-600 leading-relaxed font-medium">
+                            Hel korontayste, tuubayste iyo farsamayaqaanno lagu kalsoon yahay.
+                            Dalbo isla markiiba, kuna bixi si ammaan ah.
                         </p>
 
-                        {/* CTA Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto pt-2">
+                        {/* CTA Buttons - Premium Styling */}
+                        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto pt-4">
                             <Link href="/register">
                                 <Button
                                     size="lg"
-                                    className="w-full sm:w-auto bg-linear-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 text-base h-12 px-6 shadow-lg hover:shadow-xl transition-all group"
+                                    className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-bold h-14 px-8 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 group"
                                 >
                                     Book a Service
-                                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                                 </Button>
                             </Link>
                             <Link href="/services">
                                 <Button
                                     variant="outline"
                                     size="lg"
-                                    className="w-full sm:w-auto text-base h-12 px-6 border-2 hover:bg-muted/50 group"
+                                    className="w-full sm:w-auto h-14 px-8 rounded-2xl border-2 border-slate-200 text-slate-700 font-bold hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900 transition-all duration-300"
                                 >
-                                    <Search className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                                    <Search className="mr-2 h-4 w-4" />
                                     Find Providers
                                 </Button>
                             </Link>
                         </div>
 
-                        {/* Stats */}
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 w-full max-w-3xl">
-                            <div className="relative group">
-                                <div className="absolute inset-0 bg-linear-to-br from-primary/20 to-blue-600/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
-                                <div className="relative flex flex-col items-center p-6 space-y-2 rounded-2xl border-2 border-primary/20 bg-background/80 backdrop-blur-sm hover:border-primary/40 transition-all hover:shadow-lg">
-                                    <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-linear-to-br from-primary to-blue-600 text-white shadow-lg">
-                                        <Users className="h-7 w-7" />
-                                    </div>
-                                    <div className="text-3xl font-bold bg-linear-to-r from-primary to-blue-600 bg-clip-text text-transparent">500+</div>
-                                    <div className="text-sm font-medium text-muted-foreground">Xirfadlayaal La Hubiyay</div>
-                                </div>
-                            </div>
+                        {/* Stats - Horizontal & Sleek */}
+                        {/* Stats - Premium Glass Design */}
+                        <div className="w-full max-w-5xl mx-auto mt-12 md:mt-20">
+                            {/* Unified Glass Container */}
+                            <div className="relative rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-2xl shadow-blue-900/5 p-2 md:p-4">
+                                <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200/60">
 
-                            <div className="relative group">
-                                <div className="absolute inset-0 bg-linear-to-br from-green-500/20 to-emerald-600/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
-                                <div className="relative flex flex-col items-center p-6 space-y-2 rounded-2xl border-2 border-green-500/20 bg-background/80 backdrop-blur-sm hover:border-green-500/40 transition-all hover:shadow-lg">
-                                    <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-linear-to-br from-green-500 to-emerald-600 text-white shadow-lg">
-                                        <CheckCircle className="h-7 w-7" />
+                                    {/* Stat 1 */}
+                                    <div className="group relative p-6 md:px-8 flex flex-col items-center text-center transition-all duration-300 hover:bg-white/50 rounded-2xl">
+                                        <div className="mb-4 inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                                            <Users className="h-7 w-7" />
+                                        </div>
+                                        <div className="space-y-1">
+                                            <div className="text-4xl font-black text-slate-800 tracking-tight group-hover:text-blue-600 transition-colors">500+</div>
+                                            <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">Xirfadlayaal</div>
+                                        </div>
                                     </div>
-                                    <div className="text-3xl font-bold bg-linear-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">10K+</div>
-                                    <div className="text-sm font-medium text-muted-foreground">Jobs Done</div>
-                                </div>
-                            </div>
 
-                            <div className="relative group">
-                                <div className="absolute inset-0 bg-linear-to-br from-yellow-500/20 to-orange-600/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
-                                <div className="relative flex flex-col items-center p-6 space-y-2 rounded-2xl border-2 border-yellow-500/20 bg-background/80 backdrop-blur-sm hover:border-yellow-500/40 transition-all hover:shadow-lg">
-                                    <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-linear-to-br from-yellow-500 to-orange-600 text-white shadow-lg">
-                                        <Star className="h-7 w-7" />
+                                    {/* Stat 2 */}
+                                    <div className="group relative p-6 md:px-8 flex flex-col items-center text-center transition-all duration-300 hover:bg-white/50 rounded-2xl">
+                                        <div className="mb-4 inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 shadow-sm group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+                                            <CheckCircle className="h-7 w-7" />
+                                        </div>
+                                        <div className="space-y-1">
+                                            <div className="text-4xl font-black text-slate-800 tracking-tight group-hover:text-emerald-600 transition-colors">10K+</div>
+                                            <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">Shaqooyin</div>
+                                        </div>
                                     </div>
-                                    <div className="text-3xl font-bold bg-linear-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">4.9/5</div>
-                                    <div className="text-sm font-medium text-muted-foreground">Avg Rating</div>
+
+                                    {/* Stat 3 */}
+                                    <div className="group relative p-6 md:px-8 flex flex-col items-center text-center transition-all duration-300 hover:bg-white/50 rounded-2xl">
+                                        <div className="mb-4 inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-amber-50 text-amber-500 shadow-sm group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300">
+                                            <Star className="h-7 w-7 fill-current" />
+                                        </div>
+                                        <div className="space-y-1">
+                                            <div className="text-4xl font-black text-slate-800 tracking-tight group-hover:text-amber-500 transition-colors">4.9/5</div>
+                                            <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">Qiimaynta</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Bottom Wave */}
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-muted/30 to-transparent" />
+                {/* Bottom Wave - Seamless Transition */}
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
             </section>
 
             {/* Services Grid */}
-            <section className="relative pt-24 md:pt-32 pb-12 md:pb-16 overflow-hidden">
-                {/* Background Decoration */}
-                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -z-10" />
-                <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-blue-400/5 rounded-full blur-3xl -z-10" />
-
+            <section className="relative py-16 md:py-24 overflow-hidden">
                 <div className="container px-4 md:px-6 relative">
-                    <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
+                    <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
                         <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary border border-primary/20 backdrop-blur-sm">
                             <Zap className="h-3.5 w-3.5" />
                             <span>Hadda La Heli Karo</span>
@@ -119,92 +124,74 @@ export default function LandingPage() {
                         <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl">
                             Adeegyada <span className="text-primary italic">Ugu Caansan</span>
                         </h2>
-                        <p className="max-w-[700px] text-muted-foreground text-lg md:text-xl leading-relaxed">
-                            Wax kasta oo aad u baahan tahay si gurigaaga ama xafiiskaaga loo dayactiro, waxaa kuu qabanaya xirfadlayaal la hubiyay oo khibrad leh.
+                        <p className="max-w-[700px] text-muted-foreground text-lg leading-relaxed">
+                            Wax kasta oo aad u baahan tahay si gurigaaga ama xafiiskaaga loo dayactiro.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
                             {
                                 icon: Zap,
                                 label: "Korantayste",
-                                description: "Khabiir ku ah fiilooyinka, dayactirka iyo rakibidaba.",
+                                description: "Khabiir ku ah fiilooyinka & dayactirka.",
                                 gradient: "from-amber-400 to-orange-500",
                                 shadowColor: "shadow-orange-500/20",
-                                bgLight: "bg-amber-500/5"
+                                bgLight: "bg-amber-500/5",
+                                borderColor: "border-amber-500/20"
                             },
                             {
                                 icon: CheckCircle,
                                 label: "Tuubayste",
-                                description: "Hagaajin dillaacyada, tuubooyinka iyo qalabka musqulaha.",
+                                description: "Hagaajinta dillaacyada & tuubooyinka.",
                                 gradient: "from-blue-400 to-indigo-600",
                                 shadowColor: "shadow-blue-500/20",
-                                bgLight: "bg-blue-500/5"
+                                bgLight: "bg-blue-500/5",
+                                borderColor: "border-blue-500/20"
                             },
                             {
                                 icon: Star,
                                 label: "Nadiifiye",
-                                description: "Nadaafad dhamaystiran oo loogu talagalay guryaha iyo xafiisyada.",
+                                description: "Nadaafad dhamaystiran oo guryaha ah.",
                                 gradient: "from-emerald-400 to-teal-600",
                                 shadowColor: "shadow-emerald-500/20",
-                                bgLight: "bg-emerald-500/5"
+                                bgLight: "bg-emerald-500/5",
+                                borderColor: "border-emerald-500/20"
                             },
                             {
                                 icon: Shield,
-                                label: "Dayactirka Qaboojiyaha (AC)",
-                                description: "Dayactir iyo adeeg dhammaan noocyada qaboojiyaasha.",
+                                label: "Qaboojiye (AC)",
+                                description: "Dayactir iyo adeeg qaboojiyaasha.",
                                 gradient: "from-rose-400 to-pink-600",
                                 shadowColor: "shadow-rose-500/20",
-                                bgLight: "bg-rose-500/5"
+                                bgLight: "bg-rose-500/5",
+                                borderColor: "border-rose-500/20"
                             },
                         ].map((service, i) => (
-                            <Link key={i} href="/register" className="group relative block">
-                                {/* Gradient Border Wrapper */}
-                                <div className="absolute -inset-px rounded-[2.1rem] bg-linear-to-br from-border/50 via-primary/5 to-border/50 group-hover:from-primary/50 group-hover:to-blue-600/50 transition-all duration-500 -z-10" />
+                            <Link key={i} href="/register" className="group relative block h-full">
+                                <div className={`relative h-full overflow-hidden rounded-3xl border ${service.borderColor} bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group-hover:border-primary/50`}>
+                                    <div className={`absolute top-0 right-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-linear-to-br ${service.gradient} opacity-10 group-hover:opacity-20 transition-opacity`} />
 
-                                <div className="relative h-full flex flex-col p-8 rounded-4xl bg-background/70 backdrop-blur-2xl transition-all duration-500 group-hover:bg-background/40 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 flex-1">
-                                    {/* Icon Layered Effect */}
-                                    <div className="relative mb-8 w-16 h-16">
-                                        <div className={`absolute inset-0 bg-linear-to-br ${service.gradient} rounded-2xl blur-lg opacity-40 group-hover:opacity-60 transition-opacity`} />
-                                        <div className={`relative flex items-center justify-center w-full h-full rounded-2xl bg-linear-to-br ${service.gradient} text-white shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                                            <service.icon className="h-8 w-8" />
-                                        </div>
+                                    <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br ${service.gradient} text-white shadow-lg shadow-black/5`}>
+                                        <service.icon className="h-6 w-6" />
                                     </div>
 
-                                    {/* Content */}
-                                    <div className="space-y-3 mb-6 flex-1">
-                                        <h3 className="text-xl font-bold tracking-tight group-hover:text-primary transition-colors">
-                                            {service.label}
-                                        </h3>
-                                        <p className="text-muted-foreground text-sm leading-relaxed">
-                                            {service.description}
-                                        </p>
-                                    </div>
-
-                                    {/* Action Bottom */}
-                                    <div className="flex items-center justify-between pt-4 border-t border-border/50">
-                                        <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
-                                            Book Now
-                                        </span>
-                                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-muted group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                                            <ArrowRight className="h-4 w-4" />
-                                        </div>
-                                    </div>
-
-                                    {/* Animated Corner accent */}
-                                    <div className={`absolute top-0 right-0 w-12 h-12 bg-linear-to-bl ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity rounded-tr-[1.4rem] rounded-bl-3xl`} />
+                                    <h3 className="mb-2 text-xl font-bold text-gray-900 group-hover:text-primary transition-colors">
+                                        {service.label}
+                                    </h3>
+                                    <p className="text-sm text-gray-600 leading-relaxed">
+                                        {service.description}
+                                    </p>
                                 </div>
                             </Link>
                         ))}
                     </div>
 
-                    {/* View All Button */}
-                    <div className="mt-12 flex justify-center">
+                    <div className="mt-12 text-center">
                         <Link href="/services">
-                            <Button variant="outline" size="lg" className="h-14 px-10 rounded-full border-2 hover:bg-primary hover:text-white hover:border-primary transition-all duration-500 group">
-                                <span className="mr-2 font-semibold">Fiiri Dhamaan Adeegayada</span>
-                                <TrendingUp className="h-4 w-4 group-hover:translate-y-[-2px] group-hover:translate-x-[2px] transition-transform" />
+                            <Button variant="outline" size="lg" className="rounded-full px-8 border-primary/20 hover:bg-primary/5 text-primary font-semibold hover:border-primary/50 transition-all">
+                                Eeg Dhamaan Adeegyada
+                                <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
                         </Link>
                     </div>
@@ -224,16 +211,16 @@ export default function LandingPage() {
                             <ArrowRight className="h-3.5 w-3.5" />
                             <span>Fudud oo Degdeg ah</span>
                         </div>
-                        <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+                        <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl lg:text-5xl">
                             Sidee ayaan <span className="text-blue-600 italic">Ushaqaynaa</span>
                         </h2>
-                        <p className="text-muted-foreground text-lg md:text-xl max-w-2xl leading-relaxed">
+                        <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                             Markii hore ma fududayn inay is helaan macmiil iyo xirafadlihii ku habonaa inuu shaqadaas qabto ,
-                            Barnaamij kaan wuxuu kuu sahalaya adigoo raacaya qorshaha aan aan u dajinay inaad heshid xirfadle kugu haboon ama macmiil.
+                            Barnaamij kaan wuxuu kuu sahalaya adigoo raacaya qorshaha aan u dajinay inaad heshid xirfadle kugu haboon ama macmiil.
                         </p>
                     </div>
 
-                    <div className="grid gap-12 lg:grid-cols-3 relative">
+                    <div className="grid gap-12 lg:grid-cols-3 xl:gap-16 relative">
                         {/* Connecting Line (Desktop) */}
                         <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-border to-transparent -translate-y-1/2 -z-10" />
 
@@ -265,34 +252,34 @@ export default function LandingPage() {
                         ].map((step, i) => (
                             <div key={i} className="group relative">
                                 {/* Step Card */}
-                                <div className="h-full flex flex-col p-10 rounded-[2.5rem] border border-border/50 bg-background/60 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-3">
+                                <div className="h-full flex flex-col p-12 lg:p-14 rounded-[3rem] border border-border/50 bg-background/60 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-4">
                                     {/* Large Floating Number */}
-                                    <div className="absolute -top-6 -right-6 text-7xl font-black text-primary/10 group-hover:text-primary/20 transition-colors italic">
+                                    <div className="absolute -top-8 -right-8 text-8xl lg:text-9xl font-black text-primary/10 group-hover:text-primary/20 transition-colors italic">
                                         {step.number}
                                     </div>
 
                                     {/* Icon Box */}
-                                    <div className={`relative mb-8 w-20 h-20`}>
-                                        <div className={`absolute inset-0 bg-linear-to-br ${step.gradient} rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />
-                                        <div className={`relative flex items-center justify-center w-full h-full rounded-3xl bg-linear-to-br ${step.gradient} text-white shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                                            <step.icon className="h-10 w-10" />
+                                    <div className={`relative mb-10 w-24 h-24`}>
+                                        <div className={`absolute inset-0 bg-linear-to-br ${step.gradient} rounded-4xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />
+                                        <div className={`relative flex items-center justify-center w-full h-full rounded-4xl bg-linear-to-br ${step.gradient} text-white shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+                                            <step.icon className="h-12 w-12" />
                                         </div>
                                     </div>
 
                                     {/* Text Content */}
-                                    <div className="space-y-4">
-                                        <h3 className="text-2xl font-bold tracking-tight">
+                                    <div className="space-y-6">
+                                        <h3 className="text-3xl font-bold tracking-tight">
                                             {step.title}
                                         </h3>
-                                        <p className="text-muted-foreground leading-relaxed">
+                                        <p className="text-muted-foreground text-lg leading-relaxed">
                                             {step.description}
                                         </p>
                                     </div>
 
                                     {/* Bottom Indicator */}
-                                    <div className="mt-auto pt-8 flex items-center gap-3">
-                                        <div className={`h-1.5 w-12 rounded-full bg-linear-to-r ${step.gradient} opacity-30 group-hover:opacity-100 transition-all duration-500 group-hover:w-20`} />
-                                        <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/30 animate-pulse" />
+                                    <div className="mt-auto pt-10 flex items-center gap-4">
+                                        <div className={`h-2 w-16 rounded-full bg-linear-to-r ${step.gradient} opacity-30 group-hover:opacity-100 transition-all duration-500 group-hover:w-24`} />
+                                        <div className="h-2 w-2 rounded-full bg-muted-foreground/30 animate-pulse" />
                                     </div>
                                 </div>
                             </div>

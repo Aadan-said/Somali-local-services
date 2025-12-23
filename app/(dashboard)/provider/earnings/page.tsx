@@ -34,64 +34,66 @@ export default async function ProviderEarningsPage() {
     const pendingEarnings = 120; // Example pending amount
 
     return (
-        <div className="space-y-8">
-            <div className="flex flex-col gap-2">
-                <h1 className="text-3xl font-black tracking-tight text-gray-900">Earnings</h1>
-                <p className="text-gray-500">Track your income and payment history.</p>
+        <div className="space-y-6">
+            <div className="flex flex-col gap-1.5">
+                <h1 className="text-xl font-black tracking-tight text-gray-900 uppercase">Dakhliga</h1>
+                <p className="text-xs text-gray-500">Halkan kala soco lacagaha kuu soo xarooday iyo kuwa kuu xaroon doona.</p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-3">
-                <Card className="bg-linear-to-br from-gray-900 to-gray-800 text-white border-0 shadow-xl overflow-hidden relative group">
-                    <div className="absolute top-0 right-0 p-8 opacity-10 transition-transform group-hover:scale-125 group-hover:rotate-12 duration-500">
-                        <DollarSign size={80} />
+            <div className="grid gap-4 md:grid-cols-3">
+                <Card className="bg-linear-to-br from-gray-900 to-gray-800 text-white border-0 shadow-2xl shadow-gray-900/10 overflow-hidden relative group rounded-2xl">
+                    <div className="absolute top-0 right-0 p-6 opacity-10 transition-transform group-hover:scale-125 group-hover:rotate-12 duration-500">
+                        <DollarSign size={64} />
                     </div>
                     <CardHeader className="pb-2">
-                        <CardDescription className="text-gray-400 font-bold uppercase tracking-widest text-[10px]">Total Balance</CardDescription>
-                        <CardTitle className="text-4xl font-black">${totalEarnings}</CardTitle>
+                        <CardDescription className="text-gray-400 font-extrabold uppercase tracking-widest text-[8px]">Isku-darka Guud</CardDescription>
+                        <CardTitle className="text-2xl font-black">${totalEarnings}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
-                            <TrendingUp className="h-4 w-4" />
-                            <span>+12.5% from last month</span>
+                        <div className="flex items-center gap-1.5 text-emerald-400 font-black text-[10px] uppercase tracking-wider">
+                            <TrendingUp className="h-3.5 w-3.5" />
+                            <span>+12.5% Bishi ugu dambeysay</span>
                         </div>
                     </CardContent>
                 </Card>
 
-                <Card className="border-gray-100 shadow-sm hover:shadow-md transition-shadow group">
+                <Card className="border-0 bg-white/60 backdrop-blur-xl shadow-2xl shadow-indigo-500/5 ring-1 ring-gray-100/50 rounded-2xl group transition-all duration-300 hover:shadow-indigo-500/10">
                     <CardHeader className="pb-2">
-                        <CardDescription className="text-gray-400 font-bold uppercase tracking-widest text-[10px]">Pending</CardDescription>
-                        <CardTitle className="text-3xl font-black text-gray-900">${pendingEarnings}</CardTitle>
+                        <CardDescription className="text-gray-400 font-black uppercase tracking-widest text-[9px]">Heegan (Pending)</CardDescription>
+                        <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">${pendingEarnings}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="flex items-center gap-2 text-gray-500 text-sm font-medium">
-                            <Clock className="h-4 w-4" />
-                            <span>Available in 2-3 days</span>
+                        <div className="flex items-center gap-1.5 text-gray-500 text-[10px] font-black uppercase tracking-widest">
+                            <Clock className="h-3.5 w-3.5 opacity-50" />
+                            <span>La heli doona 2-3 maalmood</span>
                         </div>
                     </CardContent>
                 </Card>
 
-                <Card className="border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <Card className="border-0 bg-white/60 backdrop-blur-xl shadow-2xl shadow-indigo-500/5 ring-1 ring-gray-100/50 rounded-2xl group transition-all duration-300 hover:shadow-indigo-500/10">
                     <CardHeader className="pb-2">
-                        <CardDescription className="text-gray-400 font-bold uppercase tracking-widest text-[10px]">Jobs Completed</CardDescription>
-                        <CardTitle className="text-3xl font-black text-gray-900">{completedJobs}</CardTitle>
+                        <CardDescription className="text-gray-400 font-black uppercase tracking-widest text-[9px]">Shaqooyinka Dhamaaday</CardDescription>
+                        <CardTitle className="text-2xl font-black text-gray-900 tracking-tight">{completedJobs}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="flex items-center gap-2 text-purple-600 text-sm font-bold">
-                            <CheckCircle2 className="h-4 w-4" />
-                            <span>Active provider since 2025</span>
+                        <div className="flex items-center gap-1.5 text-primary text-[10px] font-black uppercase tracking-widest">
+                            <CheckCircle2 className="h-3.5 w-3.5 opacity-60" />
+                            <span>Xirfadle firfircoon</span>
                         </div>
                     </CardContent>
                 </Card>
             </div>
 
             {/* Recent Payouts Mock Table */}
-            <div className="pt-4">
-                <h2 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-purple-600" />
-                    Recent Payouts
+            <div className="pt-2">
+                <h2 className="text-lg font-black text-gray-900 mb-4 flex items-center gap-2">
+                    <div className="p-1.5 bg-primary/10 rounded-lg">
+                        <Calendar className="h-4 w-4 text-primary" />
+                    </div>
+                    Lacagihii kuu soo dhacay
                 </h2>
-                <Card className="border-gray-100 overflow-hidden">
-                    <div className="divide-y divide-gray-100">
+                <Card className="border-0 bg-white/60 backdrop-blur-xl shadow-2xl shadow-indigo-500/5 ring-1 ring-gray-100/50 rounded-2xl overflow-hidden">
+                    <div className="divide-y divide-gray-100/50">
                         {[
                             { date: "Oct 12, 2025", amount: 450.00, status: "Paid", method: "EVC Plus" },
                             { date: "Oct 01, 2025", amount: 320.50, status: "Paid", method: "e-Dahab" },
@@ -99,17 +101,17 @@ export default async function ProviderEarningsPage() {
                         ].map((payout, i) => (
                             <div key={i} className="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
                                 <div className="flex items-center gap-4">
-                                    <div className="h-10 w-10 rounded-xl bg-gray-100 flex items-center justify-center text-gray-500">
-                                        <CreditCard className="h-5 w-5" />
+                                    <div className="h-9 w-9 rounded-xl bg-gray-50/50 flex items-center justify-center text-gray-400 group-hover:scale-110 transition-transform">
+                                        <CreditCard className="h-4 w-4" />
                                     </div>
                                     <div>
-                                        <p className="font-bold text-gray-900">${payout.amount}</p>
-                                        <p className="text-xs text-gray-400">{payout.date} via {payout.method}</p>
+                                        <p className="font-black text-gray-900 tracking-tight text-sm">${payout.amount}</p>
+                                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{payout.date} via {payout.method}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 font-bold text-[10px] uppercase">
-                                        {payout.status}
+                                    <Badge className="bg-emerald-50 text-emerald-600 border-emerald-100/50 font-black text-[9px] uppercase tracking-widest rounded-lg px-2 py-0.5">
+                                        Waa la bixiyay
                                     </Badge>
                                     <ArrowUpRight className="h-4 w-4 text-gray-300" />
                                 </div>

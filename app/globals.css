@@ -65,3 +65,33 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1400px; /* Limit width on ultra-wide screens */
+  }
+
+  .glass {
+    @apply bg-background/70 backdrop-blur-xl border border-white/20;
+  }
+  
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-xl border border-white/10;
+  }
+
+  .text-gradient {
+    @apply bg-linear-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent;
+  }
+}
+
+/* Custom animations for the WOW factor */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}

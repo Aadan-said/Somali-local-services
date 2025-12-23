@@ -13,7 +13,12 @@ export async function GET(req: Request) {
         const provider = await prisma.provider.findUnique({
             where: { userId: session.user.id },
             include: {
-                reviews: true,
+                reviews: {
+                    include: {
+                        user: { select: { name: true } },
+                        request: { select: { category: true } }
+                    }
+                },
                 requests: true
             }
         });
@@ -30,7 +35,8 @@ export async function GET(req: Request) {
                 new_leads: newLeadsCount,
                 active_jobs: 0,
                 earnings: "$0.00",
-                rating: 0
+                rating: 0,
+                reviews: []
             });
         }
 
@@ -63,7 +69,15 @@ export async function GET(req: Request) {
             new_leads: newLeadsCount,
             active_jobs: activeJobsCount,
             earnings: `$${totalEarnings.toFixed(2)}`,
-            rating: parseFloat(rating.toFixed(1))
+            rating: parseFloat(rating.toFixed(1)),
+            reviews: provider.reviews.map(r => ({
+                id: r.id,
+                rating: r.rating,
+                comment: r.comment,
+                createdAt: r.createdAt,
+                user: r.user,
+                request: r.request
+            }))
         });
 
     } catch (error) {

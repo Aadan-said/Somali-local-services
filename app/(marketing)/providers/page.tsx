@@ -39,38 +39,38 @@ export default function ProvidersPage() {
     const benefits: Benefit[] = [
         {
             icon: DollarSign,
-            title: "Maximize Earnings",
-            description: "Set your own rates and keep 90% of what you earn. Transparent billing, no hidden fees.",
+            title: "Kordhi Dakhligaaga",
+            description: "Qeexso qiimaha aad rabto inaad shaqada kuqabto. shaqo cad, ma jiraan khidmado qarsoon.",
             gradient: "from-emerald-500 to-teal-600"
         },
         {
             icon: Calendar,
-            title: "Total Flexibility",
-            description: "You're the boss. Work when you want, where you want. Accept jobs on your schedule.",
+            title: "Si Dhamaystiran u nidaami",
+            description: "Adiga ayaa madaxa ka ah. Shaqayso marka aad rabto, meel kasta oo aad rabto. Aqbal shaqooyinka jadwalkaaga.",
             gradient: "from-blue-500 to-indigo-600"
         },
         {
             icon: Users,
-            title: "Elite Network",
-            description: "Access thousands of high-value customers actively seeking verified professionals.",
+            title: "Shabakad Sare",
+            description: "Hel kumanaan macaamiil oo qiime sare leh oo si firfircoon u raadinaya xirfadlayaal la xaqiijiyay.",
             gradient: "from-purple-500 to-pink-600"
         },
         {
             icon: ShieldCheck,
-            title: "Guaranteed Pay",
-            description: "Never chase an invoice again. Secure, automatic payments for every completed job.",
+            title: "Lacag Bixindhamays tiran",
+            description: "Mar dambe ha raadinina biil. Lacag dhamaystiran oo toos ah oo shaqo kasta oo la dhammeeyo.",
             gradient: "from-amber-500 to-orange-600"
         },
         {
             icon: BarChart3,
-            title: "Business Insights",
-            description: "Track your performance, ratings, and growth with our advanced provider dashboard.",
+            title: "Fahamka Ganacsiga",
+            description: "La soco waxqabadkaaga, qiimahaaga, iyo kobcaaga iyada oo la adeegsanayo dashboard-kaaga si heer sare ah.",
             gradient: "from-primary to-blue-600"
         },
         {
             icon: Target,
-            title: "Smart Matching",
-            description: "Our algorithm connects you with jobs that perfectly match your skills and location.",
+            title: "Isku-xirka Caqliga Leh",
+            description: "Algorithm-kayagu wuxuu kugu xirayaa shaqooyin si fiican ugu habboon xirfadahaaga iyo goobta.",
             gradient: "from-rose-500 to-red-600"
         }
     ];
@@ -78,22 +78,22 @@ export default function ProvidersPage() {
     const steps: Step[] = [
         {
             number: "01",
-            title: "Create Profile",
-            description: "Showcase your skills, experience, and portfolio to stand out from the crowd.",
+            title: "Samee Profile-ka",
+            description: "Muuji xirfadahaaga, khibradaada, iyo shaqadaada si aad uga muuqato dadka kale.",
             icon: Users,
             gradient: "from-blue-500 to-primary"
         },
         {
             number: "02",
-            title: "Get Verified",
-            description: "Complete our standard background check to earn your 'Verified Pro' badge.",
+            title: "La Xaqiijiyo",
+            description: "Dhammaystir baaritaankayaga caadiga ah si aad u hesho calaamadda 'Xirfadle La Xaqiijiyay'.",
             icon: Shield,
             gradient: "from-primary to-indigo-600"
         },
         {
             number: "03",
-            title: "Start Winning",
-            description: "Receive job requests, submit quotes, and start building your client base.",
+            title: "Bilow Guulaha",
+            description: "Hel codsiyada shaqada, soo gudbi qiimaha, oo bilow dhisida macaamiishaada.",
             icon: Zap,
             gradient: "from-indigo-600 to-purple-600"
         }
@@ -111,33 +111,33 @@ export default function ProvidersPage() {
                 </div>
 
                 <div className="container px-6 md:px-12 lg:px-24 relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                         <div className="space-y-8">
                             <div className="inline-flex items-center gap-2.5 rounded-full bg-primary/10 px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-primary border border-primary/20 backdrop-blur-md">
                                 <Sparkles className="h-3.5 w-3.5" />
-                                <span>Platform for Professionals</span>
+                                <span>Madal Loogu Talagalay Xirfadlayaasha</span>
                             </div>
 
-                            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl leading-[1.1]">
-                                Empower Your <br />
-                                <span className="bg-linear-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent italic">Expertise.</span>
+                            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl leading-[1.1]">
+                                Xooji <br />
+                                <span className="bg-linear-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent italic">Khibradaada.</span>
                             </h1>
 
-                            <p className="text-xl text-muted-foreground leading-relaxed max-w-xl">
-                                Join the elite network of Somali service providers.
-                                Expand your reach, secure your income, and build a lasting reputation.
+                            <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
+                                kusoo biir madasheena oo noqo xirafadlye bixiya adeegyo Tayo sare leh.
+                                Ballaari hekitaankaaga macmiilka ,ka samee dhaqaale , oo dhis sumcad waarta.
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                                <Link href="/register" className="w-full sm:w-auto">
+                                <Link href="/register?role=provider" className="w-full sm:w-auto">
                                     <Button size="lg" className="h-14 px-10 rounded-xl text-lg font-bold bg-primary shadow-xl hover:scale-105 active:scale-95 transition-all w-full">
-                                        Join as Provider
+                                        Isku diiwaan geli Adeeg-bixiye
                                         <ArrowRight className="ml-2 h-5 w-5" />
                                     </Button>
                                 </Link>
                                 <Link href="/how-it-works" className="w-full sm:w-auto">
                                     <Button size="lg" variant="outline" className="h-14 px-10 rounded-xl text-lg font-bold border-2 hover:bg-muted/50 transition-all w-full">
-                                        The Process
+                                        Habka
                                     </Button>
                                 </Link>
                             </div>
@@ -146,17 +146,17 @@ export default function ProvidersPage() {
                             <div className="pt-6 flex flex-wrap items-center gap-6 border-t border-border/50">
                                 <div>
                                     <div className="text-2xl font-bold">90%</div>
-                                    <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Earnings Kept</div>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Dakhliga La Haysto</div>
                                 </div>
                                 <div className="w-px h-8 bg-border hidden sm:block" />
                                 <div>
                                     <div className="text-2xl font-bold">2.5k+</div>
-                                    <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Monthly Jobs</div>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Shaqooyin Bishii</div>
                                 </div>
                                 <div className="w-px h-8 bg-border hidden sm:block" />
                                 <div>
                                     <div className="text-2xl font-bold">4.9/5</div>
-                                    <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Satisfaction</div>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Qanacsanaanta</div>
                                 </div>
                             </div>
                         </div>
@@ -168,7 +168,7 @@ export default function ProvidersPage() {
                             <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-4xl overflow-hidden border-2 border-border shadow-xl">
                                 <Image
                                     src="/provider-hero.jpg"
-                                    alt="Provider Success"
+                                    alt="Guusha Adeeg-bixiyaha"
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                                     priority
@@ -182,8 +182,8 @@ export default function ProvidersPage() {
                                             <ShieldCheck className="h-6 w-6" />
                                         </div>
                                         <div>
-                                            <div className="font-bold text-base">Verified Success</div>
-                                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Trusted Pro</div>
+                                            <div className="font-bold text-base">Guul La Xaqiijiyay</div>
+                                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Xirfadle Lagu Kalsoon Yahay</div>
                                         </div>
                                     </div>
                                     <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
@@ -201,12 +201,12 @@ export default function ProvidersPage() {
                 <div className="container px-6 md:px-12 lg:px-24">
                     <div className="text-center space-y-4 mb-20">
                         <h2 className="text-4xl font-black tracking-tighter md:text-5xl lg:text-6xl">
-                            Why the Best Pros <br />
-                            <span className="text-primary italic">Choose Us.</span>
+                            Sababta Xirfadlayaasha Ugu Fiican <br />
+                            <span className="text-primary italic">Nagu Dooranayaan.</span>
                         </h2>
                         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                            We don't just provide jobs; we provide the infrastructure <br className="hidden md:block" />
-                            for your business to thrive in a digital economy.
+                            Ma bixinno oo kaliya shaqooyin, waxaan bixinaa kaabayaal <br className="hidden md:block" />
+                            ganacsi si uu kordhiyo kobcaaga dhaqaale dhana dijitaal ka.
                         </p>
                     </div>
 
@@ -245,14 +245,14 @@ export default function ProvidersPage() {
             <section className="pt-24 pb-12 md:pb-16 relative">
                 {/* Background Decor */}
                 <div className="absolute top-0 right-0 text-[25vw] font-black text-primary/5 select-none -z-10 tracking-tighter uppercase whitespace-nowrap -translate-y-1/2">
-                    Growth
+                    Koboc
                 </div>
 
                 <div className="container px-6 md:px-12 lg:px-24">
                     <div className="max-w-4xl mx-auto space-y-24">
                         <div className="text-center space-y-4">
-                            <h2 className="text-4xl font-black tracking-tighter md:text-5xl">Your Path to Mastery</h2>
-                            <p className="text-xl text-muted-foreground">Three simple steps to unlock your new business potential.</p>
+                            <h2 className="text-4xl font-black tracking-tighter md:text-5xl">Jidkaaga Guusha</h2>
+                            <p className="text-xl text-muted-foreground">Saddex tillaabo oo fudud si aad u furato awooda ganacsigaaga cusub.</p>
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-12 relative">
@@ -292,23 +292,23 @@ export default function ProvidersPage() {
 
                         <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center text-center space-y-8">
                             <h2 className="text-4xl font-black tracking-tighter md:text-5xl lg:text-6xl">
-                                Ready to Get Started?
+                                Diyaar Ma Tahay Inaad Bilowdo?
                             </h2>
                             <p className="text-xl text-white/90 leading-relaxed max-w-2xl">
-                                Join thousands of Somali professionals who have grown their business
-                                and simplified their workflow with our trusted platform.
+                                Ku biir kumanaan xirfadlayaal Soomaaliyeed oo korodhiyay ganacsigoodii
+                                oo fududeeyay hawlaha iyagoo adeegsanaya madasheena oo lagu kalsoon yahay.
                             </p>
 
                             <div className="flex flex-col sm:flex-row justify-center gap-5 pt-4 w-full sm:w-auto">
-                                <Link href="/register" className="w-full sm:w-auto">
+                                <Link href="/register?role=provider" className="w-full sm:w-auto">
                                     <Button size="lg" className="h-16 px-10 rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl transition-all w-full bg-white text-primary border-0 hover:-translate-y-1 active:scale-95 hover:bg-primary hover:text-white group">
-                                        Get Started Now
+                                        Bilow Hadda
                                         <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                                     </Button>
                                 </Link>
                                 <Link href="/help" className="w-full sm:w-auto">
                                     <Button size="lg" className="h-16 px-10 rounded-2xl text-lg font-bold bg-white/20 border-2 border-white/40 backdrop-blur-md hover:bg-white/30 transition-all w-full text-white hover:-translate-y-1 active:scale-95">
-                                        Support Team
+                                        Kooxda Taageerada
                                     </Button>
                                 </Link>
                             </div>
@@ -325,7 +325,7 @@ export default function ProvidersPage() {
                             </div>
                             <div className="flex items-center gap-2 text-white/80 font-bold uppercase tracking-widest text-xs">
                                 <Heart className="h-4 w-4 text-rose-500 fill-rose-500" />
-                                <span>Trusted by 500+ Local Professionals</span>
+                                <span>Lagu Kalsoon Yahay 500+ Xirfadlayaal Maxalli ah</span>
                             </div>
                         </div>
                     </div>

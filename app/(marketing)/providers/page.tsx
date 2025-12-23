@@ -283,50 +283,81 @@ export default function ProvidersPage() {
             </section>
 
             {/* CTA Final */}
-            <section className="pt-12 md:pt-16 pb-24 md:pb-32">
-                <div className="container px-6 md:px-12 lg:px-24">
-                    <div className="relative overflow-hidden rounded-[3rem] bg-linear-to-br from-primary via-blue-700 to-indigo-900 text-white p-12 md:p-20 shadow-2xl">
-                        {/* Background Orbs */}
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+            <section className="pt-8 pb-12 md:pb-20">
+                <div className="container px-4 md:px-6">
+                    <div className="relative overflow-hidden rounded-4xl bg-primary px-6 py-12 md:px-12 md:py-16 shadow-2xl isolate transform hover:scale-[1.005] transition-transform duration-700">
 
-                        <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center text-center space-y-8">
-                            <h2 className="text-4xl font-black tracking-tighter md:text-5xl lg:text-6xl">
-                                Diyaar Ma Tahay Inaad Bilowdo?
-                            </h2>
-                            <p className="text-xl text-white/90 leading-relaxed max-w-2xl">
-                                Ku biir kumanaan xirfadlayaal Soomaaliyeed oo korodhiyay ganacsigoodii
-                                oo fududeeyay hawlaha iyagoo adeegsanaya madasheena oo lagu kalsoon yahay.
-                            </p>
+                        {/* Dynamic Background Elements - Cleaned up to match compact height */}
+                        <div className="absolute inset-0 bg-linear-to-br from-white/10 to-transparent z-10" />
+                        <div className="absolute -top-24 -right-24 w-80 h-80 bg-white/10 rounded-full blur-[100px] animate-pulse" />
+                        <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-white/10 rounded-full blur-[100px] animate-pulse delay-1000" />
 
-                            <div className="flex flex-col sm:flex-row justify-center gap-5 pt-4 w-full sm:w-auto">
+                        {/* Content - Centered but more compact */}
+                        <div className="relative z-20 flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
+
+                            {/* Floating Badge */}
+                            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold text-white/90 backdrop-blur-md border border-white/20 shadow-lg animate-in fade-in slide-in-from-bottom-4 duration-1000">
+                                <Sparkles className="h-3.5 w-3.5 text-yellow-300 fill-yellow-300 animate-pulse" />
+                                <span>Ku Biir Kooxda Guulaysatayaasha</span>
+                            </div>
+
+                            <div className="space-y-4">
+                                {/* Main Heading */}
+                                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.1] drop-shadow-xl">
+                                    Diyaar Ma Tahay Inaad <br className="hidden md:block" />
+                                    <span className="text-white/90">
+                                        Hormariso Ganacsigaaga?
+                                    </span>
+                                </h2>
+
+                                {/* Subheading */}
+                                <p className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed font-medium">
+                                    Ku biir kumanaan xirfadlayaal ah oo maalin walba kor u qaadaya
+                                    dakhligooda, iyagoo adeegsanaya madasheena casriga ah.
+                                </p>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
                                 <Link href="/register?role=provider" className="w-full sm:w-auto">
-                                    <Button size="lg" className="h-16 px-10 rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl transition-all w-full bg-white text-primary border-0 hover:-translate-y-1 active:scale-95 hover:bg-primary hover:text-white group">
+                                    <Button size="lg" className="h-12 px-8 rounded-xl text-base font-bold bg-white text-primary border-2 border-white/50 shadow-xl hover:scale-105 hover:bg-white/90 active:scale-95 transition-all duration-300 w-full sm:min-w-[180px] group">
                                         Bilow Hadda
-                                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                                     </Button>
                                 </Link>
                                 <Link href="/help" className="w-full sm:w-auto">
-                                    <Button size="lg" className="h-16 px-10 rounded-2xl text-lg font-bold bg-white/20 border-2 border-white/40 backdrop-blur-md hover:bg-white/30 transition-all w-full text-white hover:-translate-y-1 active:scale-95">
-                                        Kooxda Taageerada
+                                    <Button size="lg" variant="outline" className="h-12 px-8 rounded-xl text-base font-bold text-white bg-white/10 border-white/20 backdrop-blur-sm hover:bg-white/20 hover:border-white/40 transition-all duration-300 w-full sm:min-w-[180px]">
+                                        La Xiriir Kooxda
                                     </Button>
                                 </Link>
                             </div>
-                        </div>
 
-                        {/* Social Proof */}
-                        <div className="relative z-10 pt-12 flex flex-col items-center gap-6">
-                            <div className="flex -space-x-4">
-                                {[1, 2, 3, 4, 5].map(i => (
-                                    <div key={i} className="w-14 h-14 rounded-full border-4 border-primary bg-white flex items-center justify-center text-xs font-bold text-primary shadow-xl">
-                                        PRO
+                            {/* Social Proof Footer - Compact */}
+                            <div className="pt-2 flex flex-col md:flex-row items-center gap-6 md:gap-12 opacity-90">
+                                <div className="flex items-center gap-3">
+                                    <div className="flex -space-x-3">
+                                        {[1, 2, 3, 4].map((i) => (
+                                            <div key={i} className="w-8 h-8 rounded-full border-2 border-primary bg-linear-to-br from-gray-100 to-gray-300 flex items-center justify-center shadow-lg">
+                                                <Users className="h-4 w-4 text-gray-600" />
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
+                                    <div className="text-left leading-tight">
+                                        <div className="text-sm font-bold text-white">2.5k+ Xirfadlayaal</div>
+                                        <div className="flex text-yellow-400 gap-0.5">
+                                            {[1, 2, 3, 4, 5].map(j => <Heart key={j} className="w-2.5 h-2.5 fill-current" />)}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="hidden md:block w-px h-8 bg-white/20" />
+                                <div className="flex items-center gap-3">
+                                    <ShieldCheck className="h-5 w-5 text-white/90" />
+                                    <div className="text-left leading-tight">
+                                        <div className="text-sm font-bold text-white">100% Waa La Hubiyay</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="flex items-center gap-2 text-white/80 font-bold uppercase tracking-widest text-xs">
-                                <Heart className="h-4 w-4 text-rose-500 fill-rose-500" />
-                                <span>Lagu Kalsoon Yahay 500+ Xirfadlayaal Maxalli ah</span>
-                            </div>
+
                         </div>
                     </div>
                 </div>

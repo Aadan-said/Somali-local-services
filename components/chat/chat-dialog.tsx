@@ -55,16 +55,17 @@ export function ChatDialog({ requestId, currentUserId, recipientName, triggerLab
                 <MessageCircle className="h-4 w-4" />
                 {triggerLabel}
             </Button>
-            <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-3xl border-none shadow-2xl">
+            <DialogContent className="sm:max-w-md w-full p-0 gap-0 overflow-hidden sm:rounded-[2rem] border-0 sm:border border-gray-100 shadow-none sm:shadow-2xl h-[100dvh] sm:h-[600px] flex flex-col bg-[#efeae2] translate-y-0 top-0 sm:top-[50%] sm:-translate-y-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom-10 data-[state=open]:slide-in-from-bottom-10 sm:data-[state=open]:slide-in-from-left-1/2 sm:data-[state=open]:slide-in-from-top-[48%] duration-500">
                 {conversationId && (
                     <>
-                        <DialogHeader className="sr-only">
+                        <div className="sr-only">
                             <DialogTitle>Chat with {recipientName}</DialogTitle>
-                        </DialogHeader>
+                        </div>
                         <ChatInterface
                             conversationId={conversationId}
                             currentUserId={currentUserId}
                             recipientName={recipientName}
+                            onClose={() => setOpen(false)}
                         />
                     </>
                 )}

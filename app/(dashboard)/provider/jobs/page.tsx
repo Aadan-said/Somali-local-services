@@ -118,10 +118,11 @@ export default async function ProviderJobsPage() {
                                             />
                                         )}
                                         {job.status === "COMPLETED" && (
-                                            <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-100 gap-1.5 h-9 px-3 font-black text-[10px] uppercase tracking-wider rounded-lg">
-                                                <ShieldCheck className="h-3.5 w-3.5" />
-                                                Cadaynta shaqada waa la diray
-                                            </Badge>
+                                            <div className="h-10 px-4 bg-linear-to-r from-emerald-500 to-green-600 text-white flex items-center gap-2 font-bold text-[10px] uppercase tracking-wider rounded-xl shadow-md shadow-emerald-500/20 whitespace-nowrap overflow-hidden">
+                                                <ShieldCheck className="h-4 w-4 shrink-0 text-white animate-pulse" />
+                                                <span className="md:hidden">Cadaynta: Diray</span>
+                                                <span className="hidden md:inline">Cadaynta shaqada waa la diray</span>
+                                            </div>
                                         )}
                                     </div>
                                 </CardHeader>

@@ -167,7 +167,7 @@ export default function MyRequestsPage() {
                         </Button>
                     </div>
                     {/* Background Decor */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-0" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl z-0" />
                 </div>
             ) : (
                 <div className="grid gap-8">
@@ -334,12 +334,69 @@ export default function MyRequestsPage() {
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <div className="h-full flex flex-col items-center justify-center text-center p-4">
-                                                    <div className="h-16 w-16 mb-3 rounded-full bg-slate-100 flex items-center justify-center animate-pulse">
-                                                        <Users className="h-6 w-6 text-slate-300" />
-                                                    </div>
-                                                    <p className="text-sm font-bold text-slate-500 mb-1">Weli ma hayno</p>
-                                                    <p className="text-xs text-slate-400">Codsigaagu wuu furan yahay</p>
+                                                <div className="h-full flex flex-col">
+                                                    {request.proposals && request.proposals.length > 0 ? (
+                                                        <div className="flex-1 overflow-y-auto pr-2 space-y-3 max-h-[300px]">
+                                                            <div className="flex items-center justify-between mb-2">
+                                                                <span className="text-xs font-bold text-slate-500 uppercase">Dalabyada ({request.proposals.length})</span>
+                                                            </div>
+                                                            {request.proposals.map((proposal: any) => (
+                                                                <div key={proposal.id} className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm relative group hover:border-primary/30 transition-all">
+                                                                    <div className="flex items-start gap-3 mb-2">
+                                                                        <div className="h-8 w-8 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-slate-500 text-xs">
+                                                                            {proposal.provider.user.name.charAt(0)}
+                                                                        </div>
+                                                                        <div>
+                                                                            <p className="text-xs font-bold text-gray-900">{proposal.provider.user.name}</p>
+                                                                            <p className="text-[10px] text-gray-500">{new Date(proposal.createdAt).toLocaleDateString()}</p>
+                                                                        </div>
+                                                                        {proposal.price && (
+                                                                            <Badge variant="outline" className="ml-auto bg-green-50 text-green-700 border-green-200 text-[10px] font-bold">
+                                                                                ${proposal.price}
+                                                                            </Badge>
+                                                                        )}
+                                                                    </div>
+                                                                    {proposal.coverLetter && (
+                                                                        <p className="text-[10px] text-gray-600 bg-slate-50 p-2 rounded-lg mb-3 line-clamp-3">
+                                                                            "{proposal.coverLetter}"
+                                                                        </p>
+                                                                    )}
+                                                                    <Button
+                                                                        onClick={async () => {
+                                                                            if (!confirm('Ma hubtaa inaad rabto inaad aqbasho dalabkan?')) return;
+                                                                            setIsActioning(proposal.id);
+                                                                            try {
+                                                                                const res = await fetch(`/api/requests/${request.id}/accept-proposal`, {
+                                                                                    method: 'POST',
+                                                                                    body: JSON.stringify({ proposalId: proposal.id })
+                                                                                });
+                                                                                if (res.ok) {
+                                                                                    toast.success('Waad aqbashay dalabka!');
+                                                                                    fetchRequests();
+                                                                                } else {
+                                                                                    toast.error('Cilad ayaa dhacday');
+                                                                                }
+                                                                            } catch (e) { toast.error('Error occurred'); }
+                                                                            finally { setIsActioning(null); }
+                                                                        }}
+                                                                        disabled={isActioning !== null}
+                                                                        size="sm"
+                                                                        className="w-full h-8 bg-black text-white hover:bg-gray-800 text-[10px] font-bold uppercase tracking-wider rounded-lg"
+                                                                    >
+                                                                        {isActioning === proposal.id ? <Loader2 className="h-3 w-3 animate-spin" /> : "Aqbal Dalabkan"}
+                                                                    </Button>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    ) : (
+                                                        <div className="h-full flex flex-col items-center justify-center text-center p-4">
+                                                            <div className="h-16 w-16 mb-3 rounded-full bg-slate-100 flex items-center justify-center animate-pulse">
+                                                                <Users className="h-6 w-6 text-slate-300" />
+                                                            </div>
+                                                            <p className="text-sm font-bold text-slate-500 mb-1">Weli ma hayno</p>
+                                                            <p className="text-xs text-slate-400">Codsigaagu wuu furan yahay, sug adeeg-bixiye.</p>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             )}
                                         </div>

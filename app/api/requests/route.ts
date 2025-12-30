@@ -64,7 +64,7 @@ export async function GET(req: Request) {
             where.userId = session.user.id;
         }
 
-        const requests = await prisma.serviceRequest.findMany({
+        const requests = await (prisma as any).serviceRequest.findMany({
             where,
             include: {
                 user: { select: { name: true, email: true } },
@@ -79,6 +79,16 @@ export async function GET(req: Request) {
                             }
                         }
                     }
+                },
+                proposals: {
+                    include: {
+                        provider: {
+                            include: {
+                                user: { select: { name: true, image: true } }
+                            }
+                        }
+                    },
+                    orderBy: { createdAt: 'desc' }
                 }
             },
             orderBy: { createdAt: 'desc' }

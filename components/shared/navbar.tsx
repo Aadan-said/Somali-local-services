@@ -13,6 +13,7 @@ export function Navbar() {
 
     const navLinks = [
         { href: "/services", label: "Adeegyada" },
+        { href: "/jobs", label: "Shaqooyinka" },
         { href: "/how-it-works", label: "Sidee U shaqaynaa" },
         { href: "/providers", label: "Xirfadlayaasha" },
     ];

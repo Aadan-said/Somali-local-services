@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { RefreshCcw, Bell, Briefcase, Star, DollarSign, MapPin, TrendingUp, Loader2, CheckCircle2, Phone, Mail, Clock, ShieldCheck, User } from "lucide-react";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+import { RefreshCcw, Bell, Briefcase, Star, DollarSign, MapPin, TrendingUp, Loader2, CheckCircle2, Phone, Mail, Clock, ShieldCheck, User, Wallet } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { ProviderReviewsDialog } from "@/components/provider/provider-reviews-dialog";
+import { cn } from "@/lib/utils";
 
 interface Review {
     id: string;
@@ -29,6 +29,7 @@ interface Stats {
     new_leads: number;
     active_jobs: number;
     earnings: string;
+    balance: string;
     rating: number;
     reviews: Review[];
 }
@@ -75,13 +76,23 @@ export default function ProviderDashboard() {
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            const [statsRes, leadsRes, jobsRes] = await Promise.all([
-                fetch("/api/provider/stats"),
+            const [analyticsRes, leadsRes, jobsRes] = await Promise.all([
+                fetch("/api/provider/analytics"),
                 fetch("/api/provider/market"),
                 fetch("/api/provider/jobs")
             ]);
 
-            if (statsRes.ok) setStats(await statsRes.json());
+            if (analyticsRes.ok) {
+                const data = await analyticsRes.json();
+                setStats({
+                    new_leads: 0, // Calculated client-side
+                    active_jobs: 0, // Calculated client-side
+                    earnings: data.stats.totalRevenue.toFixed(2),
+                    balance: data.stats.currentBalance.toFixed(2),
+                    rating: data.stats.rating,
+                    reviews: data.reviews
+                });
+            }
             if (leadsRes.ok) setLeads(await leadsRes.json());
             if (jobsRes.ok) setMyJobs(await jobsRes.json());
         } catch (error) {
@@ -113,8 +124,11 @@ export default function ProviderDashboard() {
                     setMyJobs([{ ...acceptedLead, status: "WAITING_APPROVAL", user: { ...acceptedLead.user } } as ProviderJob, ...myJobs]);
                 }
                 // Refetch stats
-                const statsRes = await fetch("/api/provider/stats");
-                if (statsRes.ok) setStats(await statsRes.json());
+                const analyticsRes = await fetch("/api/provider/analytics");
+                if (analyticsRes.ok) {
+                    const data = await analyticsRes.json();
+                    setStats(prev => prev ? ({ ...prev, earnings: data.stats.totalRevenue.toFixed(2), balance: data.stats.currentBalance.toFixed(2) }) : null);
+                }
             } else {
                 toast.error("Waan ka xunnahay, sorry kuma uusan aqablin macmaiikani si aad shaqadaan uqabtid");
             }
@@ -125,19 +139,11 @@ export default function ProviderDashboard() {
         }
     };
 
+
+
     const handleUpdateStatus = async (job: ProviderJob, newStatus: string) => {
         // Validation for COMPLETION
         if (newStatus === "COMPLETED") {
-            // We need to check if we can mark as completed.
-            // However, simple status update might not have full job details here (like proofOfWork).
-            // Best practice: Redirect to job details page for completion if not fully validated here.
-            // Or, if we have the data, check it.
-            // Assuming 'job' object from API list includes some flags, but let's be safe.
-            // Since the user asked to enforce workflow + image, we should probably redirect them 
-            // to the specific job page to complete the workflow if they try to click "Mark as Done" here,
-            // OR we check the fields if available.
-            // Let's assume we redirect to the job page for the actual workflow completion to be safe and rigorous.
-
             router.push(`/provider/jobs`);
             toast.info("Fadlan dhamaystir workflow-ga oo soo gudbi sawirka shaqada.");
             return;
@@ -156,7 +162,12 @@ export default function ProviderDashboard() {
                 setMyJobs(myJobs.map(j =>
                     j.id === job.id ? { ...j, status: newStatus } : j
                 ));
-                // Refetch stats if needed
+                // Refetch stats
+                const analyticsRes = await fetch("/api/provider/analytics");
+                if (analyticsRes.ok) {
+                    const data = await analyticsRes.json();
+                    setStats(prev => prev ? ({ ...prev, earnings: data.stats.totalRevenue.toFixed(2), balance: data.stats.currentBalance.toFixed(2) }) : null);
+                }
             } else {
                 toast.error("Waan ka xunnahay, cusubaysiinta heerka shaqadaan cilad ayaa ku timid.");
             }
@@ -270,7 +281,7 @@ export default function ProviderDashboard() {
                             </CardHeader>
                             <CardContent>
                                 <div className="text-4xl font-black text-slate-900 tabular-nums flex items-end gap-1">
-                                    {stats?.rating ?? 0}
+                                    {stats?.rating?.toFixed(1) ?? "0.0"}
                                     <span className="text-lg text-slate-400 mb-1">/5</span>
                                 </div>
                                 <p className="text-xs font-bold text-slate-400 mt-2">Client Satisfaction</p>
@@ -278,28 +289,33 @@ export default function ProviderDashboard() {
                         </Card>
                     }
                 />
-                {/* Earnings Card - PRIMARY COLOR */}
-                <Card className="group relative border-0 bg-primary shadow-2xl shadow-primary/30 rounded-4xl overflow-hidden hover:scale-[1.02] transition-all duration-500 text-white col-span-1 sm:col-span-2 lg:col-span-1">
-                    {/* Background Patterns */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-black/10 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none" />
+                {/* Earnings Card - CLICKABLE TO WALLET */}
+                <Link href="/provider/wallet" className="block col-span-1 sm:col-span-2 lg:col-span-1">
+                    <Card className="group relative border-0 bg-primary shadow-2xl shadow-primary/30 rounded-4xl overflow-hidden hover:scale-[1.02] transition-all duration-500 text-white h-full cursor-pointer">
+                        {/* Background Patterns */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+                        <div className="absolute bottom-0 left-0 w-32 h-32 bg-black/10 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none" />
 
-                    <CardHeader className="flex flex-row items-center justify-between pb-2 relative z-10">
-                        <CardTitle className="text-white/80 font-black text-[10px] uppercase tracking-widest">Dakhliga (Earnings)</CardTitle>
-                        <div className="h-10 w-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover:rotate-12 transition-transform">
-                            <DollarSign className="h-5 w-5" />
-                        </div>
-                    </CardHeader>
-                    <CardContent className="relative z-10 pt-4">
-                        <div className="text-4xl font-black leading-none tracking-tight">
-                            ${stats?.earnings || "0.00"}
-                        </div>
-                        <div className="mt-4 pt-4 border-t border-white/20 flex items-center gap-2 text-[10px] font-bold text-white/80 uppercase tracking-widest">
-                            <TrendingUp className="h-3 w-3" />
-                            <span>Total Revenue</span>
-                        </div>
-                    </CardContent>
-                </Card>
+                        <CardHeader className="flex flex-row items-center justify-between pb-2 relative z-10">
+                            <CardTitle className="text-white/80 font-black text-[10px] uppercase tracking-widest">Jeebka/Wallet</CardTitle>
+                            <div className="h-10 w-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover:rotate-12 transition-transform">
+                                <Wallet className="h-5 w-5" />
+                            </div>
+                        </CardHeader>
+                        <CardContent className="relative z-10 pt-4">
+                            <div className="text-4xl font-black leading-none tracking-tight">
+                                ${stats?.balance || "0.00"}
+                            </div>
+                            <div className="mt-4 pt-4 border-t border-white/20 flex items-center justify-between text-[10px] font-bold text-white/80 uppercase tracking-widest">
+                                <span className="flex items-center gap-2">
+                                    <DollarSign className="h-3 w-3" />
+                                    <span>Balance</span>
+                                </span>
+                                <span className="text-white/60">Lifetime: ${stats?.earnings}</span>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </Link>
             </div>
 
             {/* Main Content Area */}

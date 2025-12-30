@@ -176,7 +176,7 @@ export function ChatInterface({ conversationId, currentUserId, recipientName, on
                                                     )} />
                                                 )}
 
-                                                <p className="whitespace-pre-wrap break-words">{message.content}</p>
+                                                <p className="whitespace-pre-wrap wrap-break-word">{message.content}</p>
 
                                                 <div className={cn(
                                                     "text-[10px] mt-1 flex items-center gap-1 opacity-60",

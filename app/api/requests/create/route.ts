@@ -25,6 +25,7 @@ export async function POST(req: Request) {
                 description,
                 location,
                 serviceDate,
+                price: parseFloat(body.price),
                 status: "PENDING",
             },
         });

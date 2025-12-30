@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Sparkles, Send, MapPin, Calendar, Loader2, CheckCircle2, ChevronDown, Layers } from "lucide-react";
+import { ArrowLeft, Sparkles, Send, MapPin, Calendar, Loader2, CheckCircle2, ChevronDown, Layers, DollarSign } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -19,6 +19,7 @@ export default function CreateRequestPage() {
         description: "",
         location: "",
         serviceDate: "",
+        price: "",
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -133,14 +134,14 @@ export default function CreateRequestPage() {
                                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                                     className="w-full h-16 bg-white border-0 ring-1 ring-slate-200 rounded-2xl px-6 pr-12 text-base font-bold text-slate-900 appearance-none focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all cursor-pointer hover:bg-slate-50"
                                 >
-                                    <option value="" className="text-slate-400">Dooro adeegga aad u baahantahay...</option>
+                                    <option value="" className="text-slate-400">Dooro adeegg bixiyaha aad u baahantahay...</option>
                                     <option value="Electrician">Korontayste (Electrician)</option>
                                     <option value="Plumber">Tuubayste (Plumber)</option>
                                     <option value="Home Cleaning">Nadiifinta Guryaha (Cleaning)</option>
                                     <option value="AC Repair">Farsamada AC-ga (AC Repair)</option>
                                     <option value="Mechanic">Mikaanig (Mechanic)</option>
                                     <option value="Tutoring">Macallin/Cashirro (Tutoring)</option>
-                                    <option value="Other">Adeeg kale (Other)</option>
+                                    <option value="Other">Adeege kale (Other)</option>
                                 </select>
                                 <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 group-hover:text-primary transition-colors">
                                     <ChevronDown className="h-5 w-5" />
@@ -159,6 +160,31 @@ export default function CreateRequestPage() {
                                 className="min-h-[160px] bg-white border-0 ring-1 ring-slate-200 rounded-2xl p-6 text-base font-medium resize-none placeholder:text-slate-300 focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-slate-50"
                                 required
                             />
+                        </div>
+
+                        {/* Budget / Price */}
+                        <div className="space-y-4">
+                            <Label htmlFor="price" className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1 flex items-center gap-2">
+                                <DollarSign className="h-3 w-3" /> Qiimaha (Budget)
+                            </Label>
+                            <div className="relative group">
+                                <Input
+                                    id="price"
+                                    type="number"
+                                    min="1"
+                                    value={formData.price}
+                                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                                    placeholder="Tusaale: $50"
+                                    required
+                                    className="h-16 bg-white border-0 ring-1 ring-slate-200 rounded-2xl pl-14 text-base font-bold text-slate-900 focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-slate-50"
+                                />
+                                <div className="absolute left-5 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600 transition-colors">
+                                    <DollarSign className="h-4 w-4" />
+                                </div>
+                            </div>
+                            <p className="text-[10px] text-slate-400 font-medium ml-2">
+                                * Qiimaha qiyaasta ah ee aad ku bixin karto shaqadan.
+                            </p>
                         </div>
 
                         {/* Location & Date */}

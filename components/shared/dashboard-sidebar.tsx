@@ -18,6 +18,7 @@ export function DashboardSidebar() {
         ? [
             { href: "/client", label: "Aragtida Guud", icon: LayoutDashboard },
             { href: "/client/requests", label: "Codsiyadayda", icon: ShoppingBag },
+            { href: "/client/wallet", label: "Jeebka (Wallet)", icon: DollarSign },
             { href: "/client/profile", label: "Profile-ka", icon: User },
             { href: "/client/settings", label: "Habaynta", icon: Settings },
         ]

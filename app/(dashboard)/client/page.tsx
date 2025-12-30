@@ -40,17 +40,23 @@ export default async function ClientDashboard() {
         }
     });
 
-    // Calculate total spent
-    const completedRequests = await prisma.serviceRequest.findMany({
-        where: {
-            userId: session.user.id,
-            status: "COMPLETED",
-            price: { not: null }
-        },
-        select: { price: true }
+    // Calculate total spent from WALLET (Transactions)
+    // First find the wallet for this user
+    const clientWallet = await (prisma as any).wallet.findUnique({
+        where: { userId: session.user.id }
     });
 
-    const totalSpent = completedRequests.reduce((sum, req) => sum + (req.price || 0), 0);
+    let totalSpent = 0;
+    if (clientWallet) {
+        const spentAggregate = await (prisma as any).transaction.aggregate({
+            where: {
+                walletId: clientWallet.id,
+                type: "PAYMENT"
+            },
+            _sum: { amount: true }
+        });
+        totalSpent = spentAggregate._sum.amount || 0;
+    }
 
     // Recent activity
     const recentRequests = await prisma.serviceRequest.findMany({
@@ -133,35 +139,39 @@ export default async function ClientDashboard() {
                     </CardContent>
                 </Card>
 
-                {/* Spending Card */}
-                {/* Spending Card */}
-                <Card className="group relative border-0 bg-primary shadow-2xl shadow-primary/30 rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-500 text-white">
-                    {/* Background Patterns */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none" />
+                {/* Spending Card - Now Linked to Wallet */}
+                <Link href="/client/wallet">
+                    <Card className="h-full group relative border-0 bg-primary shadow-2xl shadow-primary/30 rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-500 text-white cursor-pointer ring-4 ring-transparent hover:ring-primary/20">
+                        {/* Background Patterns */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+                        <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none" />
 
-                    <CardHeader className="pb-2 relative z-10 flex flex-row items-center justify-between">
-                        <div className="h-12 w-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 shadow-inner group-hover:rotate-12 transition-transform duration-500">
-                            <DollarSign className="h-6 w-6" />
-                        </div>
-                        <div className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/90">
-                            Total Spent
-                        </div>
-                    </CardHeader>
+                        <CardHeader className="pb-2 relative z-10 flex flex-row items-center justify-between">
+                            <div className="h-12 w-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 shadow-inner group-hover:rotate-12 transition-transform duration-500">
+                                <DollarSign className="h-6 w-6" />
+                            </div>
+                            <div className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/90">
+                                Total Spent
+                            </div>
+                        </CardHeader>
 
-                    <CardContent className="relative z-10 pt-4">
-                        <div className="flex flex-col gap-1">
-                            <span className="text-white/70 text-sm font-medium uppercase tracking-wider">Lacagta Baxday</span>
-                            <span className="text-4xl md:text-5xl font-black text-white tracking-tight">
-                                ${totalSpent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                            </span>
-                        </div>
-                        <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-medium text-white/80">
-                            <span>Lifetime Spending</span>
-                            <span>USD Currency</span>
-                        </div>
-                    </CardContent>
-                </Card>
+                        <CardContent className="relative z-10 pt-4">
+                            <div className="flex flex-col gap-1">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-white/70 text-sm font-medium uppercase tracking-wider">Lacagta Baxday</span>
+                                    <ArrowUpRight className="h-3 w-3 text-white/50" />
+                                </div>
+                                <span className="text-4xl md:text-5xl font-black text-white tracking-tight">
+                                    ${totalSpent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                </span>
+                            </div>
+                            <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-medium text-white/80">
+                                <span>Wallet Balance</span>
+                                <span>View Details &rarr;</span>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </Link>
             </div>
 
             {/* Recent Requests - Normalized Table Rounding */}

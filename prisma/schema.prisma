@@ -33,6 +33,7 @@ model User {
   notifications Notification[]
   messages      Message[]
   reviews       Review[]
+  wallet        Wallet?
 }
 
 model Provider {
@@ -45,8 +46,34 @@ model Provider {
 
   user          User @relation(fields: [userId], references: [id])
   requests      ServiceRequest[]
+  proposals     Proposal[]
   reviews       Review[]
   conversations Conversation[]
+  wallet        Wallet?
+}
+
+model Wallet {
+  id         String   @id @default(uuid())
+  providerId String?  @unique
+  userId     String?  @unique
+  balance    Float    @default(0.0)
+  updatedAt  DateTime @updatedAt
+
+  provider     Provider?     @relation(fields: [providerId], references: [id])
+  user         User?         @relation(fields: [userId], references: [id])
+  transactions Transaction[]
+}
+
+model Transaction {
+  id          String   @id @default(uuid())
+  walletId    String
+  amount      Float
+  type        String   // EARNING, WITHDRAWAL, DEPOSIT, PAYMENT
+  status      String   @default("COMPLETED") // PENDING, COMPLETED, FAILED
+  description String?
+  createdAt   DateTime @default(now())
+
+  wallet Wallet @relation(fields: [walletId], references: [id])
 }
 
 model ServiceRequest {
@@ -76,6 +103,22 @@ model ServiceRequest {
   provider     Provider?     @relation(fields: [providerId], references: [id])
   review       Review?
   conversation Conversation?
+  proposals    Proposal[]
+}
+
+model Proposal {
+  id        String   @id @default(uuid())
+  requestId String
+  providerId String
+  price     Float?
+  coverLetter String?
+  status    String   @default("PENDING") // PENDING, ACCEPTED, REJECTED
+  createdAt DateTime @default(now())
+
+  request   ServiceRequest @relation(fields: [requestId], references: [id])
+  provider  Provider       @relation(fields: [providerId], references: [id])
+
+  @@unique([requestId, providerId]) // Ensure a provider can only apply once per job
 }
 
 model Notification {

@@ -101,8 +101,8 @@ export default function NotificationsPage() {
         return (
             <div className="max-w-4xl mx-auto">
                 <div className="animate-pulse space-y-4">
-                    <div className="h-8 bg-gray-200 rounded w-1/4"></div>
-                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                    <div className="h-8 bg-muted rounded w-1/4"></div>
+                    <div className="h-4 bg-muted rounded w-1/2"></div>
                 </div>
             </div>
         );
@@ -120,8 +120,8 @@ export default function NotificationsPage() {
                     <ArrowLeft className="h-5 w-5" />
                 </Button>
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-3xl font-black tracking-tight text-gray-900">Notifications</h1>
-                    <p className="text-gray-500">Maamul sidaan kugala xiriirno codsigaaga</p>
+                    <h1 className="text-3xl font-black tracking-tight text-foreground">Notifications</h1>
+                    <p className="text-muted-foreground">Maamul sidaan kugala xiriirno codsigaaga</p>
                 </div>
             </div>
 
@@ -129,16 +129,16 @@ export default function NotificationsPage() {
                 {notificationOptions.map((option) => {
                     const Icon = option.icon;
                     return (
-                        <Card key={option.key} className="border-gray-100 hover:shadow-md transition-all">
+                        <Card key={option.key} className="border-border hover:shadow-md transition-all dark:bg-card">
                             <CardContent className="p-6">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-4">
-                                        <div className={`p-3 rounded-xl ${option.bg} ${option.color}`}>
+                                        <div className={`p-3 rounded-xl ${option.bg} dark:bg-muted ${option.color}`}>
                                             <Icon className="h-6 w-6" />
                                         </div>
                                         <div>
-                                            <h3 className="text-lg font-bold text-gray-900">{option.title}</h3>
-                                            <p className="text-sm text-gray-500">{option.description}</p>
+                                            <h3 className="text-lg font-bold text-foreground">{option.title}</h3>
+                                            <p className="text-sm text-muted-foreground">{option.description}</p>
                                         </div>
                                     </div>
                                     <Switch
@@ -154,7 +154,7 @@ export default function NotificationsPage() {
                 })}
             </div>
 
-            <div className="flex justify-end pt-6 border-t border-gray-100">
+            <div className="flex justify-end pt-6 border-t border-border">
                 <Button
                     onClick={handleSave}
                     disabled={saving}
@@ -166,3 +166,4 @@ export default function NotificationsPage() {
         </div>
     );
 }
+

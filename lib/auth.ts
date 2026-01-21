@@ -15,31 +15,49 @@ export const authOptions: NextAuthOptions = {
         CredentialsProvider({
             name: "Credentials",
             credentials: {
-                email: { label: "Email", type: "email" },
+                identifier: { label: "Email or Phone", type: "text" },
                 password: { label: "Password", type: "password" },
             },
             async authorize(credentials) {
-                if (!credentials?.email || !credentials?.password) {
+                if (!credentials?.identifier || !credentials?.password) {
                     return null;
                 }
 
-                const user = await prisma.user.findUnique({
-                    where: {
-                        email: credentials.email,
-                    },
-                });
+                const { identifier, password } = credentials;
+                let user = null;
+
+                // Check if identifier looks like an email
+                if (identifier.includes("@")) {
+                    console.log(`AUTH_DEBUG: Attempting login with EMAIL: ${identifier}`);
+                    user = await prisma.user.findUnique({
+                        where: { email: identifier },
+                    });
+                } else {
+                    console.log(`AUTH_DEBUG: Attempting login with PHONE: ${identifier}`);
+                    user = await prisma.user.findUnique({
+                        where: { phone: identifier },
+                    });
+                }
 
                 if (!user) {
+                    console.log(`AUTH_FAIL: User not found for identifier: '${identifier}'`);
                     return null;
                 }
 
+                console.log(`AUTH_DEBUG: User ${user.phone || user.email} found with role: ${user.role}`);
+
                 const isPasswordValid = await bcrypt.compare(
-                    credentials.password,
+                    password,
                     user.password
                 );
 
                 if (!isPasswordValid) {
                     return null;
+                }
+
+                if (user.accountStatus !== 'ACTIVE') {
+                    console.log(`AUTH_BLOCKED: User ${user.phone} is ${user.accountStatus}`);
+                    throw new Error("Your account has been deactivated. Contact support.");
                 }
 
                 return {

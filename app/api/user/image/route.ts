@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth-utils";
 
 export async function POST(req: Request) {
     try {
-        const session = await getServerSession(authOptions);
+        const user = await getAuthUser(req);
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
@@ -20,7 +19,7 @@ export async function POST(req: Request) {
         // In a real app, you might upload this to S3/Cloudinary
         // For this local dev, we'll store the base64/URL in the DB
         const updatedUser = await prisma.user.update({
-            where: { id: session.user.id },
+            where: { id: user.id },
             data: { image },
         });
 

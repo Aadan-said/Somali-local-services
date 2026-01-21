@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Sparkles, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Navbar() {
     const pathname = usePathname();
@@ -23,10 +24,10 @@ export function Navbar() {
             <div className="container flex h-16 items-center justify-between px-4 md:px-6">
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-2 group">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-linear-to-br from-primary to-blue-600 group-hover:scale-110 transition-transform">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-blue-600 group-hover:scale-110 transition-transform">
                         <Sparkles className="h-5 w-5 text-white" />
                     </div>
-                    <span className="text-xl font-bold bg-linear-to-r from-primary via-blue-600 to-primary bg-clip-text text-transparent">
+                    <span className="text-xl font-bold bg-gradient-to-r from-primary via-blue-600 to-primary bg-clip-text text-transparent">
                         SomaliServices
                     </span>
                 </Link>
@@ -54,6 +55,7 @@ export function Navbar() {
 
                 {/* Desktop Auth Buttons */}
                 <div className="hidden md:flex items-center space-x-3">
+                    <ThemeToggle />
                     <Link href="/login">
                         <Button variant="ghost" size="sm" className="font-medium">
                             Geli Akoon hore
@@ -62,7 +64,7 @@ export function Navbar() {
                     <Link href="/register">
                         <Button
                             size="sm"
-                            className="bg-linear-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 font-medium shadow-md hover:shadow-lg transition-all group"
+                            className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 font-medium shadow-md hover:shadow-lg transition-all group"
                         >
                             Abuur Akoon cusub
                             <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
@@ -110,14 +112,17 @@ export function Navbar() {
                         })}
 
                         {/* Mobile Auth Buttons */}
-                        <div className="pt-4 space-y-2 border-t border-border/40">
+                        <div className="pt-4 space-y-4 border-t border-border/40">
+                            <div className="flex items-center justify-between px-4 py-2 bg-muted/50 rounded-lg">
+                                <ThemeToggle />
+                            </div>
                             <Link href="/login" className="block" onClick={() => setMobileMenuOpen(false)}>
                                 <Button variant="outline" className="w-full justify-center">
                                     Geli Akoon hore
                                 </Button>
                             </Link>
                             <Link href="/register" className="block" onClick={() => setMobileMenuOpen(false)}>
-                                <Button className="w-full justify-center bg-linear-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-md group">
+                                <Button className="w-full justify-center bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-md group">
                                     Abuur Akoon cusub
                                     <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
                                 </Button>
@@ -129,3 +134,4 @@ export function Navbar() {
         </header>
     );
 }
+

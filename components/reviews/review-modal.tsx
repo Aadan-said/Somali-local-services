@@ -51,58 +51,60 @@ export function ReviewModal({ requestId, providerId, providerName, onSuccess }: 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-2 font-bold hover:bg-yellow-50 hover:text-yellow-700 hover:border-yellow-200 transition-all border-gray-100 shadow-sm">
-                    <Star className="h-4 w-4" />
+                <Button variant="outline" size="sm" className="gap-2 font-black text-[10px] uppercase tracking-widest hover:bg-amber-500/10 hover:text-amber-500 hover:border-amber-500/30 transition-all border-border bg-card shadow-sm rounded-xl">
+                    <Star className="h-3.5 w-3.5" />
                     Review Service
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] rounded-3xl p-6 overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-yellow-400 via-purple-500 to-blue-500" />
-                <DialogHeader className="pt-4">
-                    <DialogTitle className="text-2xl font-black text-gray-900">How was the service?</DialogTitle>
-                    <DialogDescription className="text-gray-500">
-                        Share your experience with <span className="font-bold text-purple-600">{providerName}</span>. Your feedback helps others in the community.
+            <DialogContent className="sm:max-w-[425px] rounded-[2.5rem] p-0 overflow-hidden border-border bg-background dark:bg-card/95 backdrop-blur-xl ring-1 ring-border shadow-2xl">
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-amber-400 via-primary to-blue-500" />
+                <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+
+                <DialogHeader className="pt-8 px-8">
+                    <DialogTitle className="text-2xl font-black text-foreground tracking-tight">How was the service?</DialogTitle>
+                    <DialogDescription className="text-muted-foreground font-medium mt-2">
+                        Share your experience with <span className="font-black text-primary">{providerName}</span>. Your feedback helps others in the community.
                     </DialogDescription>
                 </DialogHeader>
 
-                <div className="flex flex-col items-center gap-6 py-8">
-                    <div className="flex gap-2">
+                <div className="flex flex-col items-center gap-8 py-10 px-8">
+                    <div className="flex gap-3">
                         {[1, 2, 3, 4, 5].map((star) => (
                             <button
                                 key={star}
-                                className="transition-all hover:scale-125 focus:outline-none"
+                                className="transition-all hover:scale-125 focus:outline-none group"
                                 onMouseEnter={() => setHover(star)}
                                 onMouseLeave={() => setHover(0)}
                                 onClick={() => setRating(star)}
                             >
                                 <Star
                                     className={cn(
-                                        "h-10 w-10",
+                                        "h-10 w-10 transition-all duration-300",
                                         (hover || rating) >= star
-                                            ? "fill-yellow-400 text-yellow-400 drop-shadow-sm"
-                                            : "text-gray-200"
+                                            ? "fill-amber-400 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.4)]"
+                                            : "text-muted-foreground/20 group-hover:text-amber-400/50"
                                     )}
                                 />
                             </button>
                         ))}
                     </div>
 
-                    <div className="w-full space-y-2">
-                        <label className="text-xs font-black uppercase tracking-widest text-gray-400 px-1">Your Comment (Optional)</label>
+                    <div className="w-full space-y-2.5">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 px-1">Your Comment (Optional)</label>
                         <Textarea
                             placeholder="Tell us what you liked or what could be improved..."
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}
-                            className="min-h-[100px] rounded-2xl border-gray-100 bg-gray-50/50 focus:bg-white transition-all resize-none"
+                            className="min-h-[120px] rounded-2xl border-border bg-muted/40 focus:bg-muted/60 focus:ring-1 focus:ring-primary/20 transition-all resize-none font-medium placeholder:text-muted-foreground/40 text-foreground"
                         />
                     </div>
                 </div>
 
-                <DialogFooter>
+                <DialogFooter className="p-8 pt-0">
                     <Button
                         onClick={handleSubmit}
                         disabled={rating === 0 || loading}
-                        className="w-full rounded-full h-12 text-md font-bold bg-linear-to-br from-yellow-400 to-orange-500 hover:scale-[1.02] transition-transform shadow-lg shadow-yellow-100"
+                        className="w-full rounded-2xl h-14 text-xs font-black uppercase tracking-widest bg-gradient-to-br from-amber-400 to-orange-500 hover:to-orange-600 text-white shadow-xl shadow-amber-500/20 active:scale-[0.98] transition-all border-0"
                     >
                         {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Submit Review"}
                     </Button>
@@ -111,3 +113,4 @@ export function ReviewModal({ requestId, providerId, providerName, onSuccess }: 
         </Dialog>
     );
 }
+

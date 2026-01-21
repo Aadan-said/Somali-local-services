@@ -49,10 +49,10 @@ export default function OnboardingPage() {
             </div>
 
             <Card className="max-w-xl w-full border-gray-100 shadow-2xl rounded-2xl overflow-hidden bg-white/80 backdrop-blur-xl animate-in fade-in zoom-in-95 duration-500">
-                <div className="h-2 bg-linear-to-r from-purple-600 via-indigo-600 to-blue-600 w-full" />
+                <div className="h-2 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 w-full" />
                 <CardHeader className="text-center pt-10 pb-6 px-10">
                     <div className="flex justify-center mb-6">
-                        <div className="h-20 w-20 rounded-2xl bg-linear-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-xl shadow-purple-200">
+                        <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-xl shadow-purple-200">
                             <Sparkles className="h-10 w-10 text-white animate-pulse" />
                         </div>
                     </div>
@@ -101,7 +101,7 @@ export default function OnboardingPage() {
                     <Button
                         onClick={handleGetStarted}
                         disabled={isLoading}
-                        className="w-full h-14 bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-black rounded-xl shadow-lg shadow-purple-200 group relative overflow-hidden"
+                        className="w-full h-14 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-black rounded-xl shadow-lg shadow-purple-200 group relative overflow-hidden"
                     >
                         {isLoading ? (
                             <Loader2 className="h-5 w-5 animate-spin" />
@@ -119,3 +119,4 @@ export default function OnboardingPage() {
         </div>
     );
 }
+

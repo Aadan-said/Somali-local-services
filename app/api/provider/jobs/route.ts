@@ -1,44 +1,65 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { getAuthUser } from "@/lib/auth-utils";
+import { withRetry } from "@/lib/prisma-utils";
 
 export async function GET(req: Request) {
     try {
-        const session = await getServerSession(authOptions);
-        if (!session) {
+        const user = await getAuthUser(req);
+        if (!user || user.role !== "PROVIDER") {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const provider = await prisma.provider.findUnique({
-            where: { userId: session.user.id }
-        });
+        const { searchParams } = new URL(req.url);
+        const statusParam = searchParams.get('status');
 
-        if (!provider) {
-            return NextResponse.json([]);
-        }
+        const statusFilter = statusParam
+            ? statusParam.split(',')
+            : ["WAITING_APPROVAL", "ACCEPTED", "IN_PROGRESS", "COMPLETED"];
 
-        // Fetch requests assigned to this provider that are not pending
-        const requests = await prisma.serviceRequest.findMany({
-            where: {
-                providerId: provider.id,
-                status: { in: ["WAITING_APPROVAL", "ACCEPTED", "IN_PROGRESS", "COMPLETED"] }
-            },
-            include: {
-                user: {
-                    select: {
-                        name: true,
-                        email: true,
-                        phone: true
+        const jobs = await withRetry(async () => {
+            const provider = await prisma.provider.findUnique({
+                where: { userId: user.id }
+            });
+
+            if (!provider) return [];
+
+            const requests = await prisma.serviceRequest.findMany({
+                where: {
+                    providerId: provider.id,
+                    status: { in: statusFilter }
+                },
+                include: {
+                    user: {
+                        select: {
+                            name: true,
+                            email: true,
+                            phone: true
+                        }
                     }
+                },
+                orderBy: {
+                    createdAt: 'desc'
                 }
-            },
-            orderBy: {
-                createdAt: 'desc'
-            }
+            });
+
+            return requests.map(req => ({
+                id: req.id,
+                category: req.category || "General Service",
+                status: req.status,
+                price: req.price || 0,
+                createdAt: req.createdAt,
+                location: "Mogadishu, Somalia",
+                description: req.description,
+                user: {
+                    name: req.user.name,
+                    email: req.user.email,
+                    phone: req.user.phone
+                }
+            }));
         });
 
-        return NextResponse.json(requests);
+        return NextResponse.json(jobs);
 
     } catch (error) {
         console.error("PROVIDER_JOBS_API_ERROR:", error);

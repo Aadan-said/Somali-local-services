@@ -4,11 +4,11 @@ import { ArrowRight, Search, Zap, CheckCircle, Star, Shield, Sparkles, Users, Tr
 
 export default function LandingPage() {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen selection:bg-primary/20">
             {/* Hero Section */}
             <section className="relative py-12 md:py-20 lg:py-24 overflow-hidden">
                 {/* Animated Gradient Background */}
-                <div className="absolute inset-0 bg-linear-to-br from-blue-50/50 via-white to-blue-50/30 -z-10" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10 -z-10" />
 
                 {/* Refined Floating Element - Right Side */}
                 <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl opacity-60" />
@@ -18,7 +18,7 @@ export default function LandingPage() {
                     <div className="flex flex-col items-center space-y-8 text-center max-w-4xl mx-auto">
                         {/* Premium Badge */}
                         <div className="animate-fade-in-up">
-                            <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1 text-xs font-bold text-primary shadow-lg shadow-primary/5 border border-primary/10 transition-transform hover:scale-105">
+                            <div className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-1 text-xs font-bold text-primary shadow-lg shadow-primary/5 border border-primary/10 transition-transform hover:scale-105">
                                 <span className="relative flex h-2 w-2">
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                                     <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -28,17 +28,17 @@ export default function LandingPage() {
                         </div>
 
                         {/* Main Heading - Reduced Size & Refined */}
-                        <h1 className="text-3xl font-black tracking-tight sm:text-3xl md:text-5xl text-slate-900 leading-[1.15]">
-                            <span className="block mb-2 text-slate-800">Adeegyo xirfadaysan oo</span>
-                            <span className="bg-linear-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent pb-2">
+                        <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl md:text-5xl lg:text-6xl text-foreground leading-[1.1]">
+                            <span className="block mb-1 text-foreground/90">Adeegyo xirfadaysan oo</span>
+                            <span className="bg-gradient-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent pb-4 inline-block">
                                 laguugu keenayo albaabkaaga
                             </span>
                         </h1>
 
                         {/* Description */}
-                        <p className="mx-auto max-w-2xl text-lg text-slate-600 leading-relaxed font-medium">
-                            Hel korontayste, tuubayste iyo farsamayaqaanno lagu kalsoon yahay.
-                            Dalbo isla markiiba, kuna bixi si ammaan ah.
+                        <p className="mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed font-medium">
+                            Lakulan Macmiil ama Xirfadle kugu haboon Somali Local services waa haqabtiraha bulshadeena somaliyeed sidii ay ku heli lahayd
+                            baranamij Digital aha lagu kalsoon yahay Dalbo isla markiiba si ammaan ah.
                         </p>
 
                         {/* CTA Buttons - Premium Styling */}
@@ -64,43 +64,63 @@ export default function LandingPage() {
                             </Link>
                         </div>
 
-                        {/* Stats - Horizontal & Sleek */}
+
                         {/* Stats - Premium Glass Design */}
-                        <div className="w-full max-w-5xl mx-auto mt-12 md:mt-20">
-                            {/* Unified Glass Container */}
-                            <div className="relative rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-2xl shadow-blue-900/5 p-2 md:p-4">
-                                <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200/60">
+                        <div className="w-full max-w-5xl mx-auto mt-12 md:mt-24 relative">
+                            {/* Background Glow Decorations */}
+                            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-full h-64 bg-primary/5 blur-[120px] -z-10" />
 
-                                    {/* Stat 1 */}
-                                    <div className="group relative p-6 md:px-8 flex flex-col items-center text-center transition-all duration-300 hover:bg-white/50 rounded-2xl">
-                                        <div className="mb-4 inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-                                            <Users className="h-7 w-7" />
+                            {/* Main Container */}
+                            <div className="relative rounded-[2.5rem] bg-card/40 backdrop-blur-2xl border border-white/10 dark:border-white/5 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] overflow-hidden">
+                                {/* Decorative Shine Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-white/5 pointer-events-none" />
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/20 relative z-10">
+                                    {/* Stat 1: Xirfadlayaal */}
+                                    <div className="group relative p-8 md:p-10 flex flex-col items-center text-center transition-all duration-500 hover:bg-primary/5">
+                                        <div className="mb-6 relative flex items-center justify-center">
+                                            <div className="absolute inset-0 bg-blue-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
+                                            <div className="relative flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 z-10">
+                                                <Users className="h-8 w-8 text-white" />
+                                            </div>
                                         </div>
-                                        <div className="space-y-1">
-                                            <div className="text-4xl font-black text-slate-800 tracking-tight group-hover:text-blue-600 transition-colors">500+</div>
-                                            <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">Xirfadlayaal</div>
+                                        <div className="space-y-2">
+                                            <div className="text-5xl font-black tracking-tighter bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:to-indigo-600 transition-all duration-500">
+                                                500+
+                                            </div>
+                                            <div className="text-xs font-black text-muted-foreground uppercase tracking-[0.2em]">Xirfadlayaal</div>
                                         </div>
                                     </div>
 
-                                    {/* Stat 2 */}
-                                    <div className="group relative p-6 md:px-8 flex flex-col items-center text-center transition-all duration-300 hover:bg-white/50 rounded-2xl">
-                                        <div className="mb-4 inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 shadow-sm group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
-                                            <CheckCircle className="h-7 w-7" />
+                                    {/* Stat 2: Shaqooyin */}
+                                    <div className="group relative p-8 md:p-10 flex flex-col items-center text-center transition-all duration-500 hover:bg-primary/5">
+                                        <div className="mb-6 relative flex items-center justify-center">
+                                            <div className="absolute inset-0 bg-emerald-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
+                                            <div className="relative flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 text-white shadow-xl group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 z-10">
+                                                <CheckCircle className="h-8 w-8 text-white" />
+                                            </div>
                                         </div>
-                                        <div className="space-y-1">
-                                            <div className="text-4xl font-black text-slate-800 tracking-tight group-hover:text-emerald-600 transition-colors">10K+</div>
-                                            <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">Shaqooyin</div>
+                                        <div className="space-y-2">
+                                            <div className="text-5xl font-black tracking-tighter bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent group-hover:from-emerald-500 group-hover:to-teal-600 transition-all duration-500">
+                                                10K+
+                                            </div>
+                                            <div className="text-xs font-black text-muted-foreground uppercase tracking-[0.2em]">Shaqooyin</div>
                                         </div>
                                     </div>
 
-                                    {/* Stat 3 */}
-                                    <div className="group relative p-6 md:px-8 flex flex-col items-center text-center transition-all duration-300 hover:bg-white/50 rounded-2xl">
-                                        <div className="mb-4 inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-amber-50 text-amber-500 shadow-sm group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300">
-                                            <Star className="h-7 w-7 fill-current" />
+                                    {/* Stat 3: Qiimaynta */}
+                                    <div className="group relative p-8 md:p-10 flex flex-col items-center text-center transition-all duration-500 hover:bg-primary/5">
+                                        <div className="mb-6 relative flex items-center justify-center">
+                                            <div className="absolute inset-0 bg-amber-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
+                                            <div className="relative flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 z-10">
+                                                <Star className="h-8 w-8 text-white fill-current" />
+                                            </div>
                                         </div>
-                                        <div className="space-y-1">
-                                            <div className="text-4xl font-black text-slate-800 tracking-tight group-hover:text-amber-500 transition-colors">4.9/5</div>
-                                            <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">Qiimaynta</div>
+                                        <div className="space-y-2">
+                                            <div className="text-5xl font-black tracking-tighter bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent group-hover:from-amber-500 group-hover:to-orange-500 transition-all duration-500">
+                                                4.9/5
+                                            </div>
+                                            <div className="text-xs font-black text-muted-foreground uppercase tracking-[0.2em]">Qiimaynta</div>
                                         </div>
                                     </div>
                                 </div>
@@ -110,7 +130,7 @@ export default function LandingPage() {
                 </div>
 
                 {/* Bottom Wave - Seamless Transition */}
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
             </section>
 
             {/* Services Grid */}
@@ -169,17 +189,18 @@ export default function LandingPage() {
                             },
                         ].map((service, i) => (
                             <Link key={i} href="/register" className="group relative block h-full">
-                                <div className={`relative h-full overflow-hidden rounded-3xl border ${service.borderColor} bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group-hover:border-primary/50`}>
-                                    <div className={`absolute top-0 right-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-linear-to-br ${service.gradient} opacity-10 group-hover:opacity-20 transition-opacity`} />
+                                <div className={`relative h-full overflow-hidden rounded-3xl border ${service.borderColor} bg-card p-6 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group-hover:border-primary/50`}>
+                                    <div className={`absolute top-0 right-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-gradient-to-br ${service.gradient} opacity-10 group-hover:opacity-20 transition-opacity`} />
 
-                                    <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br ${service.gradient} text-white shadow-lg shadow-black/5`}>
-                                        <service.icon className="h-6 w-6" />
+                                    <div className={`mb-6 relative h-16 w-16 flex items-center justify-center rounded-2xl bg-gradient-to-br ${service.gradient} text-white shadow-lg overflow-hidden`}>
+                                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        <service.icon className="h-8 w-8 relative z-10" />
                                     </div>
 
-                                    <h3 className="mb-2 text-xl font-bold text-gray-900 group-hover:text-primary transition-colors">
+                                    <h3 className="mb-2 text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                                         {service.label}
                                     </h3>
-                                    <p className="text-sm text-gray-600 leading-relaxed">
+                                    <p className="text-sm text-muted-foreground leading-relaxed">
                                         {service.description}
                                     </p>
                                 </div>
@@ -207,12 +228,12 @@ export default function LandingPage() {
 
                 <div className="container px-4 md:px-6">
                     <div className="flex flex-col items-center text-center mb-20 space-y-4">
-                        <div className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-600 border border-blue-500/20 backdrop-blur-sm">
+                        <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary border border-primary/20 backdrop-blur-sm">
                             <ArrowRight className="h-3.5 w-3.5" />
                             <span>Fudud oo Degdeg ah</span>
                         </div>
-                        <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl lg:text-5xl">
-                            Sidee ayaan <span className="text-blue-600 italic">Ushaqaynaa</span>
+                        <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+                            Sidee ayaan <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent italic">Ushaqaynaa</span>
                         </h2>
                         <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                             Markii hore ma fududayn inay is helaan macmiil iyo xirafadlihii ku habonaa inuu shaqadaas qabto ,
@@ -222,7 +243,7 @@ export default function LandingPage() {
 
                     <div className="grid gap-12 lg:grid-cols-3 xl:gap-16 relative">
                         {/* Connecting Line (Desktop) */}
-                        <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-border to-transparent -translate-y-1/2 -z-10" />
+                        <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-border to-transparent -translate-y-1/2 -z-10" />
 
                         {[
                             {
@@ -252,17 +273,17 @@ export default function LandingPage() {
                         ].map((step, i) => (
                             <div key={i} className="group relative">
                                 {/* Step Card */}
-                                <div className="h-full flex flex-col p-12 lg:p-14 rounded-[3rem] border border-border/50 bg-background/60 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-4">
+                                <div className="h-full flex flex-col p-12 lg:p-14 rounded-[3rem] border border-border/50 bg-card/60 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-4">
                                     {/* Large Floating Number */}
                                     <div className="absolute -top-8 -right-8 text-8xl lg:text-9xl font-black text-primary/10 group-hover:text-primary/20 transition-colors italic">
                                         {step.number}
                                     </div>
 
                                     {/* Icon Box */}
-                                    <div className={`relative mb-10 w-24 h-24`}>
-                                        <div className={`absolute inset-0 bg-linear-to-br ${step.gradient} rounded-4xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />
-                                        <div className={`relative flex items-center justify-center w-full h-full rounded-4xl bg-linear-to-br ${step.gradient} text-white shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                                            <step.icon className="h-12 w-12" />
+                                    <div className="relative mb-10 w-24 h-24 flex items-center justify-center">
+                                        <div className={`absolute inset-0 bg-gradient-to-br ${step.gradient} rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity`} />
+                                        <div className={`relative flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br ${step.gradient} text-white shadow-2xl shadow-blue-500/20 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 z-10`}>
+                                            <step.icon className="h-10 w-10 text-white" />
                                         </div>
                                     </div>
 
@@ -278,7 +299,7 @@ export default function LandingPage() {
 
                                     {/* Bottom Indicator */}
                                     <div className="mt-auto pt-10 flex items-center gap-4">
-                                        <div className={`h-2 w-16 rounded-full bg-linear-to-r ${step.gradient} opacity-30 group-hover:opacity-100 transition-all duration-500 group-hover:w-24`} />
+                                        <div className={`h-2 w-16 rounded-full bg-gradient-to-r ${step.gradient} opacity-30 group-hover:opacity-100 transition-all duration-500 group-hover:w-24`} />
                                         <div className="h-2 w-2 rounded-full bg-muted-foreground/30 animate-pulse" />
                                     </div>
                                 </div>
@@ -287,8 +308,8 @@ export default function LandingPage() {
                     </div>
 
                     {/* Trust Banner */}
-                    <div className="mt-24 p-1 rounded-[3rem] bg-linear-to-r from-blue-500/10 via-purple-500/10 to-emerald-500/10">
-                        <div className="bg-background/80 backdrop-blur-3xl rounded-[2.9rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 border border-white/20">
+                    <div className="mt-24 p-1 rounded-4xl bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-emerald-500/10">
+                        <div className="glass border-white/20 rounded-[2.4rem] p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-10">
                             <div className="flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
                                 <div className="flex items-center justify-center w-20 h-20 rounded-2xl bg-primary/10 text-primary">
                                     <Shield className="h-10 w-10" />
@@ -317,3 +338,4 @@ export default function LandingPage() {
         </div>
     );
 }
+

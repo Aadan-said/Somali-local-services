@@ -53,22 +53,22 @@ export default function CreateRequestPage() {
         return (
             <div className="max-w-xl mx-auto py-24 text-center space-y-8 relative">
                 {/* Decorative background glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] -z-10 animate-pulse" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -z-10 animate-pulse" />
 
                 <div className="flex justify-center relative">
                     <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
-                    <div className="relative h-28 w-28 rounded-4xl bg-linear-to-br from-white to-primary/5 flex items-center justify-center text-primary shadow-2xl shadow-primary/20 border border-white/50 animate-in zoom-in duration-700">
+                    <div className="relative h-28 w-28 rounded-4xl bg-gradient-to-br from-background to-primary/5 flex items-center justify-center text-primary shadow-2xl shadow-primary/20 border border-primary/20 animate-in zoom-in duration-700">
                         <CheckCircle2 className="h-14 w-14" />
                     </div>
                 </div>
                 <div className="space-y-4 relative z-10">
-                    <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">Codsigaaga waa la diray!</h1>
-                    <p className="text-slate-600 font-medium text-lg max-w-sm mx-auto leading-relaxed">
+                    <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">Codsigaaga waa la diray!</h1>
+                    <p className="text-muted-foreground font-medium text-lg max-w-sm mx-auto leading-relaxed">
                         Codsigaaga si guul leh ayaa loo keydiyay, waxaana loo bandhigay dhammaan xirfadlayaasha ku sugan Soomaaliya.
                     </p>
                 </div>
                 <div className="pt-6 flex flex-col items-center gap-3">
-                    <div className="inline-flex items-center gap-2 text-sm text-primary font-bold bg-white/80 backdrop-blur-md px-6 py-3 rounded-full shadow-lg border border-white/50">
+                    <div className="inline-flex items-center gap-2 text-sm text-primary font-bold bg-card/80 backdrop-blur-md px-6 py-3 rounded-full shadow-lg border border-border">
                         <Loader2 className="h-4 w-4 animate-spin" />
                         Dib ugu laabo dashboard-ka...
                     </div>
@@ -91,12 +91,12 @@ export default function CreateRequestPage() {
                     href="/client"
                     className="group flex items-center gap-3"
                 >
-                    <div className="h-10 w-10 rounded-xl bg-white shadow-sm border border-slate-200 flex items-center justify-center text-slate-400 group-hover:bg-primary group-hover:text-white group-hover:border-primary group-hover:scale-110 transition-all duration-300">
+                    <div className="h-10 w-10 rounded-xl bg-card shadow-sm border border-border flex items-center justify-center text-muted-foreground group-hover:bg-primary group-hover:text-white group-hover:border-primary group-hover:scale-110 transition-all duration-300">
                         <ArrowLeft className="h-4 w-4" />
                     </div>
-                    <span className="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-primary transition-colors">Dashboard</span>
+                    <span className="text-xs font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">Dashboard</span>
                 </Link>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/50 backdrop-blur-sm border border-white/60 text-primary shadow-sm">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-card/50 backdrop-blur-sm border border-border text-primary shadow-sm">
                     <Sparkles className="h-4 w-4 animate-pulse" />
                     <span className="text-[10px] font-black uppercase tracking-widest">Codsi Cusub</span>
                 </div>
@@ -104,26 +104,26 @@ export default function CreateRequestPage() {
 
             {/* Main Title Area */}
             <div className="space-y-4 text-center py-4">
-                <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter leading-[1.1]">
+                <h1 className="text-3xl md:text-4xl font-black text-foreground tracking-tighter leading-[1.1]">
                     Maxaad maanta u <br />
-                    <span className="bg-linear-to-r from-primary via-purple-600 to-blue-600 bg-clip-text text-transparent">baahantahay?</span>
+                    <span className="bg-gradient-to-r from-primary via-purple-600 to-blue-600 bg-clip-text text-transparent">baahantahay?</span>
                 </h1>
-                <p className="text-slate-500 font-medium text-lg max-w-lg mx-auto">
+                <p className="text-muted-foreground font-medium text-lg max-w-lg mx-auto">
                     Buuxi foomka hoose si aan kuugu helno xirfadle ku habboon baahidaada.
                 </p>
             </div>
 
             {/* Premium Form Card */}
-            <Card className="border-0 bg-white/60 backdrop-blur-2xl shadow-2xl shadow-slate-200/50 rounded-[2.5rem] overflow-visible ring-1 ring-white/60 relative">
+            <Card className="border-0 bg-card/60 backdrop-blur-2xl shadow-2xl shadow-foreground/5 rounded-[2.5rem] overflow-visible ring-1 ring-border relative">
                 {/* Decorative gradients on card */}
-                <div className="absolute -top-px left-10 right-10 h-px bg-linear-to-r from-transparent via-primary/30 to-transparent" />
+                <div className="absolute -top-px left-10 right-10 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
                 <form onSubmit={handleSubmit} className="relative z-10">
                     <CardContent className="p-8 md:p-12 space-y-10">
 
                         {/* Service Selection */}
                         <div className="space-y-4">
-                            <Label htmlFor="category" className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1 flex items-center gap-2">
+                            <Label htmlFor="category" className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1 flex items-center gap-2">
                                 <Layers className="h-3 w-3" /> Nooca Adeegga
                             </Label>
                             <div className="relative group">
@@ -132,18 +132,18 @@ export default function CreateRequestPage() {
                                     required
                                     value={formData.category}
                                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                                    className="w-full h-16 bg-white border-0 ring-1 ring-slate-200 rounded-2xl px-6 pr-12 text-base font-bold text-slate-900 appearance-none focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all cursor-pointer hover:bg-slate-50"
+                                    className="w-full h-16 bg-muted/50 border-0 ring-1 ring-border rounded-2xl px-6 pr-12 text-base font-bold text-foreground appearance-none focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all cursor-pointer hover:bg-muted"
                                 >
-                                    <option value="" className="text-slate-400">Dooro adeegg bixiyaha aad u baahantahay...</option>
+                                    <option value="" className="text-muted-foreground">Dooro adeegg bixiyaha aad u baahantahay...</option>
                                     <option value="Electrician">Korontayste (Electrician)</option>
                                     <option value="Plumber">Tuubayste (Plumber)</option>
                                     <option value="Home Cleaning">Nadiifinta Guryaha (Cleaning)</option>
                                     <option value="AC Repair">Farsamada AC-ga (AC Repair)</option>
                                     <option value="Mechanic">Mikaanig (Mechanic)</option>
                                     <option value="Tutoring">Macallin/Cashirro (Tutoring)</option>
-                                    <option value="Other">Adeege kale (Other)</option>
+                                    <option value="Other">Shaqa bixiye guud</option>
                                 </select>
-                                <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 group-hover:text-primary transition-colors">
+                                <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground group-hover:text-primary transition-colors">
                                     <ChevronDown className="h-5 w-5" />
                                 </div>
                             </div>
@@ -151,20 +151,20 @@ export default function CreateRequestPage() {
 
                         {/* Description */}
                         <div className="space-y-4">
-                            <Label htmlFor="description" className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Sharaxaad kooban</Label>
+                            <Label htmlFor="description" className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Sharaxaad kooban</Label>
                             <Textarea
                                 id="description"
                                 value={formData.description}
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                 placeholder="Si faahfaahsan noogu sheeg waxaad u baahantahay..."
-                                className="min-h-[160px] bg-white border-0 ring-1 ring-slate-200 rounded-2xl p-6 text-base font-medium resize-none placeholder:text-slate-300 focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-slate-50"
+                                className="min-h-[160px] bg-muted/50 border-0 ring-1 ring-border rounded-2xl p-6 text-base font-medium resize-none placeholder:text-muted-foreground/40 focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-muted"
                                 required
                             />
                         </div>
 
                         {/* Budget / Price */}
                         <div className="space-y-4">
-                            <Label htmlFor="price" className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1 flex items-center gap-2">
+                            <Label htmlFor="price" className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1 flex items-center gap-2">
                                 <DollarSign className="h-3 w-3" /> Qiimaha (Budget)
                             </Label>
                             <div className="relative group">
@@ -176,13 +176,13 @@ export default function CreateRequestPage() {
                                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                                     placeholder="Tusaale: $50"
                                     required
-                                    className="h-16 bg-white border-0 ring-1 ring-slate-200 rounded-2xl pl-14 text-base font-bold text-slate-900 focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-slate-50"
+                                    className="h-16 bg-muted/50 border-0 ring-1 ring-border rounded-2xl pl-14 text-base font-bold text-foreground focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-muted"
                                 />
-                                <div className="absolute left-5 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600 transition-colors">
+                                <div className="absolute left-5 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 transition-colors">
                                     <DollarSign className="h-4 w-4" />
                                 </div>
                             </div>
-                            <p className="text-[10px] text-slate-400 font-medium ml-2">
+                            <p className="text-[10px] text-muted-foreground font-bold ml-2">
                                 * Qiimaha qiyaasta ah ee aad ku bixin karto shaqadan.
                             </p>
                         </div>
@@ -190,7 +190,7 @@ export default function CreateRequestPage() {
                         {/* Location & Date */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="space-y-4">
-                                <Label htmlFor="location" className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Goobta</Label>
+                                <Label htmlFor="location" className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Goobta</Label>
                                 <div className="relative group">
                                     <Input
                                         id="location"
@@ -198,7 +198,7 @@ export default function CreateRequestPage() {
                                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                                         placeholder="Tusaale: Galkio"
                                         required
-                                        className="h-16 bg-white border-0 ring-1 ring-slate-200 rounded-2xl pl-14 text-base font-bold text-slate-900 focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-slate-50"
+                                        className="h-16 bg-muted/50 border-0 ring-1 ring-border rounded-2xl pl-14 text-base font-bold text-foreground focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-muted"
                                     />
                                     <div className="absolute left-5 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-focus-within:bg-primary group-focus-within:text-white transition-colors">
                                         <MapPin className="h-4 w-4" />
@@ -206,7 +206,7 @@ export default function CreateRequestPage() {
                                 </div>
                             </div>
                             <div className="space-y-4">
-                                <Label htmlFor="serviceDate" className="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Taariikhda</Label>
+                                <Label htmlFor="serviceDate" className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Taariikhda</Label>
                                 <div className="relative group">
                                     <Input
                                         id="serviceDate"
@@ -214,7 +214,7 @@ export default function CreateRequestPage() {
                                         value={formData.serviceDate}
                                         onChange={(e) => setFormData({ ...formData, serviceDate: e.target.value })}
                                         required
-                                        className="h-16 bg-white border-0 ring-1 ring-slate-200 rounded-2xl pl-14 text-base font-bold text-slate-900 focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-slate-50"
+                                        className="h-16 bg-muted/50 border-0 ring-1 ring-border rounded-2xl pl-14 text-base font-bold text-foreground focus:ring-2 focus:ring-primary/20 focus:shadow-lg focus:shadow-primary/5 transition-all hover:bg-muted"
                                     />
                                     <div className="absolute left-5 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-focus-within:bg-primary group-focus-within:text-white transition-colors">
                                         <Calendar className="h-4 w-4" />
@@ -229,14 +229,14 @@ export default function CreateRequestPage() {
                             variant="ghost"
                             type="button"
                             onClick={() => router.back()}
-                            className="w-full md:w-auto h-16 px-8 rounded-2xl font-bold text-slate-400 hover:text-slate-600 hover:bg-slate-50 text-xs uppercase tracking-widest"
+                            className="w-full md:w-auto h-16 px-8 rounded-2xl font-black text-muted-foreground hover:text-foreground hover:bg-muted/50 text-xs uppercase tracking-widest"
                         >
                             Iska daa
                         </Button>
                         <Button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full md:flex-1 h-16 bg-primary hover:bg-primary/90 text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 active:scale-[0.98] transition-all disabled:opacity-50 hover:-translate-y-1"
+                            className="w-full md:flex-1 h-16 bg-primary hover:bg-primary/90 text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 active:scale-[0.98] transition-all disabled:opacity-50 hover:-translate-y-1 border-0"
                         >
                             {isLoading ? (
                                 <Loader2 className="h-5 w-5 animate-spin" />
@@ -253,3 +253,4 @@ export default function CreateRequestPage() {
         </div>
     );
 }
+

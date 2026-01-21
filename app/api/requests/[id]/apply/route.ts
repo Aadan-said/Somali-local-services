@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { getAuthUser } from "@/lib/auth-utils";
 import { z } from "zod";
 
 const applySchema = z.object({
@@ -14,8 +13,8 @@ export async function POST(
     { params }: { params: Promise<{ id: string }> } // Updated for Next.js 16 async params
 ) {
     try {
-        const session = await getServerSession(authOptions);
-        if (!session || session.user.role !== "PROVIDER") {
+        const user = await getAuthUser(req);
+        if (!user || user.role !== "PROVIDER") {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
@@ -25,7 +24,7 @@ export async function POST(
 
         // Get Provider ID
         const provider = await prisma.provider.findUnique({
-            where: { userId: session.user.id }
+            where: { userId: user.id }
         });
 
         if (!provider) {

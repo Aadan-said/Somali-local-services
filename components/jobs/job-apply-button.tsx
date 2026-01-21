@@ -67,7 +67,7 @@ export function JobApplyButton({ jobId, hasApplied, jobStatus, isProvider }: Job
 
     if (!isProvider) {
         return (
-            <Button onClick={() => router.push("/register")} className="w-full">
+            <Button onClick={() => router.push("/register?role=provider")} className="w-full">
                 Is-diiwaangeli
             </Button>
         );

@@ -1,23 +1,20 @@
-
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
+import { getAuthUser } from "@/lib/auth-utils";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: Request) {
     try {
-        const session = await getServerSession(authOptions);
-        if (!session) {
+        const user = await getAuthUser(req);
+        if (!user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        // Get user wallet (if exists) or create if needed?
-        // Let's assume user.wallet
-        // But schema is generalized.
-        const user = await (prisma as any).user.findUnique({
-            where: { id: session.user.id },
+        const userId = user.id;
+
+        const dbUser = await (prisma as any).user.findUnique({
+            where: { id: userId },
             include: {
                 wallet: {
                     include: {
@@ -30,15 +27,10 @@ export async function GET(req: Request) {
             }
         });
 
-        // Calculate "Total Spent"
-        // Since we don't have a PAYMENT flow yet fully, we can mock or sum PAYMENT transactions if we had them.
-        // For now, let's just create 'totalSpent' from wallet transaction sum where type='PAYMENT'
-        // If wallet doesn't exist, create it.
-
-        let wallet = user?.wallet;
+        let wallet = dbUser?.wallet;
         if (!wallet) {
             wallet = await (prisma as any).wallet.create({
-                data: { userId: session.user.id }
+                data: { userId: userId }
             });
         }
 

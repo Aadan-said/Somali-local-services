@@ -18,9 +18,9 @@ import { Input } from "@/components/ui/input";
 
 export function Footer() {
     return (
-        <footer className="relative border-t border-border/50 bg-linear-to-b from-background to-muted/30 overflow-hidden">
+        <footer className="relative border-t border-border/50 bg-gradient-to-b from-background to-muted/30 overflow-hidden">
             {/* Top Glow Decoration */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-linear-to-r from-transparent via-primary/50 to-transparent" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
             <div className="container px-4 md:px-6 pt-20 pb-12">
                 {/* Main Grid */}
@@ -28,10 +28,10 @@ export function Footer() {
                     {/* Brand Section */}
                     <div className="lg:col-span-4 space-y-8">
                         <Link href="/" className="flex items-center space-x-3 group">
-                            <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-linear-to-br from-primary via-blue-600 to-indigo-600 shadow-xl group-hover:scale-110 transition-transform">
+                            <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-primary via-blue-600 to-indigo-600 shadow-xl group-hover:scale-110 transition-transform">
                                 <Sparkles className="h-7 w-7 text-white" />
                             </div>
-                            <span className="text-2xl font-black tracking-tighter bg-linear-to-r from-primary via-blue-600 to-primary bg-clip-text text-transparent">
+                            <span className="text-2xl font-black tracking-tighter bg-gradient-to-r from-primary via-blue-600 to-primary bg-clip-text text-transparent">
                                 SomaliServices
                             </span>
                         </Link>
@@ -94,8 +94,8 @@ export function Footer() {
                                 {[
                                     { label: "Our Story", href: "/about" },
                                     { label: "Careers", href: "/careers" },
-                                    { label: "Local Impact", href: "/about" },
-                                    { label: "Newsroom", href: "/about" }
+                                    { label: "Local Impact", href: "/about#impact" },
+                                    { label: "Newsroom", href: "/about#news" }
                                 ].map((link, i) => (
                                     <li key={i}>
                                         <Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors flex items-center group/link">
@@ -115,8 +115,8 @@ export function Footer() {
                             <ul className="space-y-4">
                                 {[
                                     { label: "Help Center", href: "/help" },
-                                    { label: "FAQ", href: "/faq" },
-                                    { label: "Community", href: "/about" },
+                                    { label: "FAQ", href: "/help#faq" },
+                                    { label: "Community", href: "/about#community" },
                                     { label: "Contact Us", href: "/contact" }
                                 ].map((link, i) => (
                                     <li key={i}>
@@ -138,8 +138,8 @@ export function Footer() {
                                 {[
                                     { label: "Privacy Policy", href: "/privacy" },
                                     { label: "Terms of Use", href: "/terms" },
-                                    { label: "Secure Payments", href: "/privacy" },
-                                    { label: "Cookie Policy", href: "/cookies" }
+                                    { label: "Secure Payments", href: "/terms#payments" },
+                                    { label: "Cookie Policy", href: "/privacy#cookies" }
                                 ].map((link, i) => (
                                     <li key={i}>
                                         <Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors flex items-center group/link">
@@ -153,7 +153,7 @@ export function Footer() {
                 </div>
 
                 {/* Newsletter Sub-Footer */}
-                <div className="relative mb-20 p-8 md:p-12 rounded-[2.5rem] bg-linear-to-br from-primary/5 to-primary/10 border border-primary/20 overflow-hidden">
+                <div className="relative mb-20 p-8 md:p-12 rounded-[2.5rem] bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 overflow-hidden">
                     <div className="absolute top-0 right-0 p-8 text-primary/10 -rotate-12">
                         <Mail className="h-32 w-32" />
                     </div>
@@ -194,14 +194,15 @@ export function Footer() {
                     <div className="flex items-center gap-6">
                         <div className="flex items-center gap-1 text-sm font-medium">
                             <span className="text-muted-foreground">Lead by</span>
-                            <span className="bg-linear-to-r from-primary to-blue-600 bg-clip-text text-transparent font-bold">Aadan Said</span>
+                            <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent font-bold">Aadan Said</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Very Bottom Accent */}
-            <div className="h-1 bg-linear-to-r from-primary via-blue-600 to-indigo-600 w-full" />
+            <div className="h-1 bg-gradient-to-r from-primary via-blue-600 to-indigo-600 w-full" />
         </footer>
     );
 }
+

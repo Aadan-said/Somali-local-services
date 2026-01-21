@@ -50,3 +50,21 @@ error_debug.txt
 setup-env.js
 check_db.js
 test.prisma
+
+# local debug scripts
+check-prisma.js
+check_admin.js
+create_test_user.ts
+debug_backend.ts
+debug_user.ts
+fix_admin_user.js
+install_error.log
+ip_debug.txt
+ipconfig.txt
+list_users.ts
+network_debug.txt
+next_dev.log
+proxy.ts
+test_db.ts
+users_list.txt
+*.log

@@ -95,18 +95,18 @@ export default function WalletPage() {
         <div className="flex flex-col gap-8 pb-24 max-w-6xl mx-auto">
             {/* Header */}
             <div>
-                <h1 className="text-3xl font-black text-slate-900 tracking-tight">Jeebka (Wallet)</h1>
-                <p className="text-slate-500 font-medium">Maamul dhaqaalahaaga, dir oo la bax lacagta.</p>
+                <h1 className="text-3xl font-black text-foreground tracking-tight">Jeebka (Wallet)</h1>
+                <p className="text-muted-foreground font-medium">Maamul dhaqaalahaaga, dir oo la bax lacagta.</p>
             </div>
 
             <div className="grid gap-8 lg:grid-cols-3">
                 {/* Left Column: Balance Card & Actions */}
                 <div className="lg:col-span-2 space-y-8">
                     {/* Virtual Card */}
-                    <div className="relative overflow-hidden rounded-4xl bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 p-8 shadow-2xl text-white">
+                    <div className="relative overflow-hidden rounded-4xl bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 dark:from-black dark:via-zinc-900 dark:to-black p-8 shadow-2xl text-white border border-white/5 ring-1 ring-white/10">
                         {/* Decorative Circles */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20" />
-                        <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl -ml-10 -mb-10" />
+                        <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -ml-10 -mb-10" />
 
                         <div className="relative z-10 flex flex-col justify-between h-full min-h-[200px]">
                             <div className="flex justify-between items-start">
@@ -135,11 +135,11 @@ export default function WalletPage() {
                     </div>
 
                     {/* Transaction History */}
-                    <Card className="border-0 shadow-xl shadow-slate-200/50 bg-white/80 backdrop-blur-sm rounded-4xl">
+                    <Card className="border-0 shadow-xl shadow-foreground/5 bg-card/80 backdrop-blur-sm rounded-4xl ring-1 ring-border">
                         <CardHeader>
                             <div className="flex items-center gap-3">
-                                <div className="p-2.5 bg-slate-100 rounded-xl">
-                                    <History className="h-5 w-5 text-slate-600" />
+                                <div className="p-2.5 bg-muted rounded-xl border border-border">
+                                    <History className="h-5 w-5 text-muted-foreground" />
                                 </div>
                                 <div>
                                     <CardTitle className="text-lg font-bold">Dhaqdhaqaaqa (Transactions)</CardTitle>
@@ -150,23 +150,23 @@ export default function WalletPage() {
                         <CardContent>
                             <Table>
                                 <TableHeader>
-                                    <TableRow className="hover:bg-transparent border-slate-100">
-                                        <TableHead className="font-bold text-slate-400 text-[10px] uppercase tracking-wider">Type</TableHead>
-                                        <TableHead className="font-bold text-slate-400 text-[10px] uppercase tracking-wider">Description</TableHead>
-                                        <TableHead className="font-bold text-slate-400 text-[10px] uppercase tracking-wider text-right">Amount</TableHead>
-                                        <TableHead className="font-bold text-slate-400 text-[10px] uppercase tracking-wider text-right">Date</TableHead>
+                                    <TableRow className="hover:bg-transparent border-border">
+                                        <TableHead className="font-bold text-muted-foreground text-[10px] uppercase tracking-wider">Type</TableHead>
+                                        <TableHead className="font-bold text-muted-foreground text-[10px] uppercase tracking-wider">Description</TableHead>
+                                        <TableHead className="font-bold text-muted-foreground text-[10px] uppercase tracking-wider text-right">Amount</TableHead>
+                                        <TableHead className="font-bold text-muted-foreground text-[10px] uppercase tracking-wider text-right">Date</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {transactions.length > 0 ? (
                                         transactions.map((tx) => (
-                                            <TableRow key={tx.id} className="hover:bg-slate-50/50 border-slate-100 group">
+                                            <TableRow key={tx.id} className="hover:bg-muted/50 border-border group">
                                                 <TableCell>
                                                     <div className={cn(
                                                         "inline-flex items-center gap-2 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wide border",
-                                                        tx.type === "DEPOSIT" ? "bg-emerald-50 text-emerald-600 border-emerald-100" :
-                                                            tx.type === "EARNING" ? "bg-blue-50 text-blue-600 border-blue-100" :
-                                                                "bg-amber-50 text-amber-600 border-amber-100"
+                                                        tx.type === "DEPOSIT" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" :
+                                                            tx.type === "EARNING" ? "bg-blue-500/10 text-blue-500 border-blue-500/20" :
+                                                                "bg-amber-500/10 text-amber-500 border-amber-500/20"
                                                     )}>
                                                         {tx.type === "DEPOSIT" || tx.type === "EARNING" ? (
                                                             <ArrowDownLeft className="h-3 w-3" />
@@ -176,23 +176,23 @@ export default function WalletPage() {
                                                         {tx.type}
                                                     </div>
                                                 </TableCell>
-                                                <TableCell className="font-medium text-slate-700 text-xs">
+                                                <TableCell className="font-medium text-foreground text-xs">
                                                     {tx.description}
                                                 </TableCell>
                                                 <TableCell className={cn(
-                                                    "text-right font-black tabular-nums",
-                                                    tx.type === "WITHDRAWAL" ? "text-slate-900" : "text-emerald-600"
+                                                    "text-right font-black tabular-nums font-mono text-sm",
+                                                    tx.type === "WITHDRAWAL" ? "text-foreground" : "text-emerald-500"
                                                 )}>
                                                     {tx.type === "WITHDRAWAL" ? "-" : "+"}${tx.amount.toFixed(2)}
                                                 </TableCell>
-                                                <TableCell className="text-right text-xs text-slate-400 tabular-nums">
+                                                <TableCell className="text-right text-xs text-muted-foreground tabular-nums">
                                                     {new Date(tx.createdAt).toLocaleDateString()}
                                                 </TableCell>
                                             </TableRow>
                                         ))
                                     ) : (
                                         <TableRow>
-                                            <TableCell colSpan={4} className="h-24 text-center text-slate-400 text-sm">
+                                            <TableCell colSpan={4} className="h-24 text-center text-muted-foreground text-sm">
                                                 Wali wax dhaqdhaqaaq ah ma samayn.
                                             </TableCell>
                                         </TableRow>
@@ -205,20 +205,20 @@ export default function WalletPage() {
 
                 {/* Right Column: Actions */}
                 <div className="space-y-6">
-                    <Card className="border-0 shadow-xl shadow-slate-200/50 bg-white rounded-4xl overflow-hidden">
-                        <div className="h-2 bg-linear-to-r from-blue-600 to-purple-600" />
+                    <Card className="border-0 shadow-xl shadow-foreground/5 bg-card rounded-4xl overflow-hidden ring-1 ring-border">
+                        <div className="h-2 bg-gradient-to-r from-primary to-blue-600" />
                         <CardHeader>
                             <CardTitle className="font-bold">Maamul Lacagta</CardTitle>
                             <CardDescription>Ku shubo ama kala bax lacag</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
                             {/* Action Switcher */}
-                            <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-xl">
+                            <div className="grid grid-cols-2 gap-2 p-1 bg-muted rounded-xl border border-border">
                                 <button
                                     onClick={() => setAction("DEPOSIT")}
                                     className={cn(
                                         "py-2 rounded-lg text-xs font-black uppercase tracking-wide transition-all",
-                                        action === "DEPOSIT" ? "bg-white text-emerald-600 shadow-sm" : "text-slate-500 hover:text-slate-700"
+                                        action === "DEPOSIT" ? "bg-background text-emerald-500 shadow-sm border border-emerald-500/10" : "text-muted-foreground hover:text-foreground"
                                     )}
                                 >
                                     Deposit
@@ -227,7 +227,7 @@ export default function WalletPage() {
                                     onClick={() => setAction("WITHDRAWAL")}
                                     className={cn(
                                         "py-2 rounded-lg text-xs font-black uppercase tracking-wide transition-all",
-                                        action === "WITHDRAWAL" ? "bg-white text-amber-600 shadow-sm" : "text-slate-500 hover:text-slate-700"
+                                        action === "WITHDRAWAL" ? "bg-background text-amber-500 shadow-sm border border-amber-500/10" : "text-muted-foreground hover:text-foreground"
                                     )}
                                 >
                                     Withdraw
@@ -236,9 +236,9 @@ export default function WalletPage() {
 
                             <form onSubmit={handleTransaction} className="space-y-4">
                                 <div className="space-y-2">
-                                    <Label className="text-xs font-bold text-slate-500 uppercase">Adeegga (Service)</Label>
+                                    <Label className="text-xs font-black text-muted-foreground uppercase tracking-widest pl-1">Adeegga (Service)</Label>
                                     <Select value={method} onValueChange={setMethod}>
-                                        <SelectTrigger className="h-12 rounded-xl bg-slate-50 border-slate-200 hover:border-blue-400 transition-colors focus:ring-2 focus:ring-blue-100">
+                                        <SelectTrigger className="h-12 rounded-xl bg-muted border-border hover:border-primary/50 transition-colors focus:ring-2 focus:ring-primary/10">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -251,26 +251,26 @@ export default function WalletPage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label className="text-xs font-bold text-slate-500 uppercase">Taleefanka</Label>
+                                    <Label className="text-xs font-black text-muted-foreground uppercase tracking-widest pl-1">Taleefanka</Label>
                                     <Input
                                         placeholder="61xxxxxxx"
                                         value={phone}
                                         onChange={(e) => setPhone(e.target.value)}
-                                        className="h-12 rounded-xl bg-slate-50 border-slate-200 hover:border-blue-400 transition-colors focus:ring-2 focus:ring-blue-100"
+                                        className="h-12 rounded-xl bg-muted border-border hover:border-primary/50 transition-colors focus:ring-2 focus:ring-primary/10 font-bold"
                                     />
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label className="text-xs font-bold text-slate-500 uppercase">Lacagta ($)</Label>
+                                    <Label className="text-xs font-black text-muted-foreground uppercase tracking-widest pl-1">Lacagta ($)</Label>
                                     <div className="relative">
-                                        <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                                        <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                         <Input
                                             type="number"
                                             placeholder="0.00"
                                             min="1"
                                             value={amount}
                                             onChange={(e) => setAmount(e.target.value)}
-                                            className="pl-9 h-12 rounded-xl bg-slate-50 border-slate-200 hover:border-blue-400 transition-colors focus:ring-2 focus:ring-blue-100 font-bold text-lg"
+                                            className="pl-9 h-12 rounded-xl bg-muted border-border hover:border-primary/50 transition-colors focus:ring-2 focus:ring-primary/10 font-black text-lg"
                                         />
                                     </div>
                                 </div>
@@ -279,7 +279,7 @@ export default function WalletPage() {
                                     type="submit"
                                     disabled={processing || !amount || !phone}
                                     className={cn(
-                                        "w-full h-12 rounded-xl text-white font-black uppercase tracking-widest shadow-lg transition-all active:scale-95",
+                                        "w-full h-12 rounded-xl text-white font-black uppercase tracking-widest shadow-lg transition-all active:scale-95 border-0",
                                         action === "DEPOSIT" ? "bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20" : "bg-amber-600 hover:bg-amber-700 shadow-amber-500/20"
                                     )}
                                 >
@@ -291,8 +291,8 @@ export default function WalletPage() {
                                 </Button>
                             </form>
 
-                            <div className="flex items-start gap-2 p-3 rounded-lg bg-blue-50 text-[10px] text-blue-700 leading-tight">
-                                <CreditCard className="h-4 w-4 shrink-0" />
+                            <div className="flex items-start gap-2 p-3 rounded-lg bg-muted/50 text-[10px] text-muted-foreground leading-tight border border-border/50">
+                                <CreditCard className="h-4 w-4 shrink-0 text-muted-foreground opacity-60" />
                                 <p>
                                     Taxadar: Lacagta deposit-ka ahi waxay qaadanaysaa 1-5 daqiiqo in system-ka ay kasoo muuqato.
                                 </p>
@@ -304,3 +304,4 @@ export default function WalletPage() {
         </div>
     );
 }
+

@@ -1,15 +1,14 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { getAuthUser } from "@/lib/auth-utils";
 
 export async function POST(
     req: Request,
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const session = await getServerSession(authOptions);
-        if (!session) {
+        const user = await getAuthUser(req);
+        if (!user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
@@ -24,7 +23,7 @@ export async function POST(
             return NextResponse.json({ error: "Request not found" }, { status: 404 });
         }
 
-        if (request.userId !== session.user.id) {
+        if (request.userId !== user.id) {
             return NextResponse.json({ error: "Forbidden" }, { status: 403 });
         }
 
@@ -32,15 +31,22 @@ export async function POST(
             return NextResponse.json({ error: "Request is not waiting for approval" }, { status: 400 });
         }
 
-        // Update the request: set status to ACCEPTED
+        // Update the request: set status to IN_PROGRESS directly (smoother workflow)
         const updatedRequest = await prisma.serviceRequest.update({
             where: { id: requestId },
             data: {
-                status: "ACCEPTED"
+                status: "IN_PROGRESS",
+                timeStarted: new Date(),
+                // Initialize default tasks if they don't exist
+                tasks: request.tasks || JSON.stringify([
+                    { id: "1", text: "Bilow shaqada", completed: false },
+                    { id: "2", text: "Qaado sawiro inta shaqada socoto", completed: false },
+                    { id: "3", text: "Dhamaystir shaqada si fiican", completed: false }
+                ])
             }
         });
 
-        // Optional: Send notification to provider
+        // Send notification to provider
         if (request.providerId) {
             const provider = await prisma.provider.findUnique({
                 where: { id: request.providerId }
@@ -49,10 +55,10 @@ export async function POST(
                 await prisma.notification.create({
                     data: {
                         userId: provider.userId,
-                        title: "Codsigaagii waa la aqbalay!",
-                        message: `Macmiilku wuxuu aqbalay codsigaagii shaqada. Hadda waad bilaabi kartaa.`,
+                        title: "Shaqadaada waa la aqbalay!",
+                        message: `Macmiilku wuxuu aqbalay dalabkaagii. Shaqadu hadda way socotaa (In Progress).`,
                         type: "REQUEST_UPDATE",
-                        link: "/provider"
+                        link: "/provider/jobs"
                     }
                 });
             }

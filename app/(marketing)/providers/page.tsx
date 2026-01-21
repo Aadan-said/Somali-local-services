@@ -104,7 +104,7 @@ export default function ProvidersPage() {
             {/* Hero Section */}
             <section className="relative pt-12 md:pt-16 lg:pt-20 pb-20 overflow-hidden">
                 {/* Cinematic Background */}
-                <div className="absolute inset-0 bg-linear-to-br from-background via-primary/5 to-background -z-10" />
+                <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-background -z-10" />
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30">
                     <div className="absolute top-20 left-10 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-pulse" />
                     <div className="absolute bottom-20 right-10 w-[400px] h-[400px] bg-blue-400/20 rounded-full blur-[100px] animate-pulse delay-1000" />
@@ -120,7 +120,7 @@ export default function ProvidersPage() {
 
                             <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl leading-[1.1]">
                                 Xooji <br />
-                                <span className="bg-linear-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent italic">Khibradaada.</span>
+                                <span className="bg-gradient-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent italic">Khibradaada.</span>
                             </h1>
 
                             <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
@@ -163,7 +163,7 @@ export default function ProvidersPage() {
 
                         <div className="relative group lg:ml-auto w-full max-w-[500px] mx-auto">
                             {/* Decorative Frame */}
-                            <div className="absolute -inset-4 rounded-4xl bg-linear-to-br from-primary/20 via-blue-500/10 to-transparent blur-2xl group-hover:opacity-100 transition-opacity opacity-50" />
+                            <div className="absolute -inset-4 rounded-4xl bg-gradient-to-br from-primary/20 via-blue-500/10 to-transparent blur-2xl group-hover:opacity-100 transition-opacity opacity-50" />
 
                             <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-4xl overflow-hidden border-2 border-border shadow-xl">
                                 <Image
@@ -173,7 +173,7 @@ export default function ProvidersPage() {
                                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                                     priority
                                 />
-                                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
 
                                 {/* Floating Overlay Card */}
                                 <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-background/90 backdrop-blur-xl border border-white/20 shadow-xl">
@@ -214,13 +214,13 @@ export default function ProvidersPage() {
                         {benefits.map((benefit, i) => (
                             <div key={i} className="group relative">
                                 {/* Gradient Border Wrapper */}
-                                <div className="absolute -inset-px rounded-[2.6rem] bg-linear-to-br from-border/50 via-primary/5 to-border/50 group-hover:from-primary/50 group-hover:to-blue-600/50 transition-all duration-500 -z-10" />
+                                <div className="absolute -inset-px rounded-[2.6rem] bg-gradient-to-br from-border/50 via-primary/5 to-border/50 group-hover:from-primary/50 group-hover:to-blue-600/50 transition-all duration-500 -z-10" />
 
-                                <div className="h-full flex flex-col p-10 rounded-[2.5rem] bg-background/70 backdrop-blur-2xl transition-all duration-500 group-hover:bg-background/40 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-3">
+                                <div className="h-full flex flex-col p-10 rounded-4xl glass border-border/5 transition-all duration-500 hover:bg-background/40 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-3">
                                     {/* Icon Box */}
                                     <div className="relative mb-10 w-20 h-20">
-                                        <div className={`absolute inset-0 bg-linear-to-br ${benefit.gradient} rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />
-                                        <div className={`relative flex items-center justify-center w-full h-full rounded-3xl bg-linear-to-br ${benefit.gradient} text-white shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+                                        <div className={`absolute inset-0 bg-gradient-to-br ${benefit.gradient} rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />
+                                        <div className={`relative flex items-center justify-center w-full h-full rounded-3xl bg-gradient-to-br ${benefit.gradient} text-white shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
                                             <benefit.icon className="h-10 w-10" />
                                         </div>
                                     </div>
@@ -258,14 +258,14 @@ export default function ProvidersPage() {
                         <div className="grid md:grid-cols-3 gap-12 relative">
                             {/* Connector Line */}
                             <div className="hidden md:block absolute top-[60px] left-[10%] right-[10%] h-1 bg-muted -z-10 overflow-hidden">
-                                <div className="h-full w-1/2 bg-linear-to-r from-primary to-blue-600 animate-slide-in" />
+                                <div className="h-full w-1/2 bg-gradient-to-r from-primary to-blue-600 animate-slide-in" />
                             </div>
 
                             {steps.map((step, i) => (
                                 <div key={i} className="flex flex-col items-center text-center space-y-6 group">
                                     <div className="relative w-28 h-28">
-                                        <div className={`absolute inset-0 bg-linear-to-br ${step.gradient} rounded-4xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />
-                                        <div className={`relative flex items-center justify-center w-full h-full rounded-4xl bg-linear-to-br ${step.gradient} text-white shadow-2xl group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 font-black text-3xl`}>
+                                        <div className={`absolute inset-0 bg-gradient-to-br ${step.gradient} rounded-4xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />
+                                        <div className={`relative flex items-center justify-center w-full h-full rounded-4xl bg-gradient-to-br ${step.gradient} text-white shadow-2xl group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 font-black text-3xl`}>
                                             {step.number}
                                         </div>
                                     </div>
@@ -283,78 +283,73 @@ export default function ProvidersPage() {
             </section>
 
             {/* CTA Final */}
-            <section className="pt-8 pb-12 md:pb-20">
+            <section className="py-12 md:py-16">
                 <div className="container px-4 md:px-6">
-                    <div className="relative overflow-hidden rounded-4xl bg-primary px-6 py-12 md:px-12 md:py-16 shadow-2xl isolate transform hover:scale-[1.005] transition-transform duration-700">
+                    <div className="relative overflow-hidden rounded-4xl bg-gradient-to-br from-primary via-primary/95 to-blue-800 px-8 py-16 md:px-16 md:py-20 shadow-2xl isolate transform hover:scale-[1.002] transition-transform duration-700 border border-white/10">
+                        {/* Dynamic Background Elements */}
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1),transparent)] z-10" />
+                        <div className="absolute -top-32 -right-32 w-96 h-96 bg-white/15 rounded-full blur-[100px] animate-pulse" />
+                        <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-blue-400/10 rounded-full blur-[100px] animate-pulse delay-700" />
 
-                        {/* Dynamic Background Elements - Cleaned up to match compact height */}
-                        <div className="absolute inset-0 bg-linear-to-br from-white/10 to-transparent z-10" />
-                        <div className="absolute -top-24 -right-24 w-80 h-80 bg-white/10 rounded-full blur-[100px] animate-pulse" />
-                        <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-white/10 rounded-full blur-[100px] animate-pulse delay-1000" />
-
-                        {/* Content - Centered but more compact */}
+                        {/* Content - Centered and compact */}
                         <div className="relative z-20 flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
-
                             {/* Floating Badge */}
-                            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold text-white/90 backdrop-blur-md border border-white/20 shadow-lg animate-in fade-in slide-in-from-bottom-4 duration-1000">
+                            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-white/90 backdrop-blur-md border border-white/20 shadow-lg">
                                 <Sparkles className="h-3.5 w-3.5 text-yellow-300 fill-yellow-300 animate-pulse" />
-                                <span>Ku Biir Kooxda Guulaysatayaasha</span>
+                                <span>Ku Biir Guulaysatayaasha</span>
                             </div>
 
                             <div className="space-y-4">
                                 {/* Main Heading */}
-                                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.1] drop-shadow-xl">
+                                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.1] drop-shadow-sm">
                                     Diyaar Ma Tahay Inaad <br className="hidden md:block" />
-                                    <span className="text-white/90">
+                                    <span className="bg-gradient-to-r from-white via-blue-100 to-white/80 bg-clip-text text-transparent italic">
                                         Hormariso Ganacsigaaga?
                                     </span>
                                 </h2>
 
                                 {/* Subheading */}
-                                <p className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed font-medium">
-                                    Ku biir kumanaan xirfadlayaal ah oo maalin walba kor u qaadaya
-                                    dakhligooda, iyagoo adeegsanaya madasheena casriga ah.
+                                <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed font-medium">
+                                    Ku biir kumanaan xirfadlayaal ah oo maalin walba kor u qaadaya dakhligooda, iyagoo adeegsanaya madasheena casriga ah.
                                 </p>
                             </div>
 
                             {/* Action Buttons */}
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-5 w-full sm:w-auto pt-4">
                                 <Link href="/register?role=provider" className="w-full sm:w-auto">
-                                    <Button size="lg" className="h-12 px-8 rounded-xl text-base font-bold bg-white text-primary border-2 border-white/50 shadow-xl hover:scale-105 hover:bg-white/90 active:scale-95 transition-all duration-300 w-full sm:min-w-[180px] group">
+                                    <Button size="lg" className="h-16 px-12 rounded-2xl text-lg font-bold bg-white text-primary hover:bg-white/95 active:scale-95 transition-all duration-300 w-full sm:min-w-[220px] shadow-2xl group">
                                         Bilow Hadda
-                                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                                     </Button>
                                 </Link>
                                 <Link href="/help" className="w-full sm:w-auto">
-                                    <Button size="lg" variant="outline" className="h-12 px-8 rounded-xl text-base font-bold text-white bg-white/10 border-white/20 backdrop-blur-sm hover:bg-white/20 hover:border-white/40 transition-all duration-300 w-full sm:min-w-[180px]">
+                                    <Button size="lg" variant="outline" className="h-16 px-12 rounded-2xl text-lg font-bold text-white border-white/30 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/50 transition-all duration-300 w-full sm:min-w-[220px]">
                                         La Xiriir Kooxda
                                     </Button>
                                 </Link>
                             </div>
 
-                            {/* Social Proof Footer - Compact */}
-                            <div className="pt-2 flex flex-col md:flex-row items-center gap-6 md:gap-12 opacity-90">
+                            {/* Social Proof Footer - Compact & Refined */}
+                            <div className="pt-4 flex flex-col sm:flex-row items-center gap-4 sm:gap-8 opacity-90 border-t border-white/10 w-full justify-center">
                                 <div className="flex items-center gap-3">
-                                    <div className="flex -space-x-3">
-                                        {[1, 2, 3, 4].map((i) => (
-                                            <div key={i} className="w-8 h-8 rounded-full border-2 border-primary bg-linear-to-br from-gray-100 to-gray-300 flex items-center justify-center shadow-lg">
-                                                <Users className="h-4 w-4 text-gray-600" />
+                                    <div className="flex -space-x-2.5">
+                                        {[1, 2, 3].map((i) => (
+                                            <div key={i} className="w-7 h-7 rounded-full border-2 border-primary bg-gradient-to-br from-gray-200 to-gray-400 flex items-center justify-center shadow-md overflow-hidden">
+                                                <Users className="h-3.5 w-3.5 text-gray-700" />
                                             </div>
                                         ))}
                                     </div>
-                                    <div className="text-left leading-tight">
-                                        <div className="text-sm font-bold text-white">2.5k+ Xirfadlayaal</div>
-                                        <div className="flex text-yellow-400 gap-0.5">
-                                            {[1, 2, 3, 4, 5].map(j => <Heart key={j} className="w-2.5 h-2.5 fill-current" />)}
+                                    <div className="text-left">
+                                        <div className="text-xs font-bold text-white">2.5k+ Xirfadlayaal</div>
+                                        <div className="flex text-yellow-500 gap-0.5">
+                                            {[1, 2, 3, 4, 5].map(j => <Heart key={j} className="w-2 h-2 fill-current" />)}
                                         </div>
                                     </div>
                                 </div>
-                                <div className="hidden md:block w-px h-8 bg-white/20" />
-                                <div className="flex items-center gap-3">
-                                    <ShieldCheck className="h-5 w-5 text-white/90" />
-                                    <div className="text-left leading-tight">
-                                        <div className="text-sm font-bold text-white">100% Waa La Hubiyay</div>
-                                    </div>
+                                <div className="hidden sm:block w-px h-6 bg-white/10" />
+                                <div className="flex items-center gap-2">
+                                    <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                                    <span className="text-xs font-bold text-white/90">100% Waa La Hubiyay</span>
                                 </div>
                             </div>
 
@@ -365,3 +360,4 @@ export default function ProvidersPage() {
         </div>
     );
 }
+

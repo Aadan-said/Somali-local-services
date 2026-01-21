@@ -78,28 +78,28 @@ export default function AppearancePage() {
     if (loading) {
         return (
             <div className="max-w-4xl mx-auto">
-                <div className="animate-pulse space-y-4">
-                    <div className="h-8 bg-gray-200 rounded w-1/4"></div>
-                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div className="animate-pulse space-y-6">
+                    <div className="h-10 bg-muted rounded-xl w-1/4"></div>
+                    <div className="h-6 bg-muted rounded-xl w-1/2"></div>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="max-w-4xl mx-auto space-y-8">
-            <div className="flex items-center gap-4">
+        <div className="max-w-4xl mx-auto space-y-8 pb-24">
+            <div className="flex items-center gap-6">
                 <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => router.push("/client/settings")}
-                    className="rounded-xl"
+                    className="h-12 w-12 rounded-2xl bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
                 >
                     <ArrowLeft className="h-5 w-5" />
                 </Button>
-                <div className="flex flex-col gap-2">
-                    <h1 className="text-3xl font-black tracking-tight text-gray-900">Appearance</h1>
-                    <p className="text-gray-500">Dooro qaabka dashboard-kaaga</p>
+                <div className="flex flex-col gap-1">
+                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">Muuqaalka</h1>
+                    <p className="text-sm text-muted-foreground font-black uppercase tracking-widest">Dooro qaabka uu kuugu egyahay dashboard-kaaga</p>
                 </div>
             </div>
 
@@ -111,29 +111,36 @@ export default function AppearancePage() {
                         <Card
                             key={theme.value}
                             onClick={() => setSelectedTheme(theme.value)}
-                            className={`cursor-pointer transition-all hover:shadow-lg ${isSelected
-                                    ? "border-purple-600 border-2 shadow-lg shadow-purple-500/20"
-                                    : "border-gray-200 hover:border-purple-300"
+                            className={`cursor-pointer transition-all duration-300 rounded-4xl border-0 ring-1 backdrop-blur-xl ${isSelected
+                                ? "bg-primary/5 ring-primary shadow-2xl shadow-primary/10"
+                                : "bg-card/40 ring-border hover:ring-primary/30 hover:bg-card/60 hover:shadow-2xl hover:shadow-foreground/5"
                                 }`}
                         >
-                            <CardContent className="p-6 space-y-4">
+                            <CardContent className="p-8 space-y-6">
                                 <div className="flex items-center justify-between">
-                                    <div className={`p-3 rounded-xl ${isSelected ? "bg-purple-100 text-purple-600" : "bg-gray-100 text-gray-600"
+                                    <div className={`p-4 rounded-2xl transition-all duration-300 ${isSelected ? "bg-primary text-white scale-110 rotate-3 shadow-lg shadow-primary/20" : "bg-muted text-muted-foreground"
                                         }`}>
                                         <Icon className="h-6 w-6" />
                                     </div>
                                     {isSelected && (
-                                        <div className="h-6 w-6 rounded-full bg-purple-600 flex items-center justify-center">
+                                        <div className="h-7 w-7 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/20 animate-in zoom-in duration-300">
                                             <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                             </svg>
                                         </div>
                                     )}
                                 </div>
-                                <div className={`h-24 rounded-xl border-2 ${theme.preview}`}></div>
-                                <div>
-                                    <h3 className="text-lg font-bold text-gray-900">{theme.title}</h3>
-                                    <p className="text-sm text-gray-500">{theme.description}</p>
+                                <div className={`h-28 rounded-2xl border-2 transition-all duration-500 overflow-hidden shadow-inner ${theme.preview} ${isSelected ? "scale-[1.02]" : ""}`}>
+                                    {theme.value === "system" && (
+                                        <div className="w-full h-full flex">
+                                            <div className="w-1/2 h-full bg-white" />
+                                            <div className="w-1/2 h-full bg-slate-950" />
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="space-y-1">
+                                    <h3 className="text-xl font-black text-foreground tracking-tight">{theme.title}</h3>
+                                    <p className="text-[11px] font-black text-muted-foreground uppercase tracking-widest leading-relaxed">{theme.description}</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -141,13 +148,18 @@ export default function AppearancePage() {
                 })}
             </div>
 
-            <div className="flex justify-end pt-6 border-t border-gray-100">
+            <div className="flex justify-end pt-8 border-t border-border/50 mt-12">
                 <Button
                     onClick={handleSave}
                     disabled={saving}
-                    className="h-12 px-8 font-bold rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/20"
+                    className="h-14 px-10 font-black rounded-2xl bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 transition-all active:scale-[0.98] border-0 text-xs uppercase tracking-widest"
                 >
-                    {saving ? "Keydinta..." : "Keydi Theme"}
+                    {saving ? (
+                        <div className="flex items-center gap-2">
+                            <span className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                            Cusboonaysiin...
+                        </div>
+                    ) : "Keydi Isbedelka"}
                 </Button>
             </div>
         </div>

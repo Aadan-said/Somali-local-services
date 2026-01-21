@@ -16,15 +16,15 @@ interface JobWorkflowPanelProps {
 
 export function JobWorkflowPanel({ jobId, timeStarted, totalHours, progressPercentage = 0, onSuccess }: JobWorkflowPanelProps) {
     return (
-        <div className="bg-linear-to-br from-purple-50/50 to-blue-50/50 rounded-2xl p-6 border border-purple-100/50 space-y-6">
+        <div className="bg-card/40 backdrop-blur-xl rounded-3xl p-8 border-0 ring-1 ring-border shadow-xl shadow-foreground/5 space-y-8">
             {/* Header */}
-            <div className="flex items-center gap-3 pb-4 border-b border-purple-100">
-                <div className="h-10 w-10 rounded-lg bg-linear-to-br from-purple-600 to-blue-600 flex items-center justify-center">
-                    <Briefcase className="h-5 w-5 text-white" />
+            <div className="flex items-center gap-4 pb-6 border-b border-border/50">
+                <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20 shadow-sm">
+                    <Briefcase className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                    <h2 className="text-lg font-bold text-gray-900">Job Workflow</h2>
-                    <p className="text-xs text-gray-500">Manage your work efficiently</p>
+                    <h2 className="text-xl font-black text-foreground uppercase tracking-tight">Horumarka Shaqada</h2>
+                    <p className="text-[10px] text-muted-foreground font-black uppercase tracking-widest">Maamul shaqadaada si hufan</p>
                 </div>
             </div>
 
@@ -32,10 +32,10 @@ export function JobWorkflowPanel({ jobId, timeStarted, totalHours, progressPerce
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Left Column */}
                 <div className="space-y-6">
-                    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                    <div className="bg-muted/30 rounded-2xl p-6 shadow-sm border border-border backdrop-blur-sm">
                         <TaskChecklist jobId={jobId} />
                     </div>
-                    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                    <div className="bg-muted/30 rounded-2xl p-6 shadow-sm border border-border backdrop-blur-sm">
                         <TimeTracker
                             jobId={jobId}
                             initialTimeStarted={timeStarted}
@@ -46,16 +46,17 @@ export function JobWorkflowPanel({ jobId, timeStarted, totalHours, progressPerce
 
                 {/* Right Column */}
                 <div className="space-y-6">
-                    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                    <div className="bg-muted/30 rounded-2xl p-6 shadow-sm border border-border backdrop-blur-sm">
                         <JobNotes jobId={jobId} />
                     </div>
-                    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                        <div className="space-y-3">
-                            <h3 className="font-bold text-gray-900">Proof of Work</h3>
+                    <div className="bg-muted/30 rounded-2xl p-6 shadow-sm border border-border backdrop-blur-sm">
+                        <div className="space-y-4">
+                            <h3 className="font-black text-foreground text-sm uppercase tracking-tight">Cadaynta Shaqada</h3>
                             <ProofUpload
                                 jobId={jobId}
                                 onSuccess={onSuccess}
                                 disabled={progressPercentage < 100}
+                                progressPercentage={progressPercentage}
                             />
                         </div>
                     </div>

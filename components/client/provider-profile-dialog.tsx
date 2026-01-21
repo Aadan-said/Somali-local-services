@@ -63,7 +63,7 @@ export function ProviderProfileDialog({ provider, trigger }: ProviderProfileDial
                 </DialogHeader>
 
                 {/* Header/Cover */}
-                <div className="h-32 bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 relative">
+                <div className="h-32 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 relative">
                     <div className="absolute -bottom-12 left-8">
                         <div className="h-24 w-24 rounded-2xl bg-white p-1 shadow-xl ring-4 ring-white/20">
                             {provider.user.image ? (
@@ -73,7 +73,7 @@ export function ProviderProfileDialog({ provider, trigger }: ProviderProfileDial
                                     className="h-full w-full rounded-xl object-cover"
                                 />
                             ) : (
-                                <div className="h-full w-full rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-3xl font-black">
+                                <div className="h-full w-full rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-3xl font-black">
                                     {provider.user.name.charAt(0)}
                                 </div>
                             )}
@@ -155,3 +155,4 @@ export function ProviderProfileDialog({ provider, trigger }: ProviderProfileDial
         </Dialog>
     );
 }
+

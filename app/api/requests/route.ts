@@ -1,28 +1,33 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { getAuthUser } from "@/lib/auth-utils";
 import { z } from "zod";
 
 const requestSchema = z.object({
     description: z.string().min(10),
+    category: z.string().optional(),
+    location: z.string().optional(),
+    price: z.union([z.number(), z.string()]).optional(),
     providerId: z.string().optional(),
 });
 
 export async function POST(req: Request) {
     try {
-        const session = await getServerSession(authOptions);
-        if (!session) {
+        const user = await getAuthUser(req);
+        if (!user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         const body = await req.json();
-        const { description, providerId } = requestSchema.parse(body);
+        const { description, category, location, price, providerId } = requestSchema.parse(body);
 
         const request = await prisma.serviceRequest.create({
             data: {
-                userId: session.user.id,
+                userId: user.id,
                 description,
+                category,
+                location,
+                price: price ? parseFloat(price.toString()) : null,
                 providerId,
                 status: "PENDING",
             },
@@ -42,27 +47,20 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
     try {
-        const session = await getServerSession(authOptions);
-        if (!session) {
+        const user = await getAuthUser(req);
+        console.log("GET /api/requests - User:", user?.id, user?.role);
+
+        if (!user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        // If provider, get requests assigned to them
-        // If user, get their requests
-        const where: any = {};
-        if (session.user.role === "PROVIDER") {
-            // Find provider record first
-            const provider = await prisma.provider.findUnique({
-                where: { userId: session.user.id }
-            });
-            if (provider) {
-                where.providerId = provider.id;
-            } else {
-                return NextResponse.json([]);
-            }
-        } else {
-            where.userId = session.user.id;
-        }
+        // Always return requests created by the user (Client View)
+        // If a provider wants to see their assigned jobs, they use /api/provider/jobs
+        const where: any = {
+            userId: user.id
+        };
+
+        console.log("GET /api/requests - Query Where:", JSON.stringify(where));
 
         const requests = await (prisma as any).serviceRequest.findMany({
             where,
@@ -80,6 +78,7 @@ export async function GET(req: Request) {
                         }
                     }
                 },
+                review: true, // Include review to check if already rated
                 proposals: {
                     include: {
                         provider: {
@@ -94,9 +93,12 @@ export async function GET(req: Request) {
             orderBy: { createdAt: 'desc' }
         });
 
+        console.log("GET /api/requests - Found count:", requests.length);
+
         return NextResponse.json(requests);
 
     } catch (error) {
+        console.error("GET Requests Error:", error);
         return NextResponse.json(
             { error: "Internal Server Error" },
             { status: 500 }

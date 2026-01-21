@@ -1,11 +1,10 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Check, X, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface Task {
     id: string;
@@ -35,6 +34,7 @@ export function TaskChecklist({ jobId }: TaskChecklistProps) {
             setTasks(Array.isArray(data) ? data : []);
         } catch (error) {
             console.error("Error fetching tasks:", error);
+            toast.error("Cilad ayaa dhacday soo qaadista hawlaha.");
         } finally {
             setLoading(false);
         }
@@ -43,15 +43,32 @@ export function TaskChecklist({ jobId }: TaskChecklistProps) {
     const saveTasks = async (updatedTasks: Task[]) => {
         setSaving(true);
         try {
-            await fetch(`/api/provider/jobs/${jobId}/tasks`, {
+            const res = await fetch(`/api/provider/jobs/${jobId}/tasks`, {
                 method: "POST",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ tasks: updatedTasks }),
             });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                // Revert to previous state on error
+                await fetchTasks();
+                toast.error(data.error || "Cilad ayaa dhacday cusboonaysiinta hawlaha.");
+                return false;
+            }
+
+            toast.success("Hawlaha waa la cusboonaysiiyay!");
+            router.refresh();
+            return true;
         } catch (error) {
             console.error("Error saving tasks:", error);
+            // Revert to previous state on error
+            await fetchTasks();
+            toast.error("Ma suuroobin in la cusboonaysiiyo hadda. Fadlan internetka hubi.");
+            return false;
         } finally {
             setSaving(false);
-            router.refresh();
         }
     };
 
@@ -96,7 +113,7 @@ export function TaskChecklist({ jobId }: TaskChecklistProps) {
                 <div
                     className={cn(
                         "h-full transition-all duration-700 ease-out shadow-sm",
-                        progress === 100 ? "bg-green-500" : "bg-linear-to-r from-purple-500 to-blue-500"
+                        progress === 100 ? "bg-green-500" : "bg-gradient-to-r from-purple-500 to-blue-500"
                     )}
                     style={{ width: `${progress}%` }}
                 />
@@ -177,3 +194,4 @@ export function TaskChecklist({ jobId }: TaskChecklistProps) {
         </div>
     );
 }
+

@@ -19,6 +19,7 @@ export default function MyRequestsPage() {
     const [requests, setRequests] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isActioning, setIsActioning] = useState<string | null>(null);
+    const [activeTab, setActiveTab] = useState<"all" | "active" | "completed">("all");
 
     const fetchRequests = async () => {
         try {
@@ -108,13 +109,13 @@ export default function MyRequestsPage() {
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case "PENDING": return "bg-amber-100 text-amber-700 border-amber-200";
-            case "WAITING_APPROVAL": return "bg-purple-100 text-purple-700 border-purple-200";
-            case "ACCEPTED": return "bg-emerald-100 text-emerald-700 border-emerald-200";
-            case "IN_PROGRESS": return "bg-blue-100 text-blue-700 border-blue-200";
-            case "COMPLETED": return "bg-green-100 text-green-700 border-green-200";
-            case "CANCELLED": return "bg-red-100 text-red-700 border-red-200";
-            default: return "bg-gray-100 text-gray-700 border-gray-200";
+            case "PENDING": return "bg-amber-500/10 text-amber-500 border-amber-500/20";
+            case "WAITING_APPROVAL": return "bg-purple-500/10 text-purple-500 border-purple-500/20";
+            case "ACCEPTED": return "bg-emerald-500/10 text-emerald-500 border-emerald-500/20";
+            case "IN_PROGRESS": return "bg-blue-500/10 text-blue-500 border-blue-500/20";
+            case "COMPLETED": return "bg-green-500/10 text-green-500 border-green-500/20";
+            case "CANCELLED": return "bg-red-500/10 text-red-500 border-red-500/20";
+            default: return "bg-muted text-muted-foreground border-border";
         }
     };
 
@@ -145,24 +146,74 @@ export default function MyRequestsPage() {
                     <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-sm ring-1 ring-primary/20">
                         <ShoppingBag className="h-6 w-6" />
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-gray-900">Codsiyadayda</h1>
+                    <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-foreground">Codsiyadayda</h1>
                 </div>
-                <p className="text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed">
+                <p className="text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed">
                     Halkan waxaad kala socon kartaa heerka codsiyadaada, shaqooyinka socda, iyo taariikhda adeegyadii hore.
                 </p>
             </div>
 
-            {requests.length === 0 ? (
-                <div className="relative overflow-hidden rounded-[2.5rem] bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl p-10 md:p-20 text-center">
+            {/* Tab Navigation */}
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                <div className="flex gap-3 p-2 bg-card/40 backdrop-blur-xl rounded-2xl border border-border shadow-lg w-full sm:w-auto">
+                    <button
+                        onClick={() => setActiveTab("all")}
+                        className={cn(
+                            "flex-1 sm:flex-none px-6 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all duration-300",
+                            activeTab === "all"
+                                ? "bg-primary text-white shadow-lg shadow-primary/20"
+                                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        )}
+                    >
+                        Dhammaan
+                    </button>
+                    <button
+                        onClick={() => setActiveTab("active")}
+                        className={cn(
+                            "flex-1 sm:flex-none px-6 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all duration-300",
+                            activeTab === "active"
+                                ? "bg-blue-500 text-white shadow-lg shadow-blue-500/20"
+                                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        )}
+                    >
+                        Socda
+                    </button>
+                    <button
+                        onClick={() => setActiveTab("completed")}
+                        className={cn(
+                            "flex-1 sm:flex-none px-6 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all duration-300",
+                            activeTab === "completed"
+                                ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20"
+                                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        )}
+                    >
+                        Dhammaystiran
+                    </button>
+                </div>
+                <div className="text-sm font-bold text-muted-foreground">
+                    {requests.filter(req => {
+                        if (activeTab === "active") return ["PENDING", "ACCEPTED", "IN_PROGRESS", "WAITING_APPROVAL"].includes(req.status);
+                        if (activeTab === "completed") return ["COMPLETED", "CANCELLED"].includes(req.status);
+                        return true;
+                    }).length} {activeTab === "all" ? "Codsi" : activeTab === "active" ? "Socda" : "Dhammaystiran"}
+                </div>
+            </div>
+
+            {requests.filter(req => {
+                if (activeTab === "active") return ["PENDING", "ACCEPTED", "IN_PROGRESS", "WAITING_APPROVAL"].includes(req.status);
+                if (activeTab === "completed") return ["COMPLETED", "CANCELLED"].includes(req.status);
+                return true;
+            }).length === 0 ? (
+                <div className="relative overflow-hidden rounded-[2.5rem] bg-card/40 backdrop-blur-xl border border-border shadow-xl p-10 md:p-20 text-center">
                     <div className="relative z-10 flex flex-col items-center">
-                        <div className="mb-6 p-6 bg-blue-50/50 rounded-full ring-1 ring-blue-100 animate-pulse">
-                            <ShoppingBag className="h-12 w-12 text-blue-400" />
+                        <div className="mb-6 p-6 bg-primary/5 rounded-full ring-1 ring-primary/10 animate-pulse">
+                            <ShoppingBag className="h-12 w-12 text-primary/60" />
                         </div>
-                        <h3 className="text-2xl font-black text-gray-900 mb-2">Ma jiraan codsiyo aad dirtay</h3>
-                        <p className="text-gray-500 max-w-md mx-auto mb-8 text-lg">
+                        <h3 className="text-2xl font-black text-foreground mb-2">Ma jiraan codsiyo aad dirtay</h3>
+                        <p className="text-muted-foreground max-w-md mx-auto mb-8 text-lg">
                             Weli ma aadan soo gudbin wax codsi ah. Bilow maanta oo hel adeegayaal xirfad leh.
                         </p>
-                        <Button className="h-12 px-8 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all hover:-translate-y-1">
+                        <Button className="h-12 px-8 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all hover:-translate-y-1 border-0">
                             Dir Codsi Cusub
                         </Button>
                     </div>
@@ -171,20 +222,24 @@ export default function MyRequestsPage() {
                 </div>
             ) : (
                 <div className="grid gap-8">
-                    {requests.map((request) => (
-                        <Card key={request.id} className="group relative overflow-hidden border-0 bg-white/70 backdrop-blur-2xl shadow-xl shadow-slate-200/40 ring-1 ring-white/50 rounded-[2.5rem] transition-all duration-500 hover:shadow-2xl hover:bg-white/80">
+                    {requests.filter(req => {
+                        if (activeTab === "active") return ["PENDING", "ACCEPTED", "IN_PROGRESS", "WAITING_APPROVAL"].includes(req.status);
+                        if (activeTab === "completed") return ["COMPLETED", "CANCELLED"].includes(req.status);
+                        return true;
+                    }).map((request) => (
+                        <Card key={request.id} className="group relative overflow-hidden border-0 bg-card/70 backdrop-blur-2xl shadow-xl shadow-foreground/5 ring-1 ring-border rounded-[2.5rem] transition-all duration-500 hover:shadow-2xl hover:bg-card/90">
                             {/* Decorative Gradients */}
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-primary/5 to-purple-500/5 rounded-bl-[100%] transition-opacity duration-700 opacity-50 group-hover:opacity-100" />
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/5 to-purple-500/5 rounded-bl-[100%] transition-opacity duration-700 opacity-50 group-hover:opacity-100" />
 
                             <div className="relative p-6 md:p-10 flex flex-col gap-8">
                                 {/* Top Bar: Date & Status */}
                                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                                     <div className="flex items-center gap-3">
-                                        <Badge variant="outline" className={cn("h-10 px-4 rounded-xl text-xs md:text-sm font-bold border flex items-center gap-2 shadow-sm uppercase tracking-wider", getStatusColor(request.status))}>
+                                        <div className={cn("h-10 px-4 rounded-xl text-xs md:text-sm font-bold border flex items-center gap-2 shadow-sm uppercase tracking-wider", getStatusColor(request.status))}>
                                             {getStatusIcon(request.status)}
                                             {request.status.replace("_", " ")}
-                                        </Badge>
-                                        <div className="h-10 px-4 rounded-xl bg-gray-50/80 border border-gray-100 flex items-center justify-center text-xs font-bold text-gray-400 uppercase tracking-widest">
+                                        </div>
+                                        <div className="h-10 px-4 rounded-xl bg-muted/80 border border-border flex items-center justify-center text-xs font-bold text-muted-foreground uppercase tracking-widest">
                                             {new Date(request.createdAt).toLocaleDateString('so-SO', {
                                                 month: 'short',
                                                 day: 'numeric',
@@ -192,7 +247,7 @@ export default function MyRequestsPage() {
                                             })}
                                         </div>
                                     </div>
-                                    <div className="text-[10px] font-bold text-gray-300 uppercase tracking-widest pl-2">
+                                    <div className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest pl-2">
                                         ID: {request.id.substring(0, 8)}
                                     </div>
                                 </div>
@@ -202,27 +257,27 @@ export default function MyRequestsPage() {
                                     {/* Description Column */}
                                     <div className="space-y-6">
                                         <div>
-                                            <h3 className="text-xl md:text-2xl font-black text-gray-900 leading-tight mb-2">
+                                            <h3 className="text-xl md:text-2xl font-black text-foreground leading-tight mb-2">
                                                 {request.description}
                                             </h3>
-                                            <p className="text-sm font-medium text-gray-500 flex items-center gap-2">
-                                                <Clock className="h-4 w-4 text-gray-400" />
+                                            <p className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                                                <Clock className="h-4 w-4 text-muted-foreground/60" />
                                                 La gudbiyay: {new Date(request.createdAt).toLocaleTimeString()}
                                             </p>
                                         </div>
 
                                         {/* Proof of Work Section */}
                                         {request.proofOfWork && (
-                                            <div className="mt-4 p-5 bg-green-50/50 backdrop-blur-sm rounded-2xl border border-green-100/60 overflow-hidden">
-                                                <div className="flex items-center gap-2 text-green-700 font-extrabold text-xs uppercase tracking-widest mb-3">
+                                            <div className="mt-4 p-5 bg-emerald-500/5 backdrop-blur-sm rounded-2xl border border-emerald-500/20 overflow-hidden">
+                                                <div className="flex items-center gap-2 text-emerald-500 font-extrabold text-xs uppercase tracking-widest mb-3">
                                                     <ShieldCheck className="h-4 w-4" />
                                                     Cadaynta Shaqada
                                                 </div>
                                                 {request.proofOfWorkNote && (
-                                                    <p className="text-sm text-gray-700 font-medium mb-3 leading-relaxed">{request.proofOfWorkNote}</p>
+                                                    <p className="text-sm text-foreground/80 font-medium mb-3 leading-relaxed">{request.proofOfWorkNote}</p>
                                                 )}
                                                 {(request.proofOfWork.startsWith('http') || request.proofOfWork.startsWith('data:image')) && (
-                                                    <a href={request.proofOfWork} target="_blank" rel="noopener noreferrer" className="block w-full max-w-md overflow-hidden rounded-xl border border-white/50 shadow-sm transition-transform hover:scale-[1.02]">
+                                                    <a href={request.proofOfWork} target="_blank" rel="noopener noreferrer" className="block w-full max-w-md overflow-hidden rounded-xl border border-border shadow-sm transition-transform hover:scale-[1.02]">
                                                         <img src={request.proofOfWork} alt="Proof" className="w-full h-48 object-cover" />
                                                     </a>
                                                 )}
@@ -236,7 +291,7 @@ export default function MyRequestsPage() {
                                                     <Button
                                                         onClick={() => handleApprove(request.id)}
                                                         disabled={isActioning === request.id + "-approve"}
-                                                        className="h-11 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/20 active:scale-95 transition-all"
+                                                        className="h-11 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/20 active:scale-95 transition-all border-0"
                                                     >
                                                         {isActioning === request.id + "-approve" ? (
                                                             <Loader2 className="h-4 w-4 animate-spin mr-2" />
@@ -249,7 +304,7 @@ export default function MyRequestsPage() {
                                                         onClick={() => handleDecline(request.id)}
                                                         disabled={isActioning === request.id + "-decline"}
                                                         variant="outline"
-                                                        className="h-11 px-6 border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300 font-bold rounded-xl active:scale-95 transition-all"
+                                                        className="h-11 px-6 border-red-500/20 text-red-500 hover:bg-red-500/10 hover:border-red-500/30 font-bold rounded-xl active:scale-95 transition-all"
                                                     >
                                                         {isActioning === request.id + "-decline" ? (
                                                             <Loader2 className="h-4 w-4 animate-spin mr-2" />
@@ -265,28 +320,28 @@ export default function MyRequestsPage() {
                                                     requestId={request.id}
                                                     currentUserId={session?.user.id!}
                                                     recipientName={request.provider.user.name}
-                                                    triggerLabel="La hadal Adeeg-bixiyaha"
                                                 />
                                             )}
                                             {request.status === "COMPLETED" && (
                                                 <div className="flex gap-2">
-                                                    {!request.review ? (
+                                                    {request.reviews && request.reviews.length > 0 ? (
+                                                        <Button disabled variant="outline" size="sm" className="gap-2 font-black text-[10px] uppercase tracking-widest opacity-50 bg-muted/50 border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-xl">
+                                                            <ShieldCheck className="h-3.5 w-3.5" />
+                                                            Qiimayntii waad dirtay
+                                                        </Button>
+                                                    ) : (
                                                         <ReviewModal
                                                             requestId={request.id}
                                                             providerId={request.providerId!}
-                                                            providerName={request.provider?.user.name || "Provider"}
+                                                            providerName={request.provider?.user?.name || "Xirfadle"}
+                                                            onSuccess={fetchRequests}
                                                         />
-                                                    ) : (
-                                                        <div className="h-11 px-4 rounded-xl bg-green-50 border border-green-100 text-green-700 flex items-center gap-2 font-bold text-sm">
-                                                            <Star className="h-4 w-4 fill-green-700" />
-                                                            Qiimayntu waa diray
-                                                        </div>
                                                     )}
                                                     <Button
                                                         onClick={() => handleReList(request.id)}
                                                         disabled={isActioning === request.id + "-relist"}
                                                         variant="ghost"
-                                                        className="h-11 px-6 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white font-bold rounded-xl border border-red-100 transition-all active:scale-95 flex items-center gap-2 group"
+                                                        className="h-11 px-6 bg-red-500/10 text-red-500 hover:bg-red-600 hover:text-white font-bold rounded-xl border border-red-500/20 transition-all active:scale-95 flex items-center gap-2 group"
                                                     >
                                                         {isActioning === request.id + "-relist" ? (
                                                             <Loader2 className="h-4 w-4 animate-spin" />
@@ -302,32 +357,32 @@ export default function MyRequestsPage() {
 
                                     {/* Provider Info Column */}
                                     <div className="md:w-72">
-                                        <div className="h-full bg-slate-50/50 rounded-2xl border border-slate-100/60 p-5 flex flex-col">
-                                            <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                                        <div className="h-full bg-muted/30 rounded-3xl border border-border p-6 flex flex-col">
+                                            <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 mb-5 flex items-center gap-2">
                                                 <Users className="h-3 w-3" />
                                                 Adeeg-bixiye
                                             </div>
 
                                             {request.provider ? (
                                                 <div className="flex-1 flex flex-col h-full">
-                                                    <div className="flex items-center gap-4 mb-4">
-                                                        <div className="h-14 w-14 rounded-2xl bg-linear-to-br from-primary to-blue-600 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-primary/20 ring-2 ring-white">
+                                                    <div className="flex items-center gap-4 mb-6">
+                                                        <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-primary/20 ring-2 ring-background border border-white/10">
                                                             {request.provider.user.name.charAt(0)}
                                                         </div>
                                                         <div>
-                                                            <p className="font-bold text-gray-900 leading-tight text-lg">{request.provider.user.name}</p>
-                                                            <Badge variant="secondary" className="mt-1 bg-white shadow-sm border-0 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                                                            <p className="font-bold text-foreground leading-tight text-lg">{request.provider.user.name}</p>
+                                                            <Badge variant="secondary" className="mt-1 bg-background/50 shadow-xs border-border text-[10px] font-black text-muted-foreground uppercase tracking-widest">
                                                                 {request.provider.category}
                                                             </Badge>
                                                         </div>
                                                     </div>
 
-                                                    <div className="mt-auto pt-4 border-t border-slate-200/50">
+                                                    <div className="mt-auto pt-6 border-t border-border/50">
                                                         <ProviderProfileDialog
                                                             provider={request.provider}
                                                             trigger={
-                                                                <Button variant="outline" className="w-full bg-white border-slate-200 hover:bg-slate-50 hover:border-slate-300 text-slate-700 font-bold text-xs h-10 rounded-xl transition-all">
-                                                                    Eeg Profile-ka Buuxa
+                                                                <Button variant="outline" className="w-full bg-background border-border hover:bg-muted hover:border-primary/30 text-foreground font-black text-xs h-11 rounded-xl transition-all uppercase tracking-widest">
+                                                                    Eeg Profile-ka
                                                                 </Button>
                                                             }
                                                         />
@@ -336,28 +391,28 @@ export default function MyRequestsPage() {
                                             ) : (
                                                 <div className="h-full flex flex-col">
                                                     {request.proposals && request.proposals.length > 0 ? (
-                                                        <div className="flex-1 overflow-y-auto pr-2 space-y-3 max-h-[300px]">
+                                                        <div className="flex-1 overflow-y-auto pr-2 space-y-3 max-h-[300px] custom-scrollbar">
                                                             <div className="flex items-center justify-between mb-2">
-                                                                <span className="text-xs font-bold text-slate-500 uppercase">Dalabyada ({request.proposals.length})</span>
+                                                                <span className="text-xs font-black text-muted-foreground uppercase tracking-widest">Dalabyada ({request.proposals.length})</span>
                                                             </div>
                                                             {request.proposals.map((proposal: any) => (
-                                                                <div key={proposal.id} className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm relative group hover:border-primary/30 transition-all">
-                                                                    <div className="flex items-start gap-3 mb-2">
-                                                                        <div className="h-8 w-8 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-slate-500 text-xs">
+                                                                <div key={proposal.id} className="bg-card p-4 rounded-2xl border border-border shadow-sm relative group hover:border-primary/30 transition-all">
+                                                                    <div className="flex items-start gap-3 mb-3">
+                                                                        <div className="h-9 w-9 rounded-xl bg-muted flex items-center justify-center font-black text-primary text-xs border border-border">
                                                                             {proposal.provider.user.name.charAt(0)}
                                                                         </div>
                                                                         <div>
-                                                                            <p className="text-xs font-bold text-gray-900">{proposal.provider.user.name}</p>
-                                                                            <p className="text-[10px] text-gray-500">{new Date(proposal.createdAt).toLocaleDateString()}</p>
+                                                                            <p className="text-xs font-black text-foreground">{proposal.provider.user.name}</p>
+                                                                            <p className="text-[10px] text-muted-foreground font-bold">{new Date(proposal.createdAt).toLocaleDateString()}</p>
                                                                         </div>
                                                                         {proposal.price && (
-                                                                            <Badge variant="outline" className="ml-auto bg-green-50 text-green-700 border-green-200 text-[10px] font-bold">
+                                                                            <div className="ml-auto bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 px-2 py-0.5 rounded-lg text-[10px] font-black">
                                                                                 ${proposal.price}
-                                                                            </Badge>
+                                                                            </div>
                                                                         )}
                                                                     </div>
                                                                     {proposal.coverLetter && (
-                                                                        <p className="text-[10px] text-gray-600 bg-slate-50 p-2 rounded-lg mb-3 line-clamp-3">
+                                                                        <p className="text-[10px] text-muted-foreground bg-muted/50 p-2.5 rounded-xl mb-4 line-clamp-3 font-medium leading-relaxed italic">
                                                                             "{proposal.coverLetter}"
                                                                         </p>
                                                                     )}
@@ -381,7 +436,7 @@ export default function MyRequestsPage() {
                                                                         }}
                                                                         disabled={isActioning !== null}
                                                                         size="sm"
-                                                                        className="w-full h-8 bg-black text-white hover:bg-gray-800 text-[10px] font-bold uppercase tracking-wider rounded-lg"
+                                                                        className="w-full h-9 bg-primary text-white hover:bg-primary/90 text-[10px] font-black uppercase tracking-widest rounded-xl shadow-md shadow-primary/20 border-0"
                                                                     >
                                                                         {isActioning === proposal.id ? <Loader2 className="h-3 w-3 animate-spin" /> : "Aqbal Dalabkan"}
                                                                     </Button>
@@ -389,12 +444,12 @@ export default function MyRequestsPage() {
                                                             ))}
                                                         </div>
                                                     ) : (
-                                                        <div className="h-full flex flex-col items-center justify-center text-center p-4">
-                                                            <div className="h-16 w-16 mb-3 rounded-full bg-slate-100 flex items-center justify-center animate-pulse">
-                                                                <Users className="h-6 w-6 text-slate-300" />
+                                                        <div className="h-full flex flex-col items-center justify-center text-center p-6 bg-muted/20 rounded-2xl border border-dashed border-border">
+                                                            <div className="h-16 w-16 mb-4 rounded-full bg-muted flex items-center justify-center animate-pulse">
+                                                                <Users className="h-7 w-7 text-muted-foreground opacity-30" />
                                                             </div>
-                                                            <p className="text-sm font-bold text-slate-500 mb-1">Weli ma hayno</p>
-                                                            <p className="text-xs text-slate-400">Codsigaagu wuu furan yahay, sug adeeg-bixiye.</p>
+                                                            <p className="text-sm font-black text-muted-foreground mb-1">Weli ma hayno</p>
+                                                            <p className="text-[10px] text-muted-foreground/60 font-bold leading-tight">Codsigaagu wuu furan yahay, sug adeeg-bixiye.</p>
                                                         </div>
                                                     )}
                                                 </div>
@@ -405,7 +460,7 @@ export default function MyRequestsPage() {
 
                                 {/* Progress View Footer */}
                                 {(request.status === "IN_PROGRESS" || request.status === "COMPLETED" || request.status === "ACCEPTED") && (
-                                    <div className="mt-2 pt-8 border-t border-gray-100/50">
+                                    <div className="mt-2 pt-8 border-t border-border/50">
                                         <ClientProgressView
                                             tasks={request.tasks}
                                             progressPercentage={request.progressPercentage}
@@ -423,3 +478,4 @@ export default function MyRequestsPage() {
         </div>
     );
 }
+

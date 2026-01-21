@@ -16,11 +16,11 @@ import Link from "next/link";
 
 export default function HowItWorksPage() {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen selection:bg-primary/20">
             {/* Hero Section */}
             <section className="relative pt-12 pb-12 md:pt-20 md:pb-24 lg:pt-24 lg:pb-28 overflow-hidden">
                 {/* Background Decoration */}
-                <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-blue-50/50 to-background -z-10" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10 -z-10" />
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10 animate-pulse" />
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-400/10 rounded-full blur-[120px] -z-10 animate-pulse delay-1000" />
 
@@ -32,7 +32,7 @@ export default function HowItWorksPage() {
                         </div>
                         <h1 className="text-3xl font-black tracking-tighter sm:text-4xl md:text-5xl lg:text-5xl">
                             Adeeg Fudud oo <br />
-                            <span className="bg-linear-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent">Degdeg ah</span>
+                            <span className="bg-gradient-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent">Degdeg ah</span>
                         </h1>
                         <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
                             Waxaan fududeynay sida aad u hesho oo aad ugu dalbanayso xirfadlayaal.
@@ -57,7 +57,7 @@ export default function HowItWorksPage() {
                                 <div className="flex items-center gap-6">
                                     <div className="relative flex items-center justify-center w-20 h-20">
                                         <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-xl group-hover:bg-primary/30 transition-all" />
-                                        <div className="relative flex items-center justify-center w-full h-full rounded-3xl bg-linear-to-br from-primary to-blue-600 text-white font-black text-3xl shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                        <div className="relative flex items-center justify-center w-full h-full rounded-3xl bg-gradient-to-br from-primary to-blue-600 text-white font-black text-3xl shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
                                             01
                                         </div>
                                     </div>
@@ -68,23 +68,23 @@ export default function HowItWorksPage() {
                                         Si fudud u sharax waxa aad u baahan tahay. Hadday tahay cilad walba oo kuhaysta,
                                         ku dar faahfaahin badan si aad u hesho adeeg ku habboon.
                                     </p>
-                                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 text-base">
                                         {[
                                             { icon: CheckCircle, text: "Ku dar sawirro" },
                                             { icon: CheckCircle, text: "Sheeg goobta" },
                                             { icon: CheckCircle, text: "Qeexso miisaaniyaddaada" },
                                             { icon: CheckCircle, text: "Dooro waqtiga ku haboon" }
                                         ].map((item, i) => (
-                                            <li key={i} className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 border border-border/50 hover:border-primary/20 hover:bg-background transition-all group/li">
+                                            <li key={i} className="flex items-center gap-3 p-4 rounded-2xl glass border-border/5 hover:border-primary/20 transition-all group/li">
                                                 <item.icon className="h-5 w-5 text-primary group-hover/li:scale-110 transition-transform" />
-                                                <span className="font-medium">{item.text}</span>
+                                                <span className="font-bold">{item.text}</span>
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
                             </div>
                             <div className="relative h-[400px] lg:h-[500px] rounded-[3rem] overflow-hidden group/img">
-                                <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-blue-600/10 -z-10" />
+                                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-blue-600/10 -z-10" />
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <div className="relative w-64 h-64">
                                         <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl animate-pulse" />
@@ -102,11 +102,11 @@ export default function HowItWorksPage() {
                         {/* Step 2 */}
                         <div className="grid lg:grid-cols-2 gap-12 items-center group">
                             <div className="order-2 lg:order-1 relative h-[400px] lg:h-[500px] rounded-[3rem] overflow-hidden group/img">
-                                <div className="absolute inset-0 bg-linear-to-br from-purple-500/10 to-pink-500/10 -z-10" />
+                                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 -z-10" />
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <div className="relative w-64 h-64">
                                         <div className="absolute inset-0 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
-                                        <div className="relative flex items-center justify-center w-full h-full rounded-[3rem] bg-white shadow-2xl group-hover/img:scale-110 group-hover/img:rotate-3 transition-all duration-700">
+                                        <div className="relative flex items-center justify-center w-full h-full rounded-[3rem] bg-card shadow-2xl group-hover/img:scale-110 group-hover/img:rotate-3 transition-all duration-700">
                                             <Users className="h-32 w-32 text-purple-600" />
                                         </div>
                                     </div>
@@ -116,7 +116,7 @@ export default function HowItWorksPage() {
                                 <div className="flex items-center gap-6">
                                     <div className="relative flex items-center justify-center w-20 h-20">
                                         <div className="absolute inset-0 bg-purple-500/20 rounded-3xl blur-xl group-hover:bg-purple-500/30 transition-all" />
-                                        <div className="relative flex items-center justify-center w-full h-full rounded-3xl bg-linear-to-br from-purple-500 to-pink-600 text-white font-black text-3xl shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                        <div className="relative flex items-center justify-center w-full h-full rounded-3xl bg-gradient-to-br from-purple-500 to-pink-600 text-white font-black text-3xl shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
                                             02
                                         </div>
                                     </div>
@@ -134,13 +134,13 @@ export default function HowItWorksPage() {
                                             { icon: Clock, title: "Isku-xir Degdeg ah", desc: "Wax ka yar 5 daqiiqo" },
                                             { icon: Zap, title: "Dalbasho Degdeg ah", desc: "Hal guji oo shaqayso" }
                                         ].map((item, i) => (
-                                            <div key={i} className="flex gap-4 p-4 rounded-2xl bg-muted/30 border border-border/50 hover:bg-background transition-colors group/item">
-                                                <div className="flex-none flex items-center justify-center w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 group-hover/item:scale-110 transition-transform">
-                                                    <item.icon className="h-5 w-5" />
+                                            <div key={i} className="flex gap-4 p-5 rounded-3xl glass border-border/5 hover:border-primary/20 transition-all group/item">
+                                                <div className="flex-none flex items-center justify-center w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-600 group-hover/item:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all duration-500">
+                                                    <item.icon className="h-6 w-6" />
                                                 </div>
                                                 <div>
-                                                    <div className="font-bold text-sm">{item.title}</div>
-                                                    <div className="text-xs text-muted-foreground">{item.desc}</div>
+                                                    <div className="font-bold text-base">{item.title}</div>
+                                                    <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{item.desc}</div>
                                                 </div>
                                             </div>
                                         ))}
@@ -155,7 +155,7 @@ export default function HowItWorksPage() {
                                 <div className="flex items-center gap-6">
                                     <div className="relative flex items-center justify-center w-20 h-20">
                                         <div className="absolute inset-0 bg-emerald-500/20 rounded-3xl blur-xl group-hover:bg-emerald-500/30 transition-all" />
-                                        <div className="relative flex items-center justify-center w-full h-full rounded-3xl bg-linear-to-br from-emerald-400 to-teal-600 text-white font-black text-3xl shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                        <div className="relative flex items-center justify-center w-full h-full rounded-3xl bg-gradient-to-br from-emerald-400 to-teal-600 text-white font-black text-3xl shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
                                             03
                                         </div>
                                     </div>
@@ -166,25 +166,25 @@ export default function HowItWorksPage() {
                                         Markii shaqada la dhammeeyo oo aad ku qanacdo, si fudud u sii daa lacagta.
                                         Ha iloobin inaad qiimayso khibradaada si aad u caawiso dadka kale!
                                     </p>
-                                    <div className="p-6 rounded-3xl bg-linear-to-br from-emerald-500/5 to-teal-500/5 border-2 border-emerald-500/10 space-y-4">
+                                    <div className="p-8 rounded-4xl glass border-border/10 space-y-4">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center text-white">
-                                                <CheckCircle className="h-6 w-6" />
+                                            <div className="w-14 h-14 rounded-2xl bg-emerald-500 flex items-center justify-center text-white shadow-xl shadow-emerald-500/20">
+                                                <CheckCircle className="h-7 w-7" />
                                             </div>
-                                            <div className="font-bold">100% Dammaanad Qanacsanaanta</div>
+                                            <div className="font-black text-xl">100% Dammaanad Qanacsanaanta</div>
                                         </div>
-                                        <p className="text-sm text-muted-foreground">
+                                        <p className="text-base text-muted-foreground leading-relaxed">
                                             Haddii aadan ku qanacsanayn adeegga, kooxdeena taageerada ayaa diyaar ah 24/7 si ay kaaga caawiyaan xalinta dhibaatooyinka.
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div className="relative h-[400px] lg:h-[500px] rounded-[3rem] overflow-hidden group/img">
-                                <div className="absolute inset-0 bg-linear-to-br from-emerald-500/10 to-teal-500/10 -z-10" />
+                                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 -z-10" />
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <div className="relative w-64 h-64">
                                         <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-3xl animate-pulse" />
-                                        <div className="relative flex items-center justify-center w-full h-full rounded-[3rem] bg-white shadow-2xl group-hover/img:scale-110 group-hover/img:-rotate-3 transition-all duration-700">
+                                        <div className="relative flex items-center justify-center w-full h-full rounded-[3rem] bg-card shadow-2xl group-hover/img:scale-110 group-hover/img:-rotate-3 transition-all duration-700">
                                             <Star className="h-32 w-32 text-emerald-500" />
                                         </div>
                                     </div>
@@ -198,7 +198,7 @@ export default function HowItWorksPage() {
             {/* CTA Section */}
             <section className="pt-8 pb-12 md:pb-20">
                 <div className="container px-4 md:px-6">
-                    <div className="relative overflow-hidden rounded-[2rem] bg-primary px-6 py-12 md:px-12 md:py-16 shadow-2xl">
+                    <div className="relative overflow-hidden rounded-4xl bg-primary px-6 py-12 md:px-12 md:py-16 shadow-2xl">
                         {/* Abstract Shapes */}
                         <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
                         <div className="absolute top-0 left-0 -ml-20 -mt-20 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
@@ -231,23 +231,23 @@ export default function HowItWorksPage() {
 
                             {/* Trust Stats - Compact Design */}
                             <div className="lg:pl-10">
-                                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-xl grid grid-cols-2 gap-6 relative overflow-hidden">
+                                <div className="glass border-white/20 rounded-4xl p-8 shadow-3xl grid grid-cols-2 gap-8 relative overflow-hidden backdrop-blur-2xl">
                                     <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50" />
-                                    <div>
-                                        <div className="text-3xl font-black text-white mb-1">5,000+</div>
-                                        <div className="text-sm font-medium text-blue-200">Qoys oo ku qanacsan</div>
+                                    <div className="relative">
+                                        <div className="text-4xl font-black text-white mb-1">5,000+</div>
+                                        <div className="text-xs font-bold uppercase tracking-widest text-blue-200">Qoys oo ku qanacsan</div>
                                     </div>
-                                    <div>
-                                        <div className="text-3xl font-black text-white mb-1">4.9/5</div>
-                                        <div className="text-sm font-medium text-blue-200">Qiimaynta Macaamiisha</div>
+                                    <div className="relative">
+                                        <div className="text-4xl font-black text-white mb-1">4.9/5</div>
+                                        <div className="text-xs font-bold uppercase tracking-widest text-blue-200">Qiimaynta Macaamiisha</div>
                                     </div>
-                                    <div className="col-span-2 pt-4 border-t border-white/10 flex items-center gap-2 text-sm text-blue-200">
-                                        <div className="flex -space-x-2">
+                                    <div className="col-span-2 pt-6 border-t border-white/10 flex items-center gap-4 text-sm text-blue-100 relative">
+                                        <div className="flex -space-x-3">
                                             {[1, 2, 3].map(i => (
-                                                <div key={i} className="w-8 h-8 rounded-full bg-blue-600 border-2 border-primary flex items-center justify-center text-[10px] text-white font-bold">✓</div>
+                                                <div key={i} className="w-10 h-10 rounded-full bg-blue-600 border-2 border-white/20 flex items-center justify-center text-[10px] text-white font-bold shadow-lg">✓</div>
                                             ))}
                                         </div>
-                                        <span className="ml-2">Xirfadlayaal la xaqiijiyay</span>
+                                        <span className="font-bold tracking-wide">Xirfadlayaal la xaqiijiyay</span>
                                     </div>
                                 </div>
                             </div>
@@ -258,3 +258,4 @@ export default function HowItWorksPage() {
         </div>
     );
 }
+

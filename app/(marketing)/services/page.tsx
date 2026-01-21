@@ -76,11 +76,11 @@ const services = [
 
 export default function ServicesPage() {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen selection:bg-primary/20">
             {/* Hero Section */}
             <section className="relative pt-12 pb-12 md:pt-20 md:pb-24 lg:pt-24 lg:pb-28 overflow-hidden">
                 {/* Background Decoration */}
-                <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-blue-50/30 to-background -z-10" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10 -z-10" />
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30">
                     <div className="absolute top-20 right-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" />
                     <div className="absolute bottom-20 left-10 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl animate-pulse delay-1000" />
@@ -94,8 +94,8 @@ export default function ServicesPage() {
                             <span>6 Adeeg Xirfad Leh Oo Diyaar Ah</span>
                         </div>
                         <h1 className="text-3xl font-black tracking-tighter sm:text-4xl md:text-5xl lg:text-5xl">
-                            Xalal Khibrad Leh Oo <br />
-                            <span className="bg-linear-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent italic">Wax Kasta Oo Aad U Baahan Tahay.</span>
+                            Hel xirfadle kugu haboon kuuna qabta <br />
+                            <span className="bg-gradient-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent italic">Wax Kasta Oo Aad U Baahan Tahay.</span>
                         </h1>
                         <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
                             Ku biir in ka badan 5,000 qoysas Soomaliyeed kuwas oo ku qanacsan kuna kalsoon xirfadlayaashayada la xaqiijiyay
@@ -117,15 +117,15 @@ export default function ServicesPage() {
                         {services.map((service, i) => (
                             <div key={i} className="group relative">
                                 {/* Gradient Border Wrapper */}
-                                <div className="absolute -inset-px rounded-[2.6rem] bg-linear-to-br from-border/50 via-primary/5 to-border/50 group-hover:from-primary/50 group-hover:via-blue-500/50 group-hover:to-purple-600/50 transition-all duration-500 -z-10" />
+                                <div className="absolute -inset-px rounded-[2.6rem] bg-gradient-to-br from-border/50 via-primary/5 to-border/50 group-hover:from-primary/50 group-hover:via-blue-500/50 group-hover:to-purple-600/50 transition-all duration-500 -z-10" />
 
                                 {/* Interactive Card */}
-                                <div className="h-full flex flex-col p-8 rounded-[2.5rem] bg-background/70 backdrop-blur-2xl transition-all duration-500 group-hover:bg-background/40 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-3">
+                                <div className="h-full flex flex-col p-8 rounded-4xl glass border-border/5 transition-all duration-500 hover:bg-background/40 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-3">
 
                                     {/* Icon Box */}
                                     <div className="relative mb-8 w-20 h-20">
-                                        <div className={`absolute inset-0 bg-linear-to-br ${service.gradient} rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />
-                                        <div className={`relative flex items-center justify-center w-full h-full rounded-3xl bg-linear-to-br ${service.gradient} text-white shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+                                        <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />
+                                        <div className={`relative flex items-center justify-center w-full h-full rounded-3xl bg-gradient-to-br ${service.gradient} text-white shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
                                             <service.icon className="h-10 w-10" />
                                         </div>
                                     </div>
@@ -167,7 +167,7 @@ export default function ServicesPage() {
                                     </div>
 
                                     {/* Decorative Corner accent */}
-                                    <div className={`absolute top-0 right-0 w-16 h-16 bg-linear-to-bl ${service.gradient} opacity-0 group-hover:opacity-[0.03] transition-opacity rounded-tr-[2.4rem] rounded-bl-[4rem]`} />
+                                    <div className={`absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl ${service.gradient} opacity-0 group-hover:opacity-[0.03] transition-opacity rounded-tr-[2.4rem] rounded-bl-[4rem]`} />
                                 </div>
                             </div>
                         ))}
@@ -178,7 +178,7 @@ export default function ServicesPage() {
             {/* CTA Section */}
             <section className="pt-8 md:pt-12 pb-24 md:pb-32">
                 <div className="container px-4 md:px-6">
-                    <div className="relative overflow-hidden rounded-[4rem] border border-primary/20 bg-linear-to-br from-background via-muted/50 to-primary/5 p-12 md:p-20">
+                    <div className="relative overflow-hidden rounded-[4rem] border border-primary/20 bg-gradient-to-br from-background via-muted/50 to-primary/5 p-12 md:p-20">
                         {/* Background Patterns */}
                         <div className="absolute top-0 right-0 w-full h-full opacity-10" style={{
                             backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)',
@@ -192,21 +192,20 @@ export default function ServicesPage() {
                             </div>
                             <h2 className="text-4xl font-black tracking-tighter md:text-5xl lg:text-6xl">
                                 Sidee Ku heli kartaa <br />
-                                <span className="text-primary italic">Adeegge Kugu Habboon?</span>
+                                <span className="bg-gradient-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent italic">Adeegge Kugu Habboon?</span>
                             </h2>
-                            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                                Liisaskeenu waxaan udiyaarinaya walina wadaa inaan dhamaystirno xirfadlayaal somaliyeed aad ubadan dhisan tayo sare leh,
-                                soo dir codsiyo rasmi ah aad ku doonaysid xirafle kugu haboon.
+                            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+                                Liisaskeenu waxaan udiyaarinaya walina wadaa inaan dhamaystirno xirfadlayaal somaliyeed aad ubadan dhisan tayo sare leh.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto pt-6">
                                 <Link href="/register" className="w-full sm:w-auto">
-                                    <Button size="lg" className="h-16 px-10 rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl transition-all w-full bg-white text-primary border-0 hover:-translate-y-1 active:scale-95 hover:bg-primary hover:text-white group">
+                                    <Button size="lg" className="h-16 px-10 rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl transition-all w-full bg-primary text-white border-0 hover:-translate-y-1 active:scale-95 group">
                                         Ku Biir Hadda
                                         <TrendingUp className="ml-2 h-5 w-5 group-hover:translate-y-[-2px] group-hover:translate-x-[2px] transition-transform" />
                                     </Button>
                                 </Link>
                                 <Link href="/how-it-works" className="w-full sm:w-auto">
-                                    <Button size="lg" className="h-16 px-10 rounded-2xl text-lg font-bold bg-white border-2 border-primary/20 text-primary shadow-sm hover:shadow-xl hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 w-full hover:-translate-y-1 active:scale-95 group/how">
+                                    <Button size="lg" className="h-16 px-10 rounded-2xl text-lg font-bold bg-muted border-2 border-primary/20 text-primary shadow-sm hover:shadow-xl hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 w-full hover:-translate-y-1 active:scale-95 group/how">
                                         Sidee Loo Isticmaalo
                                         <ArrowRight className="ml-2 h-5 w-5 group-hover/how:translate-x-1 transition-transform" />
                                     </Button>
@@ -227,3 +226,4 @@ export default function ServicesPage() {
         </div>
     );
 }
+

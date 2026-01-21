@@ -1,17 +1,16 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { getAuthUser } from "@/lib/auth-utils";
 
 export async function GET(req: Request) {
     try {
-        const session = await getServerSession(authOptions);
-        if (!session) {
+        const user = await getAuthUser(req);
+        if (!user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         const provider = await prisma.provider.findUnique({
-            where: { userId: session.user.id },
+            where: { userId: user.id },
             include: {
                 reviews: {
                     include: {

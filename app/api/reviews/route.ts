@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { getAuthUser } from "@/lib/auth-utils";
 import { z } from "zod";
 
 const reviewSchema = z.object({
@@ -13,18 +12,30 @@ const reviewSchema = z.object({
 
 export async function POST(req: Request) {
     try {
-        const session = await getServerSession(authOptions);
-        if (!session) {
+        const user = await getAuthUser(req);
+        if (!user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         const body = await req.json();
         const { providerId, requestId, rating, comment } = reviewSchema.parse(body);
 
+        // Check if review already exists for this request
+        const existingReview = await prisma.review.findFirst({
+            where: { requestId }
+        });
+
+        if (existingReview) {
+            return NextResponse.json(
+                { error: "Review for this request already exists" },
+                { status: 400 }
+            );
+        }
+
         const review = await prisma.review.create({
             data: {
                 providerId,
-                userId: session.user.id,
+                userId: user.id,
                 requestId,
                 rating,
                 comment,

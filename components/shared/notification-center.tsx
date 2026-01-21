@@ -28,7 +28,7 @@ export function NotificationCenter() {
 
     const fetchNotifications = async () => {
         try {
-            const res = await fetch("/api/notifications");
+            const res = await fetch("/api/notifications", { cache: "no-store" });
             const data = await res.json();
             if (Array.isArray(data)) {
                 setNotifications(data);
@@ -69,69 +69,77 @@ export function NotificationCenter() {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant="ghost" size="icon" className="relative hover:bg-white/10 text-white rounded-full">
-                    <Bell className="h-5 w-5" />
+                <Button variant="ghost" size="icon" className="relative group hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-full transition-all duration-300">
+                    <Bell className="h-5 w-5 transition-transform group-hover:rotate-12" />
                     {unreadCount > 0 && (
                         <span className="absolute top-1 right-1 flex h-4 w-4 shrink-0 transition-all">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 text-[10px] font-bold text-white items-center justify-center">
+                            <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 text-[10px] font-bold text-white items-center justify-center border-2 border-background">
                                 {unreadCount}
                             </span>
                         </span>
                     )}
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-80 p-0 mr-4 mt-2 overflow-hidden border-gray-100 shadow-2xl rounded-2xl" align="end">
-                <div className="flex items-center justify-between p-4 bg-linear-to-r from-purple-600 to-blue-600 text-white">
-                    <h3 className="font-bold text-sm">Notifications</h3>
+            <PopoverContent className="w-80 p-0 mr-4 mt-2 overflow-hidden border-border bg-background dark:bg-card/95 backdrop-blur-xl shadow-2xl rounded-2xl ring-1 ring-border" align="end">
+                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-primary to-blue-600 dark:from-primary/90 dark:to-blue-600/90 text-white shadow-lg">
+                    <h3 className="font-black text-xs uppercase tracking-widest">Wargelin</h3>
                     <Button
                         variant="ghost"
                         size="sm"
-                        className="text-[10px] text-white/80 hover:text-white hover:bg-white/10 h-7"
+                        className="text-[10px] text-white/80 hover:text-white hover:bg-white/10 h-7 font-black uppercase tracking-tighter"
                         onClick={() => markAsRead()}
                     >
                         Mark all as read
                     </Button>
                 </div>
-                <div className="max-h-[350px] overflow-y-auto">
+                <div className="max-h-[350px] overflow-y-auto custom-scrollbar">
                     {notifications.length === 0 ? (
-                        <div className="p-8 text-center text-gray-500 flex flex-col items-center gap-2">
-                            <Bell className="h-8 w-8 text-gray-200" />
-                            <p className="text-xs">No notifications yet</p>
+                        <div className="p-12 text-center text-muted-foreground flex flex-col items-center gap-4">
+                            <div className="h-16 w-16 rounded-full bg-muted/50 flex items-center justify-center">
+                                <Bell className="h-8 w-8 text-muted/30" />
+                            </div>
+                            <p className="text-xs font-bold">Weli ma jiraan wargelin kugu cusub</p>
                         </div>
                     ) : (
                         notifications.map((n) => (
                             <div
                                 key={n.id}
                                 className={cn(
-                                    "p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors relative cursor-pointer",
-                                    !n.read && "bg-blue-50/50"
+                                    "p-4 border-b border-border/40 hover:bg-muted/50 transition-all relative cursor-pointer group",
+                                    !n.read && "bg-primary/3 dark:bg-primary/5"
                                 )}
                                 onClick={() => markAsRead(n.id)}
                             >
                                 <div className="flex gap-3">
-                                    <div className="mt-1">{getIcon(n.type)}</div>
-                                    <div className="space-y-1">
-                                        <p className={cn("text-xs font-bold leading-none", !n.read ? "text-gray-900" : "text-gray-600")}>
+                                    <div className="mt-1 transition-transform group-hover:scale-110 duration-300">{getIcon(n.type)}</div>
+                                    <div className="space-y-1.5">
+                                        <p className={cn("text-xs font-black leading-tight tracking-tight", !n.read ? "text-foreground" : "text-muted-foreground")}>
                                             {n.title}
                                         </p>
-                                        <p className="text-xs text-gray-500 line-clamp-2">
+                                        <p className="text-[11px] text-muted-foreground line-clamp-2 leading-relaxed font-medium">
                                             {n.message}
                                         </p>
                                         {n.link && (
                                             <Link
                                                 href={n.link}
-                                                className="text-[10px] text-purple-600 font-bold flex items-center gap-1 mt-1 hover:underline"
+                                                className="text-[10px] text-primary font-black flex items-center gap-1 mt-1 hover:underline uppercase tracking-tighter"
                                             >
-                                                View details <ExternalLink className="h-2 w-2" />
+                                                Eeg faahfaahinta <ExternalLink className="h-2 w-2" />
                                             </Link>
                                         )}
-                                        <p className="text-[10px] text-gray-400">
-                                            {new Date(n.createdAt).toLocaleDateString()}
-                                        </p>
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <div className="h-1 w-1 rounded-full bg-border" />
+                                            <p className="text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest">
+                                                {new Date(n.createdAt).toLocaleDateString('so-SO', {
+                                                    month: 'short',
+                                                    day: 'numeric'
+                                                })}
+                                            </p>
+                                        </div>
                                     </div>
                                     {!n.read && (
-                                        <div className="absolute top-4 right-4 h-2 w-2 bg-blue-500 rounded-full" />
+                                        <div className="absolute top-5 right-4 h-2 w-2 bg-primary rounded-full shadow-[0_0_8px_rgba(var(--primary),0.5)]" />
                                     )}
                                 </div>
                             </div>
@@ -142,3 +150,4 @@ export function NotificationCenter() {
         </Popover>
     );
 }
+

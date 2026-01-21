@@ -48,14 +48,14 @@ export function ChatDialog({ requestId, currentUserId, recipientName, triggerLab
             <Button
                 variant="outline"
                 size="sm"
-                className="gap-2 font-bold hover:bg-purple-50 hover:text-purple-700 hover:border-purple-200 transition-all border-gray-100 shadow-sm"
+                className="gap-2 font-black uppercase text-[10px] tracking-widest hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all border-border shadow-sm rounded-xl px-4 h-9"
                 onClick={handleOpen}
                 disabled={loading}
             >
-                <MessageCircle className="h-4 w-4" />
+                <MessageCircle className="h-3.5 w-3.5" />
                 {triggerLabel}
             </Button>
-            <DialogContent className="sm:max-w-md w-full p-0 gap-0 overflow-hidden sm:rounded-4xl border-0 sm:border border-gray-100 shadow-none sm:shadow-2xl h-dvh sm:h-[600px] flex flex-col bg-[#efeae2] translate-y-0 top-0 sm:top-[50%] sm:-translate-y-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom-10 data-[state=open]:slide-in-from-bottom-10 sm:data-[state=open]:slide-in-from-left-1/2 sm:data-[state=open]:slide-in-from-top-[48%] duration-500">
+            <DialogContent className="sm:max-w-md w-full p-0 gap-0 overflow-hidden sm:rounded-4xl border-0 sm:border border-border shadow-none sm:shadow-2xl h-dvh sm:h-[600px] flex flex-col bg-[#efeae2] dark:bg-background translate-y-0 top-0 sm:top-[50%] sm:-translate-y-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom-10 data-[state=open]:slide-in-from-bottom-10 sm:data-[state=open]:slide-in-from-left-1/2 sm:data-[state=open]:slide-in-from-top-[48%] duration-500">
                 {conversationId && (
                     <>
                         <div className="sr-only">

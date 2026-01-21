@@ -2,27 +2,33 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
+import { SignJWT } from "jose";
+
+const JWT_SECRET = new TextEncoder().encode(
+    process.env.NEXTAUTH_SECRET || "fallback-secret-for-dev"
+);
 
 const registerSchema = z.object({
     name: z.string().min(2),
-    email: z.string().email(),
-    phone: z.string().optional(),
+    email: z.string().email().optional().or(z.literal('')),
+    phone: z.string().min(6),
     password: z.string().min(6),
-    role: z.enum(["USER", "PROVIDER"]).default("USER"),
+    role: z.enum(["USER", "CLIENT", "PROVIDER"]).default("USER"),
 });
 
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { name, email, phone, password, role } = registerSchema.parse(body);
+        const parsed = registerSchema.parse(body);
+        const { name, email, password, role, phone } = parsed;
 
         const existingUser = await prisma.user.findUnique({
-            where: { email },
+            where: { phone },
         });
 
         if (existingUser) {
             return NextResponse.json(
-                { error: "User already exists" },
+                { error: "Phone number already registered" },
                 { status: 400 }
             );
         }
@@ -32,21 +38,54 @@ export async function POST(req: Request) {
         const user = await prisma.user.create({
             data: {
                 name,
-                email,
+                email: email || null,
                 phone,
                 password: hashedPassword,
-                role,
+                role: role as any,
+                // If it's a provider, we can auto-create the profile with defaults
+                ...(role === "PROVIDER" && {
+                    provider: {
+                        create: {
+                            category: "General", // Default category
+                            city: "Mogadishu",
+                            verified: false,
+                        }
+                    }
+                }),
+                // Also create a wallet for everyone
+                wallet: {
+                    create: {
+                        balance: 0,
+                    }
+                }
             },
-            select: {
-                id: true,
-                name: true,
-                email: true,
-                phone: true,
-                role: true,
-            },
+            include: {
+                provider: true,
+                wallet: true,
+            }
         });
 
-        return NextResponse.json(user);
+        // Generate JWT token
+        const token = await new SignJWT({
+            id: user.id,
+            email: user.email,
+            role: user.role,
+        })
+            .setProtectedHeader({ alg: "HS256" })
+            .setIssuedAt()
+            .setExpirationTime("30d")
+            .sign(JWT_SECRET);
+
+        return NextResponse.json({
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                role: user.role,
+            },
+            token,
+        });
     } catch (error) {
         console.error("REGISTER_ERROR:", error);
 

@@ -81,7 +81,7 @@ export function ImageUpload({ currentImage, onUploadSuccess, className }: ImageU
                 {preview ? (
                     <img src={preview} alt="Profile" className="h-full w-full object-cover" />
                 ) : (
-                    <div className="h-full w-full flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100">
+                    <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
                         <User className="h-10 w-10 text-gray-300" />
                     </div>
                 )}
@@ -109,3 +109,4 @@ export function ImageUpload({ currentImage, onUploadSuccess, className }: ImageU
         </div>
     );
 }
+

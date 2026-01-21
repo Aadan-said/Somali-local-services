@@ -22,9 +22,10 @@ interface ProofUploadProps {
     jobId: string;
     onSuccess?: () => void;
     disabled?: boolean;
+    progressPercentage?: number;
 }
 
-export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadProps) {
+export function ProofUpload({ jobId, onSuccess, disabled = false, progressPercentage = 0 }: ProofUploadProps) {
     const [note, setNote] = useState("");
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
@@ -83,30 +84,50 @@ export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadP
         }
     };
 
+    const isCompleted = progressPercentage >= 100;
+
     return (
         <Dialog open={open} onOpenChange={(val) => !disabled && setOpen(val)}>
             <DialogTrigger asChild>
                 <Button
                     disabled={disabled}
                     className={cn(
-                        "w-full h-12 rounded-xl text-white font-bold transition-all border",
+                        "w-full h-12 rounded-xl font-black transition-all border-0 text-xs uppercase tracking-widest",
                         disabled
-                            ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed opacity-70"
-                            : "bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-lg shadow-green-200 hover:scale-[1.02] border-green-400/20"
+                            ? isCompleted
+                                ? "bg-emerald-500/10 text-emerald-500 cursor-default ring-1 ring-emerald-500/20"
+                                : "bg-muted/50 text-muted-foreground cursor-not-allowed opacity-70"
+                            : "bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 shadow-lg shadow-emerald-500/20 hover:scale-[1.02] text-white"
                     )}
                 >
-                    <ShieldCheck className={cn("h-5 w-5 mr-2", disabled ? "text-gray-300" : "text-white")} />
-                    {disabled ? "Shaqooyin qabyo ah..." : "Gali cadaynta shaqada"}
+                    {disabled ? (
+                        isCompleted ? (
+                            <>
+                                <ShieldCheck className="h-5 w-5 mr-2" />
+                                Shaqadii waa dhamaatay
+                            </>
+                        ) : (
+                            <>
+                                <ShieldCheck className="h-5 w-5 mr-2 opacity-50" />
+                                Dhameystir {progressPercentage}%
+                            </>
+                        )
+                    ) : (
+                        <>
+                            <ShieldCheck className="h-5 w-5 mr-2" />
+                            Gali cadaynta shaqada
+                        </>
+                    )}
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px] max-h-[95vh] overflow-y-auto rounded-3xl border-0 p-0 shadow-2xl">
                 {/* Decorative Background */}
                 <div className="absolute inset-0 z-0 bg-gray-50/50" />
-                <div className="absolute top-0 left-0 w-full h-32 bg-linear-to-b from-green-500/10 to-transparent z-0" />
+                <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-green-500/10 to-transparent z-0" />
 
                 <div className="relative z-10 p-6 space-y-6">
                     <DialogHeader className="text-center space-y-3 pt-4">
-                        <div className="mx-auto w-16 h-16 rounded-2xl bg-linear-to-br from-green-100 to-emerald-50 flex items-center justify-center ring-8 ring-white shadow-xl">
+                        <div className="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-green-100 to-emerald-50 flex items-center justify-center ring-8 ring-white shadow-xl">
                             <ShieldCheck className="h-8 w-8 text-green-600" />
                         </div>
                         <div className="space-y-1">
@@ -143,7 +164,7 @@ export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadP
                             ) : (
                                 <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-200 hover:border-green-500 bg-white hover:bg-green-50/30 rounded-2xl cursor-pointer transition-all group relative overflow-hidden">
                                     {/* Animated background effect */}
-                                    <div className="absolute inset-0 bg-linear-to-tr from-transparent via-green-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-full group-hover:-translate-y-full duration-1000" />
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-green-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-full group-hover:-translate-y-full duration-1000" />
 
                                     <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center space-y-3 relative z-10 transition-transform group-hover:scale-105 duration-300">
                                         <div className="w-12 h-12 rounded-full bg-gray-50 group-hover:bg-green-100 flex items-center justify-center transition-colors">
@@ -208,3 +229,4 @@ export function ProofUpload({ jobId, onSuccess, disabled = false }: ProofUploadP
         </Dialog>
     );
 }
+

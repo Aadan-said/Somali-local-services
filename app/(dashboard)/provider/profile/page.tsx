@@ -82,42 +82,42 @@ export default function ProviderProfilePage() {
     return (
         <div className="max-w-3xl mx-auto space-y-6">
             <div className="flex flex-col gap-1.5 text-center md:text-left">
-                <h1 className="text-xl font-black tracking-tight text-gray-900 uppercase">Profile-ka Xirfadlaha</h1>
-                <p className="text-xs text-gray-500">Sida macaamiishu kuu arkaan markay adeeg raadinayaan.</p>
+                <h1 className="text-xl font-black tracking-tight text-foreground uppercase">Profile-ka Xirfadlaha</h1>
+                <p className="text-xs text-muted-foreground font-black uppercase tracking-widest">Sida macaamiishu kuu arkaan markay adeeg raadinayaan.</p>
             </div>
 
-            <Card className="border-0 bg-white/60 backdrop-blur-xl shadow-2xl shadow-indigo-500/5 ring-1 ring-gray-100/50 rounded-2xl overflow-hidden">
-                <div className="h-28 bg-linear-to-r from-primary via-indigo-600 to-blue-600" />
-                <div className="px-6 -mt-10 pb-6">
+            <Card className="border-0 bg-card/60 backdrop-blur-xl shadow-2xl shadow-foreground/5 ring-1 ring-border rounded-4xl overflow-hidden">
+                <div className="h-28 bg-gradient-to-r from-primary via-blue-600 to-indigo-600 opacity-90" />
+                <div className="px-6 -mt-10 pb-8">
                     <div className="relative inline-block">
                         <ImageUpload
                             currentImage={formData.image}
                             onUploadSuccess={(url) => setFormData({ ...formData, image: url })}
-                            className="ring-4 ring-white shadow-xl rounded-xl"
+                            className="ring-4 ring-background shadow-xl rounded-2xl"
                         />
                     </div>
 
-                    <form onSubmit={handleSubmit} className="mt-6 space-y-5">
-                        <div className="grid gap-5 md:grid-cols-2">
-                            <div className="space-y-1.5 col-span-2">
-                                <Label htmlFor="name" className="text-[11px] font-black uppercase tracking-widest text-gray-500">Magaca Ganacsiga (ama kanaga)</Label>
+                    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                        <div className="grid gap-6 md:grid-cols-2">
+                            <div className="space-y-2 col-span-2">
+                                <Label htmlFor="name" className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Magaca Ganacsiga (ama kanaga)</Label>
                                 <Input
                                     id="name"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="h-11 border-gray-100 bg-white/50 focus:bg-white transition-all rounded-xl text-sm font-bold"
-                                    placeholder="Enter your name or business name"
+                                    className="h-12 border-border bg-muted/30 focus:bg-muted focus:ring-2 focus:ring-primary/10 transition-all rounded-xl text-sm font-bold text-foreground"
+                                    placeholder="Gali magacaaga ama ganacsigaaga"
                                     required
                                 />
                             </div>
 
-                            <div className="space-y-1.5">
-                                <Label htmlFor="category" className="text-[11px] font-black uppercase tracking-widest text-gray-500">Nooca Adeegga</Label>
+                            <div className="space-y-2">
+                                <Label htmlFor="category" className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Nooca Adeegga</Label>
                                 <Select
                                     value={formData.category}
                                     onValueChange={(val: any) => setFormData({ ...formData, category: val })}
                                 >
-                                    <SelectTrigger className="h-11 border-gray-100 bg-white/50 rounded-xl text-sm font-bold">
+                                    <SelectTrigger className="h-12 border-border bg-muted/30 focus:bg-muted focus:ring-2 focus:ring-primary/10 transition-all rounded-xl text-sm font-bold text-foreground">
                                         <SelectValue placeholder="Dooro Nooca" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -132,13 +132,13 @@ export default function ProviderProfilePage() {
                                 </Select>
                             </div>
 
-                            <div className="space-y-1.5">
-                                <Label htmlFor="city" className="text-[11px] font-black uppercase tracking-widest text-gray-500">Magaalada Adeegga</Label>
+                            <div className="space-y-2">
+                                <Label htmlFor="city" className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Magaalada Adeegga</Label>
                                 <Select
                                     value={formData.city}
                                     onValueChange={(val: any) => setFormData({ ...formData, city: val })}
                                 >
-                                    <SelectTrigger className="h-11 border-gray-100 bg-white/50 rounded-xl text-sm font-bold">
+                                    <SelectTrigger className="h-12 border-border bg-muted/30 focus:bg-muted focus:ring-2 focus:ring-primary/10 transition-all rounded-xl text-sm font-bold text-foreground">
                                         <SelectValue placeholder="Dooro Magaalada" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -159,39 +159,39 @@ export default function ProviderProfilePage() {
                                 </Select>
                             </div>
 
-                            <div className="space-y-1.5 col-span-2">
-                                <Label htmlFor="bio" className="text-[11px] font-black uppercase tracking-widest text-gray-500">Faahfaahin (Bio)</Label>
+                            <div className="space-y-2 col-span-2">
+                                <Label htmlFor="bio" className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Faahfaahin (Bio)</Label>
                                 <Textarea
                                     id="bio"
                                     value={formData.bio}
                                     onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                                    className="min-h-[100px] border-gray-100 bg-white/50 focus:bg-white transition-all rounded-xl text-sm font-medium"
+                                    className="min-h-[120px] border-border bg-muted/30 focus:bg-muted focus:ring-2 focus:ring-primary/10 transition-all rounded-xl text-sm font-medium text-foreground resize-none"
                                     placeholder="U sheeg macaamiisha khibradaada iyo adeegyada aad bixiso..."
                                 />
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-4 pt-2">
+                        <div className="flex flex-col md:flex-row items-center gap-4 pt-4">
                             <Button
                                 type="submit"
                                 disabled={loading}
-                                className="h-11 px-8 bg-linear-to-r from-primary to-blue-600 hover:from-indigo-600 hover:to-primary text-white font-black rounded-xl shadow-lg shadow-primary/20 transition-all text-xs uppercase tracking-widest"
+                                className="w-full md:w-auto h-12 px-8 bg-primary hover:bg-primary/90 text-white font-black rounded-xl shadow-lg shadow-primary/20 transition-all text-xs uppercase tracking-widest border-0"
                             >
                                 {loading ? (
                                     <>
-                                        <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                         Cusboonaysiin...
                                     </>
                                 ) : (
                                     <>
-                                        <Save className="mr-2 h-3.5 w-3.5" />
+                                        <Save className="mr-2 h-4 w-4" />
                                         Cusboonaysii Profile-ka
                                     </>
                                 )}
                             </Button>
 
                             {success && (
-                                <div className="flex items-center gap-2 text-emerald-600 animate-in fade-in slide-in-from-left-4">
+                                <div className="flex items-center gap-2 text-emerald-500 animate-in fade-in slide-in-from-left-4">
                                     <CheckCircle2 className="h-4 w-4" />
                                     <span className="text-xs font-black uppercase tracking-widest">Si guul leh baa loo cusboonaysiiyay!</span>
                                 </div>
@@ -203,3 +203,4 @@ export default function ProviderProfilePage() {
         </div>
     );
 }
+

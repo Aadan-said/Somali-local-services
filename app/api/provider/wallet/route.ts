@@ -1,26 +1,24 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth-utils";
 
 export async function GET(req: Request) {
     try {
-        const session = await getServerSession(authOptions);
+        const user = await getAuthUser(req);
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         // Get provider and wallet
-        // Cast as any because IDE is stale
         const provider = await (prisma as any).provider.findUnique({
-            where: { userId: session.user.id },
+            where: { userId: user.id },
             include: {
                 wallet: {
                     include: {
                         transactions: {
                             orderBy: { createdAt: 'desc' },
-                            take: 20 // Recent 20 transactions
+                            take: 50
                         }
                     }
                 }
@@ -32,18 +30,44 @@ export async function GET(req: Request) {
         }
 
         if (!provider.wallet) {
-            // Create wallet if doesn't exist
             const newWallet = await (prisma as any).wallet.create({
                 data: { providerId: provider.id }
             });
             return NextResponse.json({
-                balance: newWallet.balance,
+                balance: 0,
+                totalEarned: 0,
+                thisWeekEarned: 0,
+                thisMonthEarned: 0,
                 transactions: []
             });
         }
 
+        // Calculate Earnings Stats
+        const now = new Date();
+        const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+        const earnings = await (prisma as any).transaction.findMany({
+            where: {
+                walletId: provider.wallet.id,
+                type: "EARNING",
+                status: "COMPLETED"
+            }
+        });
+
+        const totalEarned = earnings.reduce((acc: number, t: any) => acc + t.amount, 0);
+        const thisWeekEarned = earnings
+            .filter((t: any) => new Date(t.createdAt) >= startOfWeek)
+            .reduce((acc: number, t: any) => acc + t.amount, 0);
+        const thisMonthEarned = earnings
+            .filter((t: any) => new Date(t.createdAt) >= startOfMonth)
+            .reduce((acc: number, t: any) => acc + t.amount, 0);
+
         return NextResponse.json({
             balance: provider.wallet.balance,
+            totalEarned,
+            thisWeekEarned,
+            thisMonthEarned,
             transactions: provider.wallet.transactions
         });
 
@@ -53,22 +77,22 @@ export async function GET(req: Request) {
     }
 }
 
-// Handle Deposit (Simulation)
+// Handle Deposit and Withdraw
 export async function POST(req: Request) {
     try {
-        const session = await getServerSession(authOptions);
-        if (!session) {
+        const user = await getAuthUser(req);
+        if (!user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const { amount, type, description } = await req.json(); // type: DEPOSIT or WITHDRAWAL
+        const { amount, type, description } = await req.json();
 
         if (!amount || amount <= 0) {
             return NextResponse.json({ error: "Invalid amount" }, { status: 400 });
         }
 
         const provider = await (prisma as any).provider.findUnique({
-            where: { userId: session.user.id },
+            where: { userId: user.id },
             include: { wallet: true }
         });
 
@@ -76,14 +100,10 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Provider not found" }, { status: 404 });
         }
 
-        if (!provider.wallet) {
-            await (prisma as any).wallet.create({ data: { providerId: provider.id } });
-            // Re-fetch or just continue?
+        let wallet = provider.wallet;
+        if (!wallet) {
+            wallet = await (prisma as any).wallet.create({ data: { providerId: provider.id } });
         }
-
-        // We need wallet ID
-        const wallet = await (prisma as any).wallet.findUnique({ where: { providerId: provider.id } });
-        if (!wallet) return NextResponse.json({ error: "Wallet error" }, { status: 500 });
 
         let newBalance = wallet.balance;
 
@@ -91,7 +111,7 @@ export async function POST(req: Request) {
             newBalance += amount;
         } else if (type === "WITHDRAWAL") {
             if (wallet.balance < amount) {
-                return NextResponse.json({ error: "Insufficient funds" }, { status: 400 });
+                return NextResponse.json({ error: "Haraagaagu kuguma filna." }, { status: 400 });
             }
             newBalance -= amount;
         } else {
@@ -104,8 +124,8 @@ export async function POST(req: Request) {
                 walletId: wallet.id,
                 amount: amount,
                 type: type,
-                status: "COMPLETED", // Instant for demo
-                description: description || (type === "DEPOSIT" ? "Added funds" : "Withdrawal request")
+                status: "COMPLETED",
+                description: description || (type === "DEPOSIT" ? "Added funds" : "Withdrawal via Somali Mobile Money")
             }
         });
 
@@ -113,6 +133,18 @@ export async function POST(req: Request) {
         await (prisma as any).wallet.update({
             where: { id: wallet.id },
             data: { balance: newBalance }
+        });
+
+        // Notify Provider
+        await (prisma as any).notification.create({
+            data: {
+                userId: user.id,
+                title: type === "DEPOSIT" ? "Lacag Dhigasho" : "Lacag La Bax",
+                message: type === "DEPOSIT"
+                    ? `$${amount} ayaa lagugu daray jeebkaaga.`
+                    : `$${amount} ayaa lagaa saaray jeebkaaga (Withdrawal).`,
+                type: "INFO"
+            }
         });
 
         return NextResponse.json({

@@ -5,30 +5,36 @@ import { MobileNav } from "@/components/shared/mobile-nav";
 import { ShieldCheck } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
-export default function DashboardLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+import { SidebarProvider, useSidebar } from "@/hooks/use-sidebar-state";
+
+function DashboardContent({ children }: { children: React.ReactNode }) {
     const { data: session } = useSession();
     const pathname = usePathname();
+    const { isCollapsed } = useSidebar();
+
     const isClient = pathname.includes("/client");
+    const isAdmin = pathname.includes("/admin");
 
     return (
-        <div className="grid min-h-screen w-full md:grid-cols-[280px_1fr] relative overflow-hidden bg-white">
-            {/* Vibrant White Theme Animated Background */}
+        <div className={cn(
+            "grid min-h-screen w-full relative overflow-hidden bg-background transition-all duration-300",
+            isCollapsed ? "md:grid-cols-[80px_1fr]" : "md:grid-cols-[280px_1fr]"
+        )}>
+            {/* Vibrant Theme Animated Background */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
                 {/* Purple Blob */}
-                <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-purple-500/5 rounded-full blur-[120px] animate-blob" />
+                <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[120px] animate-blob" />
                 {/* Blue Blob */}
-                <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-500/5 rounded-full blur-[120px] animate-blob duration-7000 animation-delay-4000" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[120px] animate-blob duration-7000 animation-delay-4000" />
                 {/* Pink/Indigo Blob */}
-                <div className="absolute top-[20%] left-[20%] w-[40%] h-[40%] bg-pink-400/5 rounded-full blur-[100px] animate-blob duration-10000 animation-delay-2000" />
+                <div className="absolute top-[20%] left-[20%] w-[40%] h-[40%] bg-pink-400/5 dark:bg-indigo-500/10 rounded-full blur-[100px] animate-blob duration-10000 animation-delay-2000" />
 
                 {/* Subtle Grid Pattern Overlay */}
-                <div className="absolute inset-0 opacity-[0.015]" style={{
-                    backgroundImage: `radial-gradient(circle at 2px 2px, black 1px, transparent 0)`,
+                <div className="absolute inset-0 opacity-[0.015] dark:opacity-[0.03]" style={{
+                    backgroundImage: `radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)`,
                     backgroundSize: '40px 40px'
                 }} />
             </div>
@@ -37,20 +43,20 @@ export default function DashboardLayout({
             <MobileNav isClient={isClient} />
 
             <div className="flex flex-col min-h-screen relative z-10 pt-16 md:pt-0">
-                {/* White Glass Mobile Header */}
-                <header className="flex h-16 items-center gap-4 border-b border-gray-100 bg-white/70 backdrop-blur-2xl px-6 md:hidden sticky top-0 z-50">
-                    <div className="p-1.5 bg-linear-to-br from-purple-600 to-blue-600 rounded-lg shadow-lg">
+                {/* Glass Mobile Header - Refined for Dark Mode */}
+                <header className="flex h-16 items-center gap-4 border-b border-border bg-background/70 backdrop-blur-2xl px-6 md:hidden sticky top-0 z-50">
+                    <div className="p-1.5 bg-gradient-to-br from-primary to-blue-600 rounded-lg shadow-lg">
                         <ShieldCheck className="h-4 w-4 text-white" />
                     </div>
-                    <span className="font-black text-gray-900 text-lg tracking-tight">
-                        Somali<span className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Services</span>
+                    <span className="font-black text-foreground text-lg tracking-tight">
+                        Somali<span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">Services</span>
                     </span>
                     <div className="ml-auto flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center">
+                        <div className="h-8 w-8 rounded-xl bg-muted border border-border flex items-center justify-center overflow-hidden">
                             {session?.user?.image ? (
-                                <img src={session.user.image} alt="Profile" className="h-7 w-7 rounded-sm object-cover" />
+                                <img src={session.user.image} alt="Profile" className="h-full w-full object-cover" />
                             ) : (
-                                <div className="h-2 w-2 rounded-full bg-purple-600 animate-pulse" />
+                                <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
                             )}
                         </div>
                     </div>
@@ -79,3 +85,16 @@ export default function DashboardLayout({
         </div>
     );
 }
+
+export default function DashboardLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return (
+        <SidebarProvider>
+            <DashboardContent>{children}</DashboardContent>
+        </SidebarProvider>
+    );
+}
+

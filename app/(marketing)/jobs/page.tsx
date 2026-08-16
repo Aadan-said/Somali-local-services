@@ -31,43 +31,50 @@ export default async function PublicJobsPage({
         whereClause.status = { not: 'CANCELLED' };
     }
 
-    // Server-side fetch
-    const jobs = await (prisma as any).serviceRequest.findMany({
-        where: whereClause,
-        orderBy: { createdAt: 'desc' },
-        select: {
-            id: true,
-            category: true,
-            location: true,
-            description: true,
-            price: true,
-            status: true,
-            createdAt: true,
-            providerId: true,
-        },
-        take: 50
-    });
-
-    // Get Auth Session
-    const session = await getServerSession(authOptions);
+    let jobs: any[] = [];
     let appliedJobIds: string[] = [];
     let isProvider = false;
 
-    if (session && session.user.role === "PROVIDER") {
-        isProvider = true;
-        const provider = await prisma.provider.findUnique({
-            where: { userId: session.user.id },
-            select: { id: true }
+    try {
+        // Server-side fetch
+        jobs = await (prisma as any).serviceRequest.findMany({
+            where: whereClause,
+            orderBy: { createdAt: 'desc' },
+            select: {
+                id: true,
+                category: true,
+                location: true,
+                description: true,
+                price: true,
+                status: true,
+                createdAt: true,
+                providerId: true,
+            },
+            take: 50
         });
 
-        if (provider) {
-            const proposals = await (prisma as any).proposal.findMany({
-                where: { providerId: provider.id },
-                select: { requestId: true }
+        // Get Auth Session
+        const session = await getServerSession(authOptions);
+
+        if (session && session.user?.role === "PROVIDER" && session.user?.id) {
+            isProvider = true;
+            const provider = await prisma.provider.findUnique({
+                where: { userId: session.user.id },
+                select: { id: true }
             });
-            appliedJobIds = proposals.map((p: any) => p.requestId);
+
+            if (provider) {
+                const proposals = await (prisma as any).proposal.findMany({
+                    where: { providerId: provider.id },
+                    select: { requestId: true }
+                });
+                appliedJobIds = proposals.map((p: any) => p.requestId);
+            }
         }
+    } catch (error) {
+        console.error("Jobs page query error:", error);
     }
+
 
     return (
         <div className="min-h-screen selection:bg-primary/20 pb-20 overflow-hidden">

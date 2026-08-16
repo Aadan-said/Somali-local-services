@@ -6,11 +6,13 @@ import bcrypt from "bcryptjs";
 export const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt",
+        maxAge: 30 * 24 * 60 * 60, // 30 days
     },
     pages: {
         signIn: "/login",
         error: "/login",
     },
+    useSecureCookies: process.env.NODE_ENV === "production",
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -23,61 +25,95 @@ export const authOptions: NextAuthOptions = {
                     return null;
                 }
 
-                const { identifier, password } = credentials;
-                let user = null;
+                try {
+                    const rawIdentifier = credentials.identifier.trim();
+                    const password = credentials.password;
+                    let user = null;
 
-                // Check if identifier looks like an email
-                if (identifier.includes("@")) {
-                    console.log(`AUTH_DEBUG: Attempting login with EMAIL: ${identifier}`);
-                    user = await prisma.user.findUnique({
-                        where: { email: identifier },
-                    });
-                } else {
-                    console.log(`AUTH_DEBUG: Attempting login with PHONE: ${identifier}`);
-                    user = await prisma.user.findUnique({
-                        where: { phone: identifier },
-                    });
-                }
+                    // Check if identifier looks like an email
+                    if (rawIdentifier.includes("@")) {
+                        const email = rawIdentifier.toLowerCase();
+                        console.log(`AUTH_DEBUG: Attempting login with EMAIL: ${email}`);
+                        user = await prisma.user.findFirst({
+                            where: {
+                                email: {
+                                    equals: email,
+                                    mode: "insensitive",
+                                },
+                            },
+                        });
+                    } else {
+                        console.log(`AUTH_DEBUG: Attempting login with PHONE: ${rawIdentifier}`);
+                        // Normalize phone number to match any formatting
+                        const cleaned = rawIdentifier.replace(/[\s\-\(\)]/g, "");
+                        const digitsOnly = cleaned.replace(/\D/g, "");
 
-                if (!user) {
-                    console.log(`AUTH_FAIL: User not found for identifier: '${identifier}'`);
+                        const possiblePhones = [
+                            rawIdentifier,
+                            cleaned,
+                            // If has +252 or without
+                            digitsOnly.startsWith("252") ? `+${digitsOnly}` : `+252${digitsOnly.replace(/^0+/, "")}`,
+                            digitsOnly.startsWith("252") ? `+252 ${digitsOnly.slice(3)}` : `+252 ${digitsOnly}`,
+                            digitsOnly.startsWith("252") ? digitsOnly.slice(3) : digitsOnly,
+                            digitsOnly.replace(/^252/, "").replace(/^0+/, ""),
+                            `0${digitsOnly.replace(/^252/, "").replace(/^0+/, "")}`,
+                        ];
+
+                        // Find user with any matching variation
+                        user = await prisma.user.findFirst({
+                            where: {
+                                OR: [
+                                    { phone: { in: possiblePhones } },
+                                    { phone: { contains: digitsOnly.slice(-7) } },
+                                ],
+                            },
+                        });
+                    }
+
+                    if (!user) {
+                        console.log(`AUTH_FAIL: User not found for identifier: '${rawIdentifier}'`);
+                        return null;
+                    }
+
+                    console.log(`AUTH_DEBUG: User ${user.phone || user.email} found with role: ${user.role}`);
+
+                    const isPasswordValid = await bcrypt.compare(
+                        password,
+                        user.password
+                    );
+
+                    if (!isPasswordValid) {
+                        console.log(`AUTH_FAIL: Invalid password for identifier: '${rawIdentifier}'`);
+                        return null;
+                    }
+
+                    if (user.accountStatus !== 'ACTIVE') {
+                        console.log(`AUTH_BLOCKED: User ${user.phone} is ${user.accountStatus}`);
+                        throw new Error("Your account has been deactivated. Contact support.");
+                    }
+
+                    return {
+                        id: user.id,
+                        email: user.email,
+                        name: user.name,
+                        role: user.role,
+                        phone: user.phone,
+                    };
+                } catch (error: any) {
+                    console.error("NextAuth authorize error:", error);
                     return null;
                 }
-
-                console.log(`AUTH_DEBUG: User ${user.phone || user.email} found with role: ${user.role}`);
-
-                const isPasswordValid = await bcrypt.compare(
-                    password,
-                    user.password
-                );
-
-                if (!isPasswordValid) {
-                    return null;
-                }
-
-                if (user.accountStatus !== 'ACTIVE') {
-                    console.log(`AUTH_BLOCKED: User ${user.phone} is ${user.accountStatus}`);
-                    throw new Error("Your account has been deactivated. Contact support.");
-                }
-
-                return {
-                    id: user.id,
-                    email: user.email,
-                    name: user.name,
-                    role: user.role,
-                    phone: user.phone,
-                };
             },
         }),
     ],
     callbacks: {
         async session({ token, session }) {
-            if (token) {
-                session.user.id = token.id;
-                session.user.name = token.name;
-                session.user.email = token.email;
-                session.user.role = token.role;
-                session.user.phone = token.phone;
+            if (token && session.user) {
+                session.user.id = token.id as string;
+                session.user.name = token.name as string;
+                session.user.email = token.email as string;
+                session.user.role = token.role as string;
+                session.user.phone = token.phone as string;
             }
             return session;
         },
@@ -104,3 +140,4 @@ export const authOptions: NextAuthOptions = {
         },
     },
 };
+

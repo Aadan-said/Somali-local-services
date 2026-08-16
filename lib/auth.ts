@@ -12,7 +12,6 @@ export const authOptions: NextAuthOptions = {
         signIn: "/login",
         error: "/login",
     },
-    useSecureCookies: process.env.NODE_ENV === "production",
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -127,7 +126,7 @@ export const authOptions: NextAuthOptions = {
         },
     },
     debug: process.env.NODE_ENV === "development",
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET || "supersecret123",
     logger: {
         error(code, metadata) {
             console.error("NextAuth Error:", code, metadata);

@@ -30,12 +30,16 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  var theme = localStorage.getItem('theme');
-                  // Light mode is the DEFAULT theme. Only add 'dark' if explicitly chosen by user.
-                  if (theme === 'dark') {
+                  var themeV2 = localStorage.getItem('theme_v2');
+                  // If user has not explicitly set theme_v2 to 'dark', enforce LIGHT mode by default
+                  if (themeV2 === 'dark') {
                     document.documentElement.classList.add('dark');
                   } else {
                     document.documentElement.classList.remove('dark');
+                    if (!themeV2) {
+                      localStorage.setItem('theme_v2', 'light');
+                      localStorage.setItem('theme', 'light');
+                    }
                   }
                 } catch (e) {}
               })();

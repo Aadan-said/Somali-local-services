@@ -191,12 +191,12 @@ export default async function PublicJobsPage({
                             </div>
                         ))
                     ) : (
-                        <div className="py-20 text-center bg-white rounded-3xl border border-dashed border-slate-200">
-                            <div className="mx-auto w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4">
-                                <Search className="h-8 w-8 text-slate-300" />
+                        <div className="py-20 text-center bg-card rounded-3xl border border-dashed border-border">
+                            <div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
+                                <Search className="h-8 w-8 text-muted-foreground" />
                             </div>
-                            <h3 className="text-lg font-bold text-slate-900 mb-1">Shaqooyin lama helin</h3>
-                            <p className="text-slate-500 text-sm">Iskuday inaad bedesho filter-ka ama soo noqo waqti kale.</p>
+                            <h3 className="text-lg font-bold text-foreground mb-1">Shaqooyin lama helin</h3>
+                            <p className="text-muted-foreground text-sm">Iskuday inaad bedesho filter-ka ama soo noqo waqti kale.</p>
                         </div>
                     )}
                 </div>

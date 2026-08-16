@@ -31,14 +31,18 @@ export default function RootLayout({
               (function() {
                 try {
                   var theme = localStorage.getItem('theme');
-                  var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-                  if (!theme && supportDarkMode) theme = 'dark';
-                  if (theme === 'dark') document.documentElement.classList.add('dark');
+                  // Light mode is the DEFAULT theme. Only add 'dark' if explicitly chosen by user.
+                  if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
                 } catch (e) {}
               })();
             `,
           }}
         />
+
       </head>
       <body className={`${outfit.variable} antialiased font-sans`} suppressHydrationWarning>
         <ErrorBoundary>

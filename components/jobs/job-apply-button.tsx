@@ -75,7 +75,7 @@ export function JobApplyButton({ jobId, hasApplied, jobStatus, isProvider }: Job
 
     if (hasApplied) {
         return (
-            <Button disabled className="w-full bg-green-50 text-green-600 border border-green-200 hover:bg-green-50 cursor-not-allowed font-bold">
+            <Button disabled className="w-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/10 cursor-not-allowed font-bold">
                 Waad Dalbatay
             </Button>
         );
@@ -84,7 +84,7 @@ export function JobApplyButton({ jobId, hasApplied, jobStatus, isProvider }: Job
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button className="w-full font-bold bg-primary hover:bg-blue-700">
+                <Button className="w-full font-bold bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20">
                     Dalbo Shaqadan
                 </Button>
             </DialogTrigger>

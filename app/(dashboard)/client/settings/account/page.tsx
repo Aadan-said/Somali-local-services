@@ -86,22 +86,22 @@ export default function AccountPage() {
                     <ArrowLeft className="h-5 w-5" />
                 </Button>
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-3xl font-black tracking-tight text-gray-900">Account Management</h1>
-                    <p className="text-gray-500">Maamul account-kaaga</p>
+                    <h1 className="text-3xl font-black tracking-tight text-foreground">Account Management</h1>
+                    <p className="text-muted-foreground">Maamul account-kaaga</p>
                 </div>
             </div>
 
             {/* Deactivate Account */}
-            <Card className="border-yellow-200 bg-yellow-50/50">
+            <Card className="border-yellow-200 dark:border-yellow-900/30 bg-yellow-50/50 dark:bg-yellow-950/20">
                 <CardContent className="p-6">
                     <div className="flex items-start justify-between gap-6">
                         <div className="flex items-start gap-4">
-                            <div className="p-3 rounded-xl bg-yellow-100 text-yellow-600">
+                            <div className="p-3 rounded-xl bg-yellow-100 dark:bg-yellow-900/40 text-yellow-600 dark:text-yellow-400">
                                 <UserX className="h-6 w-6" />
                             </div>
                             <div className="space-y-1">
-                                <h3 className="text-xl font-bold text-gray-900">Jooji Account-ka</h3>
-                                <p className="text-sm text-gray-600">
+                                <h3 className="text-xl font-bold text-foreground">Jooji Account-ka</h3>
+                                <p className="text-sm text-muted-foreground">
                                     Account-kaaga waa la joojin doonaa, laakiin waxaad dib u soo celin kartaa mar kale.
                                     Macluumaadkaaga oo dhan waa la keydin doonaa.
                                 </p>
@@ -110,7 +110,7 @@ export default function AccountPage() {
                         <Button
                             variant="outline"
                             onClick={() => setShowDeactivateDialog(true)}
-                            className="h-12 px-6 font-bold rounded-xl border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-white"
+                            className="h-12 px-6 font-bold rounded-xl border-yellow-600 text-yellow-600 dark:text-yellow-400 hover:bg-yellow-600 hover:text-white"
                         >
                             Jooji Account-ka
                         </Button>
@@ -119,26 +119,26 @@ export default function AccountPage() {
             </Card>
 
             {/* Delete Account */}
-            <Card className="border-red-200 bg-red-50/50">
+            <Card className="border-red-200 dark:border-red-900/30 bg-red-50/50 dark:bg-red-950/20">
                 <CardContent className="p-6">
                     <div className="flex items-start justify-between gap-6">
                         <div className="flex items-start gap-4">
-                            <div className="p-3 rounded-xl bg-red-100 text-red-600">
+                            <div className="p-3 rounded-xl bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400">
                                 <Trash2 className="h-6 w-6" />
                             </div>
                             <div className="space-y-1">
-                                <h3 className="text-xl font-bold text-gray-900">Tirtir Account-ka</h3>
-                                <p className="text-sm text-gray-600">
-                                    <span className="font-bold text-red-600">Digniin:</span> Markii aad account-kaaga
+                                <h3 className="text-xl font-bold text-foreground">Tirtir Account-ka</h3>
+                                <p className="text-sm text-muted-foreground">
+                                    <span className="font-bold text-red-600 dark:text-red-400">Digniin:</span> Markii aad account-kaaga
                                     tirtirto, wax dib u soo celin ah ma jirto. Dhammaan macluumaadkaaga waa la tirtiri
                                     doonaa si joogto ah.
                                 </p>
                             </div>
                         </div>
                         <Button
-                            variant="destructive"
+                            variant="outline"
                             onClick={() => setShowDeleteDialog(true)}
-                            className="h-12 px-6 font-bold rounded-xl shadow-lg shadow-red-500/20"
+                            className="h-12 px-6 font-bold rounded-xl border-red-600 text-red-600 dark:text-red-400 hover:bg-red-600 hover:text-white"
                         >
                             Tirtir Account-ka
                         </Button>

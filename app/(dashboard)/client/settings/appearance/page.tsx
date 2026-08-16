@@ -39,6 +39,16 @@ export default function AppearancePage() {
             });
 
             if (res.ok) {
+                if (selectedTheme === "dark") {
+                    document.documentElement.classList.add("dark");
+                    localStorage.setItem("theme", "dark");
+                } else if (selectedTheme === "light") {
+                    document.documentElement.classList.remove("dark");
+                    localStorage.setItem("theme", "light");
+                } else {
+                    localStorage.removeItem("theme");
+                    document.documentElement.classList.remove("dark");
+                }
                 alert("Theme waa la keydiyay!");
             } else {
                 alert("Khalad ayaa dhacay!");

@@ -56,7 +56,7 @@ export default function LandingPage() {
                                 <Button
                                     variant="outline"
                                     size="lg"
-                                    className="w-full sm:w-auto h-14 px-8 rounded-2xl border-2 border-slate-200 text-slate-700 font-bold hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900 transition-all duration-300"
+                                    className="w-full sm:w-auto h-14 px-8 rounded-2xl border-2 border-border bg-background text-foreground font-bold hover:bg-muted transition-all duration-300"
                                 >
                                     <Search className="mr-2 h-4 w-4" />
                                     Find Providers

@@ -46,22 +46,27 @@ function RegisterForm() {
         }
 
         // 2. Phone Validation (Somali format check)
-        // Clean spaces and check length. Assuming +252 is 4 chars.
-        // Valid: +252 61 555 5555 (13 chars approx) or +252615555555
-        const cleanPhone = phone.replace(/\s/g, "");
+        // Clean spaces and formatting characters
+        const cleanPhone = phone.replace(/[\s\-\(\)]/g, "");
         if (!cleanPhone.startsWith("+252")) {
             setError("Lambarka waa inuu ku bilaabmaa +252 (Somalia).");
             setIsLoading(false);
             return;
         }
 
-        // Check local part digits (should be 9 digits usually: 61 555 5555)
-        const localPart = cleanPhone.substring(4); // Remove +252
+        // Check local part digits (support 0906575473, 906575473, 0615555555, 615555555)
+        let localPart = cleanPhone.substring(4); // Remove +252
+        if (localPart.startsWith("0")) {
+            localPart = localPart.substring(1); // Strip leading zero for standard formatting
+        }
+
         if (!/^\d{7,9}$/.test(localPart)) {
-            setError("Fadlan gali lambar sax ah (e.g. 615xxxxxx).");
+            setError("Fadlan gali lambar sax ah (tusaale: 0906575473 ama 615xxxxxx).");
             setIsLoading(false);
             return;
         }
+
+        const normalizedPhone = `+252${localPart}`;
         // --- STRICT VALIDATION END ---
 
         try {
@@ -71,7 +76,7 @@ function RegisterForm() {
                 body: JSON.stringify({
                     name: `${firstName} ${lastName}`,
                     email,
-                    phone,
+                    phone: normalizedPhone,
                     password,
                     role: role === "client" ? "USER" : "PROVIDER",
                 }),

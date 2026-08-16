@@ -22,13 +22,30 @@ export async function POST(req: Request) {
         const parsed = registerSchema.parse(body);
         const { name, email, password, role, phone } = parsed;
 
-        const existingUser = await prisma.user.findUnique({
-            where: { phone },
+        const rawDigits = phone.replace(/\D/g, "");
+        const standardPhone = rawDigits.startsWith("252")
+            ? `+252${rawDigits.slice(3).replace(/^0+/, "")}`
+            : `+252${rawDigits.replace(/^0+/, "")}`;
+
+        const existingUser = await prisma.user.findFirst({
+            where: {
+                OR: [
+                    { phone: standardPhone },
+                    { phone: phone },
+                    ...(email ? [{ email: email.toLowerCase() }] : [])
+                ]
+            },
         });
 
         if (existingUser) {
+            if (email && existingUser.email?.toLowerCase() === email.toLowerCase()) {
+                return NextResponse.json(
+                    { error: "Email-kan hore ayaa loo diiwaangeliyay" },
+                    { status: 400 }
+                );
+            }
             return NextResponse.json(
-                { error: "Phone number already registered" },
+                { error: "Lambarka taleefankan hore ayaa loo diiwaangeliyay" },
                 { status: 400 }
             );
         }
@@ -38,8 +55,8 @@ export async function POST(req: Request) {
         const user = await prisma.user.create({
             data: {
                 name,
-                email: email || null,
-                phone,
+                email: email ? email.toLowerCase() : null,
+                phone: standardPhone,
                 password: hashedPassword,
                 role: role as any,
                 // If it's a provider, we can auto-create the profile with defaults
